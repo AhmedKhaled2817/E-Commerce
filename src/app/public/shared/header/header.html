@@ -1,0 +1,46 @@
+<header class="header d-flex justify-content-between align-items-center">
+  <!-- Logo -->
+  <div class="logo d-flex align-items-center gap-2">
+    <i class="fa-solid fa-cart-shopping fs-5"></i>
+    <span class="fw-bold">
+      <small>Wear</small>
+      House</span>
+  </div>
+
+  <!-- Desktop Navigation -->
+  <nav class="nav-menu d-none d-lg-flex align-items-center gap-3">
+    <a href="#">Home</a>
+    <div class="shop-menu position-relative" (mouseenter)="toggle(true)" (mouseleave)="toggle(false)">
+      <a href="#">Shop <i class="fa-solid fa-angle-down"></i></a>
+      <app-mega-menu [showMenu]="showMenu"></app-mega-menu>
+    </div>
+    <a href="#">Our Story</a>
+    <a href="#">Blog</a>
+    <a href="#">Contact Us</a>
+  </nav>
+
+  <!-- Icons & Login -->
+  <div class="actions d-flex align-items-center gap-3">
+    <span class="icon cursor-pointer"><i class="fa-solid fa-magnifying-glass"></i></span>
+    <span class="icon cursor-pointer"><i class="fa-regular fa-heart"></i></span>
+    <span class="icon cursor-pointer"><i class="fa-solid fa-store"></i></span>
+    <button class="btn-login" routerLink="/login">Login</button>
+  </div>
+
+  <!-- Mobile Menu Toggle -->
+  <button class="btn-mobile d-lg-none" (click)="toggleMobile()">
+    <i class="fa-solid fa-bars fs-4"></i>
+  </button>
+
+  <!-- Mobile Navigation -->
+  <nav class="nav-menu-mobile d-lg-none" [class.show]="showMobileMenu">
+    <a href="#">Home</a>
+    <div class="shop-menu position-relative">
+      <a href="#" (mouseenter)="toggle(true)" (mouseleave)="toggle(false)">Shop <i class="fa-solid fa-angle-down"></i></a>
+      <app-mega-menu [showMenu]="showMenu"></app-mega-menu>
+    </div>
+    <a href="#">Our Story</a>
+    <a href="#">Blog</a>
+    <a href="#">Contact Us</a>
+  </nav>
+</header>

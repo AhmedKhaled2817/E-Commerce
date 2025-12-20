@@ -1,0 +1,165 @@
+.auth-container {
+  height: 100vh;
+  background: #f9fafb;
+  font-family: "Poppins", sans-serif;
+  overflow: hidden;
+}
+
+.auth-row {
+  height: 100%;
+}
+
+/* ===================
+   LEFT IMAGE
+=================== */
+.auth-img-col {
+  height: 100%;
+  position: relative;
+
+  .auth-img {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    filter: brightness(0.75);
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.45),
+      rgba(0, 0, 0, 0.2)
+    );
+  }
+}
+
+/* ===================
+   RIGHT SIDE FORM
+=================== */
+.auth-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 2.5rem;
+
+  .right-content {
+    width: 100%;
+    max-width: 420px;
+    animation: fadeIn 0.5s ease;
+
+    .header-text {
+      margin-bottom: 2.2rem;
+
+      h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #222;
+        margin-bottom: 8px;
+      }
+
+      p {
+        color: #666;
+        font-size: 0.95rem;
+      }
+    }
+
+    .form-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+
+      mat-form-field {
+        width: 100%;
+      }
+      .pass-icon{
+        cursor: pointer;
+      }
+    }
+
+    .submit-btn {
+      width: 100%;
+      height: 48px;
+      margin-top: 0.6rem;
+      border-radius: 8px;
+      background: #6c5ce7;
+      color: #fff;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: 0.3s;
+
+      &:hover {
+        background: #5a4bd1;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+
+    .form-footer {
+  margin: 1rem 0;
+  font-size: 0.9rem;
+  color: #666;
+  display: flex;
+  justify-content: center;
+
+  mat-checkbox {
+    width: 100%;
+
+    .mat-checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.9rem;
+      color: #666;
+
+      a {
+        color: #6c5ce7;
+        font-weight: 600;
+        text-decoration: none;
+        transition: 0.3s;
+
+        &:hover {
+          color: #00b894;
+        }
+      }
+    }
+  }
+}
+  }
+}
+
+/* ===================
+   ANIMATION
+=================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ===================
+   RESPONSIVE
+=================== */
+@media (max-width: 992px) {
+  .auth-img-col {
+    display: none;
+  }
+
+  .auth-right {
+    justify-content: flex-start;
+    padding-top: 4rem;
+  }
+
+  .right-content {
+    max-width: 100% !important;
+  }
+}

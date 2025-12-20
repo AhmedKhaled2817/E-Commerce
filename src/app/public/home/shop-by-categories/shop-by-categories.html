@@ -1,0 +1,28 @@
+<div class="container categories-section mt-5">
+
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+    <h1 class="fw-bold mb-0 shop-by-categories">Shop By Categories</h1>
+
+    <div class="navigation-btns d-flex gap-2">
+      <button class="btn nav-btn previous-btn px-3" type="button">
+        <i class="fa-solid fa-left-long"></i>
+      </button>
+
+      <button class="btn nav-btn px-3" type="button">
+        <i class="fa-solid fa-right-long"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Categories Grid -->
+  <div class="row category-container mt-4 g-4">
+
+    @for(cat of categoriesList;track cat;){
+      <div class="col-lg-3 col-md-4 col-6">
+        <app-category-card   [category]="cat" />
+    </div>
+    }
+
+  </div>
+</div>

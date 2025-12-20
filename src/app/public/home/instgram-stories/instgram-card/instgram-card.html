@@ -1,0 +1,18 @@
+@if(imgUrl()){
+  <div [class.card-hover]="isHovering"  (mouseenter)="onMouseEnter(true)"  (mouseleave)="onMouseEnter(false)">
+    <div class="position-relative card-container">
+      <div class="d-flex justify-content-center image-container">
+        <img [src]="imgUrl()"  class="img-fluid"  alt="img-fluid stroy-img">
+      </div>
+      @if(isHovering){
+        <div class="position-absolute card-actions">
+          <div class="d-flex flex-column">
+            <button class="btn btn-sm rounded-circle bg-white" aria-label="instgramIcon" type="button">
+              <i class="fa-brands fa-instagram"></i>
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+}

@@ -1,0 +1,67 @@
+<div class="auth-container container-fluid">
+  <div class="row auth-row">
+
+    <!-- Left Image -->
+    <div class="col-md-7 p-0 auth-img-col">
+      <img src="images/login.png" class="auth-img" alt="Login Image">
+    </div>
+
+    <!-- Right Form -->
+    <div class="col-md-5 auth-right">
+      <div class="right-content">
+
+        <div class="header-text mb-4">
+          <h1>Welcome Back</h1>
+          <p>Please login to continue</p>
+        </div>
+
+        <form [formGroup]="form" (ngSubmit)="signIn()" class="row w-100 g-3">
+
+          <mat-form-field appearance="outline" class="col-12">
+            <mat-label>Email Address</mat-label>
+            <input matInput formControlName="email" type="email" />
+
+            @if(form.get('email')?.errors?.['required']){
+              <mat-error>Email is required</mat-error>
+            }
+            @if(form.get('email')?.hasError('email')){
+              <mat-error>Invalid email format</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="col-12">
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password" type="password"/>
+
+            @if(form.get('password')?.errors?.['required']){
+              <mat-error>Password is required</mat-error>
+            }
+            @if(form.get('password')?.hasError('minlength')){
+              <mat-error>
+                Password must be at least
+                {{ form.get('password')?.errors?.['minlength']?.requiredLength }}
+                characters
+              </mat-error>
+            }
+          </mat-form-field>
+
+          <div class="col-12 d-flex justify-content-between align-items-center mt-2">
+            <mat-checkbox formControlName="rememberMe">Remember Me</mat-checkbox>
+            <a class="forget-link text-dark" (click)="navigateToPage('/forget-password')">Forgot Password?</a>
+          </div>
+
+          <div class="col-12 mt-2">
+            <button class="btn login-btn w-100" [disabled]="form.invalid">Login</button>
+          </div>
+
+        </form>
+
+        <div class="signup-link text-center mt-4">
+          <span>Don't have an account?</span>
+          <a  class="ms-1" (click)="navigateToPage('/register')">Sign Up</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

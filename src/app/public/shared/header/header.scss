@@ -1,0 +1,111 @@
+.header {
+  padding: 1rem 2rem;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 1000;
+
+  .logo {
+    font-size: 1.2rem;
+    color: #333;
+  }
+
+  .nav-menu a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    padding: 0.5rem 0.8rem;
+    border-radius: 0.4rem;
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: #f8f9fa;
+      color: #007BFF;
+    }
+  }
+
+  .actions {
+    .icon {
+      font-size: 1.2rem;
+      color: #333;
+      transition: color 0.2s;
+      cursor: pointer;
+
+      &:hover {
+        color: #007BFF;
+      }
+    }
+
+    .btn-login {
+      padding: 0.5rem 1rem;
+      background-color: #000;
+      color: #fff;
+      border: none;
+      border-radius: 0.5rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: #333;
+      }
+    }
+  }
+
+  .btn-mobile {
+    background: none;
+    border: none;
+    color: #333;
+  }
+
+  /* Mobile Nav */
+  .nav-menu-mobile {
+    display: none;
+    flex-direction: column;
+    background-color: #fff;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 1rem 0;
+
+    a {
+      padding: 0.5rem 1.5rem;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: all 0.2s;
+
+      &:hover {
+        background-color: #f8f9fa;
+        color: #007BFF;
+      }
+    }
+
+    &.show {
+      display: flex;
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  header{
+    .logo span{
+      font-size: 0.8rem;
+      small{
+        font-size: clamp(0.6rem ,vw,0.8rem);
+      }
+    }
+  }
+@media (max-width: 380px) {
+  header{
+    .logo span{
+      font-size: 0.8rem;
+      small{
+        font-size: clamp(0.6rem ,vw,0.8rem);
+      }
+    }
+  }
+}
+}

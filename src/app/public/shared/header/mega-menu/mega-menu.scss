@@ -1,0 +1,54 @@
+.mega-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  width: 40vw;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  z-index: 1000;
+  transition: all 0.3s ease;
+
+  &.show {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .menu-column {
+    flex: 1;
+    padding: 1rem;
+
+    h4 {
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #007BFF;
+      font-size: 1rem;
+    }
+
+    a {
+      display: block;
+      margin-bottom: 0.4rem;
+      color: #333;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+
+      &:hover {
+        color: #007BFF;
+      }
+    }
+  }
+}
+
+/* Responsive Mega Menu */
+@media (max-width: 991px) {
+  .mega-menu {
+    flex-direction: column;
+    width: 90vw;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

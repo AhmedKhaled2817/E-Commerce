@@ -1,0 +1,27 @@
+<div class="container mt-5 customer-comment-list">
+
+  <!-- Title + Buttons -->
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+    <h1 class="fw-bold mb-0">What Our Customer Says</h1>
+
+    <div class="navigation-btns d-flex">
+      <button class="nav-btn me-2" type="button">
+        <i class="fa-solid fa-left-long"></i>
+      </button>
+
+      <button class="nav-btn" type="button">
+        <i class="fa-solid fa-right-long"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Testimonials -->
+  <div class="row category-container mt-5">
+    @for(test of testimonials; track test){
+      <div class="col-md-4 col-12 mb-4">
+        <app-customer-comment [comments]="test"></app-customer-comment>
+      </div>
+    }
+  </div>
+
+</div>

@@ -1,0 +1,19 @@
+.categories-section {
+  .shop-by-categories {
+    font-size: 2rem;
+    color: #222;
+  }
+  .nav-btn {
+    background-color: #eee;
+    transition: 0.2s ease;
+    border-radius: 8px;
+
+    &:hover {
+      background-color: #ddd;
+    }
+
+    i {
+      font-size: 1.2rem;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+<div class="container instagram-stories-section">
+  <div class="row">
+    <div class="col-12 text-center">
+      <h1 class="fw-bold">Our Instgram Stories</h1>
+    </div>
+
+    <div class="row">
+      @for(img of imgs; track img){
+        <div class="col-md-3 col-12 mb-3">
+          <app-instgram-card [imgUrl]="img" />
+        </div>
+      }
+    </div>
+  </div>
+</div>

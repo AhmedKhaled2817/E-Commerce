@@ -1,0 +1,140 @@
+.footer {
+  background: linear-gradient(180deg, #0d0d0d, #000);
+  color: #eaeaea;
+  padding: 60px 0 40px;
+  font-family: 'Poppins', sans-serif;
+
+  .row > div {
+    margin-bottom: 25px;
+  }
+
+  /* ====== TITLES (بدون خط أحمر) ====== */
+  h4.logo {
+    font-size: 1.45rem;
+    font-weight: 700;
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    color: #fff;
+    text-transform: uppercase;
+
+    /* تأثير Glow بسيط يخلي الشكل أقوى */
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
+  }
+
+  .link li {
+    margin: 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.95rem;
+    opacity: 0.8;
+    transition: 0.3s ease;
+
+    i {
+      font-size: 1rem;
+      opacity: 0.6;
+      transition: 0.3s ease;
+    }
+
+    a {
+      color: #dcdcdc;
+      transition: 0.3s ease;
+    }
+
+    &:hover {
+      opacity: 1;
+      transform: translateX(6px);
+
+      a {
+        color: #fff;
+      }
+
+      i {
+        opacity: 1;
+        color: #ff3e6c;
+      }
+    }
+  }
+
+  /* ====== PAYMENT METHODS ====== */
+  .payment-methods {
+    display: flex;
+    gap: 15px;
+
+    .payment-img-conatiner {
+      width: 55px;
+      height: 35px;
+      padding: 5px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      transition: 0.3s ease;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      &:hover {
+        transform: translateY(-4px) scale(1.05);
+        box-shadow: 0 8px 16px rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
+
+  /* ====== SOCIAL ICONS ====== */
+  .footer-social {
+    display: flex;
+    gap: 18px;
+
+    a {
+      width: 40px;
+      height: 40px;
+      background: #1a1a1a;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-size: 1.1rem;
+      transition: 0.35s ease;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+
+      &:hover {
+        transform: translateY(-6px) scale(1.12);
+        background: #ff3e6c;
+        color: #fff;
+        box-shadow: 0 8px 20px rgba(255, 62, 108, 0.4);
+      }
+    }
+  }
+
+  /* ====== BOTTOM BAR ====== */
+  .footer-subscriber {
+    border-top: 1px solid #222;
+    padding-top: 20px;
+    margin-top: 30px;
+
+    .d-flex {
+      flex-wrap: wrap;
+      gap: 20px;
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    text-align: center;
+
+    .footer-social,
+    .payment-methods {
+      justify-content: center;
+    }
+
+    .link li:hover {
+      transform: translateX(0);
+    }
+  }
+}

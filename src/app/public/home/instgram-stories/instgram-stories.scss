@@ -1,0 +1,38 @@
+.instagram-stories-section {
+  margin-top: 3rem;
+
+  h1 {
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 2.5rem;
+    position: relative;
+    display: inline-block;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -10px;
+      transform: translateX(-50%);
+      width: 50%;
+      height: 3px;
+      background: #e1306c;
+      border-radius: 3px;
+    }
+  }
+
+  .row {
+    margin-top: 1.5rem;
+  }
+
+  .col-md-3 {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .instagram-stories-section h1 {
+    font-size: 1.7rem;
+  }
+}

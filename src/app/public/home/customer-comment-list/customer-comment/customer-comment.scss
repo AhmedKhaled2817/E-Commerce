@@ -1,0 +1,67 @@
+/* Comment Card */
+.comment-card {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  /* Stars */
+  .stars {
+    color: #f7c948; // gold star
+    font-size: 1.2rem;
+    margin-right: 2px;
+  }
+
+  /* Comment Text */
+  .comment {
+    line-height: 1.6;
+    color: #6c757d;
+    font-size: 0.95rem;
+    margin: 0.8rem 0 1.2rem 0;
+  }
+
+  /* User Image */
+  .user-image {
+    width: 55px;
+    height: 55px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #eee;
+  }
+
+  /* Name */
+  .user-name {
+    font-size: 1rem;
+    color: #111;
+  }
+
+  /* Position */
+  .user-position {
+    font-size: 0.85rem;
+    color: #6c757d;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .comment-card {
+    padding: 1.2rem;
+    margin-inline: 1rem;
+
+    .user-image {
+      width: 48px;
+      height: 48px;
+    }
+
+    .comment {
+      font-size: 0.9rem;
+    }
+  }
+}

@@ -1,0 +1,106 @@
+<div class="auth-container container-fluid">
+  <div class="row auth-row">
+
+    <!-- Left Image -->
+    <div class="col-md-7 p-0 auth-img-col">
+      <img src="images/register.png" class="auth-img" alt="Register Image">
+    </div>
+
+    <!-- Right Form -->
+    <div class="col-md-5 auth-right">
+      <div class="right-content">
+
+        <!-- Header -->
+        <div class="header-text mb-4">
+          <h1>Create a new Account</h1>
+          <p>Please enter your details to continue</p>
+        </div>
+
+        <!-- Form -->
+        <form [formGroup]="form" (ngSubmit)="signUp()" class="form-grid">
+
+          <mat-form-field appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName" />
+            @if(form.get('firstName')?.hasError('required')){
+              <mat-error>First Name is required</mat-error>
+            }
+            @if(form.get('firstName')?.errors?.['minlength']){
+              <mat-error>First Name must be at least {{form.get('firstName')?.errors?.['minlength'].requiredLength}} characters</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName" />
+            @if(form.get('lastName')?.hasError('required')){
+              <mat-error>Last Name is required</mat-error>
+            }
+            @if(form.get('lastName')?.errors?.['minlength'] && !form.get('lastName')?.hasError('required')){
+              <mat-error>Last Name must be at least {{form.get('lastName')?.errors?.['minlength'].requiredLength}} characters</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" />
+            @if(form.get('email')?.hasError('required')){
+              <mat-error>Email is required</mat-error>
+            }
+            @if(form.get('email')?.errors?.['pattern']){
+              <mat-error>Email must be in the format of example@domain.com</mat-error>
+            }
+
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput   [type]="isPassword().password?'text':'password'"  formControlName="password" />
+            <mat-icon matSuffix  (click)="togglePasswordVisible('password')" class="pass-icon">
+              {{isPassword().password ? 'visibility_off' :'visibility'}}
+            </mat-icon>
+            @if(form.get('password')?.hasError('required')){
+              <mat-error>Password is required</mat-error>
+            }
+            @if(form.get('password')?.hasError('minlength')){
+              <mat-error>Password must be at least {{form.get('password')?.errors?.['minlength'].requiredLength}} characters</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Confirm Password</mat-label>
+            <input matInput  [type]="isPassword().confirmPassword?'text':'password'"    formControlName="confirmPassword" />
+              <mat-icon matSuffix  (click)="togglePasswordVisible('confirmPassword')" class="pass-icon">
+                {{isPassword().confirmPassword? 'visibility_off' :'visibility'}}
+            </mat-icon>
+            @if(form.get('confirmPassword')?.hasError('required')){
+              <mat-error>Confirm Password is required</mat-error>
+            }
+            @if(form.get('confirmPassword')?.errors?.['minlength']){
+              <mat-error>Confirm Password must be at least {{form.get('confirmPassword')?.errors?.['minlength'].requiredLength}} characters</mat-error>
+            }
+            @if(form.get('confirmPassword')?.hasError('mustMatch')&&
+            !form.get('confirmPassword')?.hasError('required') &&
+            !form.get('confirmPassword')?.hasError('minlength')
+            ){
+              <mat-error>Passwords must match</mat-error>
+            }
+          </mat-form-field>
+
+          <div class="form-footer">
+            <mat-checkbox formControlName="acceptTerms">
+            I accept the <a target="_blank" rel="noopener noreferrer" class="text-decoration-none">Terms & Conditions</a>
+          </mat-checkbox>
+          </div>
+
+          <button type="submit" class="btn submit-btn" [disabled]="form.invalid">
+            Create Account
+          </button>
+
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,140 @@
+.auth-container {
+  height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  background: #f5f6fa;
+
+  .auth-row {
+    height: 100%;
+  }
+
+  /* LEFT IMAGE */
+  .auth-img-col {
+    height: 100%;
+
+    .auth-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.9);
+    }
+  }
+
+  /* RIGHT PANEL */
+  .auth-right {
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+    border-radius: 20px 0 0 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+  }
+
+  .right-content {
+    width: 100%;
+    max-width: 380px;
+
+    .header-text {
+      text-align: left;
+      margin-bottom: 30px;
+
+      h1 {
+        font-size: 2.3rem;
+        font-weight: 700;
+        color: #222;
+      }
+
+      p {
+        font-size: 1rem;
+        color: #555;
+      }
+    }
+  }
+
+  /* Material Form Fields Enhancements */
+  ::ng-deep .mat-mdc-form-field {
+    width: 100%;
+  }
+
+  ::ng-deep .mat-mdc-text-field-wrapper {
+    border-radius: 12px !important;
+    transition: all 0.3s ease;
+  }
+
+  /* Forget Link */
+  .forget-link {
+    font-size: 0.9rem;
+    cursor: pointer;
+    color: #6c5ce7;
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #00b894;
+      text-decoration: underline;
+    }
+  }
+
+  /* Login Button */
+  .login-btn {
+    padding: 12px 0;
+    background: linear-gradient(90deg, #6c5ce7, #00b894);
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.05rem;
+    border-radius: 12px;
+    border: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+  }
+
+  .signup-link {
+  font-size: 0.95rem;
+  color: #444;
+
+  a {
+    font-weight: 600;
+    color: #6c5ce7;
+    cursor: pointer;
+    transition: 0.3s ease;
+    text-decoration: none;
+
+    &:hover {
+      color: #00b894;
+      text-decoration: underline;
+    }
+  }
+}
+
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    height: auto;
+
+    .auth-img-col {
+      display: none; // hide image on small screens
+    }
+
+    .auth-right {
+      border-radius: 0;
+      padding: 30px 20px;
+    }
+
+    .right-content {
+      .header-text {
+        text-align: center;
+
+        h1 {
+          font-size: 1.9rem;
+        }
+      }
+    }
+  }
+}

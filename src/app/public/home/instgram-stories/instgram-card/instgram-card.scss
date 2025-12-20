@@ -1,0 +1,77 @@
+.card-container {
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  // overlay subtle
+  &::after {
+    position: absolute;
+    content: '';
+    inset: 0;
+    background: #000;
+    opacity: 0.03;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  // image wrapper
+  .image-container {
+    width: 100%;
+    height: 230px;
+    overflow: hidden;
+    border-radius: 12px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+  }
+
+  // instagram action button
+  .card-actions {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+
+    button {
+      width: 40px;
+      height: 40px;
+      border: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: transform 0.25s ease;
+
+      i {
+        color: #e1306c;
+        font-size: 1.2rem;
+      }
+
+      &:hover {
+        transform: scale(1.12);
+      }
+    }
+  }
+}
+
+// hover effects
+.card-hover {
+  .card-container {
+    background-color: #f7f7f7;
+    transform: translateY(-6px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+
+    .image-container img {
+      transform: scale(1.08);
+    }
+
+    .card-actions {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

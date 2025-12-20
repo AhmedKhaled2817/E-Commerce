@@ -1,0 +1,15 @@
+<div class="container best-seller-container mt-5">
+  <div class="row">
+    <div class="col-12 text-center">
+      <h1 class="mb-0 fw-bold title">Our Best Seller</h1>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    @for(pdt of products; track pdt){
+      <div class="col-md-3 col-6 mb-4">
+        <app-product-card  [product]="pdt" />
+      </div>
+    }
+  </div>
+</div>

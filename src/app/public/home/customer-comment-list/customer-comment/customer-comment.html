@@ -1,0 +1,35 @@
+@if(testimonials){
+  <div class="comment-card">
+
+  <!-- Stars -->
+  <div class="mb-2">
+    <!-- @for(star of [].constructor(testimonials.stars); track star){ -->
+    @for(star of stars; track i; let i=$index){
+      <span class="stars">
+        <i class="fa-solid fa-star"></i>
+      </span>
+    }
+  </div>
+
+  <!-- Comment text -->
+  <p class="comment">
+    It is a long established fact that a reader will be distracted by the
+    readable content of a page when looking at its layout. The point of using
+    Lorem Ipsum.
+  </p>
+
+  <!-- User info -->
+  <div class="d-flex align-items-center">
+    <img
+      [src]="testimonials.img"
+      [alt]="testimonials.name"
+      class="user-image"
+    />
+
+    <div class="ms-2">
+      <div class="user-name fw-bold">{{ testimonials.name }}</div>
+      <div class="user-position text-muted">{{ testimonials.position }}</div>
+    </div>
+  </div>
+</div>
+}
