@@ -9,15 +9,20 @@
 
   <!-- Desktop Navigation -->
   <nav class="nav-menu d-none d-lg-flex align-items-center gap-3">
-    <a href="#">Home</a>
+    <a href="#">{{'home.header.home'| translate}}</a>
     <div class="shop-menu position-relative" (mouseenter)="toggle(true)" (mouseleave)="toggle(false)">
-      <a href="#">Shop <i class="fa-solid fa-angle-down"></i></a>
+      <a href="#">{{'home.header.shop'| translate}} <i class="fa-solid fa-angle-down"></i></a>
       <app-mega-menu [showMenu]="showMenu"></app-mega-menu>
     </div>
-    <a href="#">Our Story</a>
-    <a href="#">Blog</a>
-    <a href="#">Contact Us</a>
+    <a href="#">{{'home.header.ourStory'| translate}}</a>
+    <a href="#">{{'home.header.blog'| translate}}</a>
+    <a href="#">{{'home.header.contact'| translate}}</a>
   </nav>
+
+  <div class="d-flex gap-4">
+    <button class="btn bg-primary" (click)="naviagteToArb('ar')">ar</button>
+    <button class="btn bg-primary" (click)="naviagteToArb('en')">en</button>
+  </div>
 
   <!-- Icons & Login -->
   <div class="actions d-flex align-items-center gap-3">
@@ -34,13 +39,13 @@
 
   <!-- Mobile Navigation -->
   <nav class="nav-menu-mobile d-lg-none" [class.show]="showMobileMenu">
-    <a href="#">Home</a>
+    <a href="#">{{'home.header.home'| translate}}</a>
     <div class="shop-menu position-relative">
-      <a href="#" (mouseenter)="toggle(true)" (mouseleave)="toggle(false)">Shop <i class="fa-solid fa-angle-down"></i></a>
+      <a href="#" (mouseenter)="toggle(true)" (mouseleave)="toggle(false)">{{'home.header.shop'| translate}}<i class="fa-solid fa-angle-down"></i></a>
       <app-mega-menu [showMenu]="showMenu"></app-mega-menu>
     </div>
-    <a href="#">Our Story</a>
-    <a href="#">Blog</a>
-    <a href="#">Contact Us</a>
+    <a href="#">{{'home.header.ourStory'| translate}}</a>
+    <a href="#">{{'home.header.blog'| translate}}</a>
+    <a href="#">{{'home.header.contact'| translate}}</a>
   </nav>
 </header>

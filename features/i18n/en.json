@@ -1,0 +1,11 @@
+{
+  "home":{
+    "header": {
+      "home":"Home",
+      "shop":"Shop",
+      "ourStory": "Our Story",
+      "blog": "blog",
+      "contact" :"Contact  Us"
+    }
+  }
+}

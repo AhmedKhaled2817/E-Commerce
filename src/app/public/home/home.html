@@ -2,16 +2,14 @@
 <app-banner/>
 <app-shop-by-categories/>
 
-@defer (on timer(4s); prefetch on timer(5s)) {
-  <app-best-seller   />
+@defer (on timer(4s);prefetch on timer(1s)) {
+  <app-best-seller />
 }
 @placeholder {
   <div class="placeholder-content">
     Content to be shown while the best seller component is loading.
   </div>
 }
-
-
 <app-month-deals/>
 <app-customer-comment-list/>
 <app-instgram-stories/>
