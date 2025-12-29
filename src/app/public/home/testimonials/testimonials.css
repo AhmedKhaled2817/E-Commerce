@@ -1,0 +1,31 @@
+.features-section {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+.features-section .feature-card {
+  text-align: center;
+  background: #fff;
+  padding: 25px 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: 0.3s ease-in-out;
+  height: 100%;
+}
+.features-section .feature-card i {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+.features-section .feature-card .title {
+  font-weight: 700;
+  margin-bottom: 5px;
+  font-size: 1.1rem;
+}
+.features-section .feature-card .desc {
+  font-size: 0.9rem;
+  color: #666;
+}
+.features-section .feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}/*# sourceMappingURL=testimonials.css.map */

@@ -6,6 +6,14 @@
       "ourStory": "قصتنا",
       "blog": "المدونة",
       "contact": "اتصل بنا"
+    },
+     "pages":{
+      "products":"المنتجات",
+      "categories":"التصنيفات"
     }
+  },
+   "categories":{
+    "cat":"التصنيفات",
+    "addCategory":"اضافه تصنيف"
   }
 }

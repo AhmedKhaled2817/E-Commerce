@@ -1,0 +1,42 @@
+.product-card {
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 12px;
+  transition: all 0.25s ease;
+  background: #fff;
+}
+.product-card.active {
+  background: #f7f7f7;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+.product-card .image-wrapper {
+  position: relative;
+}
+.product-card .image-wrapper .product-image {
+  height: 250px;
+}
+.product-card .image-wrapper .product-image img {
+  max-height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.product-card .image-wrapper .add-to-cart {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+}
+.product-card .image-wrapper .action-icons {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+}
+.product-card .image-wrapper .action-icons button {
+  width: 35px;
+  height: 35px;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.product-card .info .product-name {
+  font-size: 1.1rem;
+}/*# sourceMappingURL=product-card.css.map */

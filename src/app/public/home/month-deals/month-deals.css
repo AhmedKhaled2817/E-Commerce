@@ -1,0 +1,61 @@
+.month-deals {
+  /* Counter Boxes */
+  /* Deals Image */
+  /* Responsive */
+}
+.month-deals .title {
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 700;
+  color: #111;
+}
+.month-deals p {
+  color: #6c757d;
+  line-height: 1.7;
+  max-width: 90%;
+}
+.month-deals .counter-box {
+  width: 90px;
+  padding: 1rem;
+  text-align: center;
+  border: 1px solid #e5e5e5;
+  border-radius: 1rem;
+  background: #fff;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+.month-deals .counter-box .number {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #111;
+}
+.month-deals .counter-box .counter-label {
+  margin-top: 5px;
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+.month-deals .counter-box:hover {
+  background: #000;
+  color: #fff;
+  transform: translateY(-5px);
+}
+.month-deals .counter-box:hover .number,
+.month-deals .counter-box:hover .counter-label {
+  color: #fff;
+}
+.month-deals img {
+  max-width: 95%;
+  border-radius: 1rem;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
+}
+@media (max-width: 767px) {
+  .month-deals p {
+    max-width: 100%;
+  }
+  .month-deals .counter-box {
+    width: 80px;
+    padding: 0.8rem;
+  }
+  .month-deals .counter-box .number {
+    font-size: 1.4rem;
+  }
+}/*# sourceMappingURL=month-deals.css.map */

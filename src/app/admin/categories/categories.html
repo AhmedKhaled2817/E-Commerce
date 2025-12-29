@@ -1,0 +1,40 @@
+<div class="categories-page">
+
+  <h2 class="page-title">{{'categories.cat' | translate}}</h2>
+
+      <!-- add category -->
+       <button  mat-raised-button color="primary" class="add-btn my-4" (click)="addCategory()">
+        <mat-icon>add</mat-icon>
+        {{'categories.addCategory'| translate }}
+       </button>
+
+
+  <div class="table-wrapper mat-elevation-z8">
+    <table mat-table [dataSource]="dataSoucre">
+
+      <!-- ID -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> ID </th>
+        <td mat-cell *matCellDef="let ele"> {{ ele.id }} </td>
+      </ng-container>
+
+      <!-- Name -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let ele"> {{ ele.name }} </td>
+      </ng-container>
+
+      <!-- Weight -->
+      <ng-container matColumnDef="weight">
+        <th mat-header-cell *matHeaderCellDef> Weight </th>
+        <td mat-cell *matCellDef="let ele"> {{ ele.weight }} </td>
+      </ng-container>
+
+      <!-- Header & Rows -->
+      <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
+
+    </table>
+  </div>
+
+</div>

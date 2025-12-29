@@ -1,0 +1,60 @@
+/* Comment Card */
+.comment-card {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  /* Stars */
+  /* Comment Text */
+  /* User Image */
+  /* Name */
+  /* Position */
+}
+.comment-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+.comment-card .stars {
+  color: #f7c948;
+  font-size: 1.2rem;
+  margin-right: 2px;
+}
+.comment-card .comment {
+  line-height: 1.6;
+  color: #6c757d;
+  font-size: 0.95rem;
+  margin: 0.8rem 0 1.2rem 0;
+}
+.comment-card .user-image {
+  width: 55px;
+  height: 55px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #eee;
+}
+.comment-card .user-name {
+  font-size: 1rem;
+  color: #111;
+}
+.comment-card .user-position {
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .comment-card {
+    padding: 1.2rem;
+    margin-inline: 1rem;
+  }
+  .comment-card .user-image {
+    width: 48px;
+    height: 48px;
+  }
+  .comment-card .comment {
+    font-size: 0.9rem;
+  }
+}/*# sourceMappingURL=customer-comment.css.map */

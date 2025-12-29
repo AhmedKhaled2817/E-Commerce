@@ -1,0 +1,56 @@
+.hero-section {
+  background-color: #f3f3f3;
+  /* ---------- RESPONSIVE ---------- */
+}
+.hero-section .hero-text .exclusive {
+  font-size: 2.3rem;
+  font-weight: 600;
+  line-height: 2.6rem;
+  color: #333;
+}
+.hero-section .hero-text .collection {
+  font-size: 3.2rem;
+  line-height: 1.1;
+  color: #111;
+}
+.hero-section .hero-text .sale-text {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #555;
+  letter-spacing: 1px;
+}
+.hero-section .hero-img {
+  max-width: 420px;
+}
+@media (max-width: 992px) {
+  .hero-section .hero-text {
+    text-align: center;
+  }
+  .hero-section .hero-text .exclusive {
+    font-size: 2rem;
+  }
+  .hero-section .hero-text .collection {
+    font-size: 2.6rem;
+  }
+  .hero-section .hero-text button {
+    margin: auto;
+  }
+  .hero-section .hero-img {
+    max-width: 350px;
+    margin-inline: auto;
+  }
+}
+@media (max-width: 576px) {
+  .hero-section .hero-text .exclusive {
+    font-size: 1.6rem;
+  }
+  .hero-section .hero-text .collection {
+    font-size: 2rem;
+  }
+  .hero-section .hero-text .sale-text {
+    font-size: 1rem;
+  }
+  .hero-section .hero-img {
+    max-width: 300px;
+  }
+}/*# sourceMappingURL=banner.css.map */

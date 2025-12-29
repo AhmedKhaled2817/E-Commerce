@@ -1,0 +1,31 @@
+<mat-toolbar color="primary" class="app-toolbar">
+  <button mat-icon-button (click)="drawer.toggle()">
+    <mat-icon style="color: white;">menu</mat-icon>
+  </button>
+
+  <span class="toolbar-title">Admin</span>
+</mat-toolbar>
+
+<mat-drawer-container class="app-drawer-container">
+
+  <mat-drawer #drawer mode="side" opened class="app-drawer">
+    <mat-nav-list>
+      @for (item of menuItem(); track item.url) {
+        <a
+          mat-list-item
+          [routerLink]="item.url"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }">
+
+          <mat-icon class="menu-icon">{{item.icon}}</mat-icon>
+          <span class="menu-text">{{ item.text| translate }}</span>
+        </a>
+      }
+    </mat-nav-list>
+  </mat-drawer>
+
+  <mat-drawer-content class="app-content">
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+
+</mat-drawer-container>

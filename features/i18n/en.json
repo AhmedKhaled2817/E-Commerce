@@ -7,5 +7,28 @@
       "blog": "blog",
       "contact" :"Contact  Us"
     }
+  },
+    "validation":{
+    "firstName":{
+      "required":"first name is required ",
+      "minlength":"first name must be 8 characters"
+    },
+    "lastName":{
+      "required":"last name is required ",
+      "minlength":"last name must be 8 characters"
+    },
+    "email":{
+      "required" :"email is required",
+      "notValid":"email not valid"
+    },
+    "pages":{
+      "products":"products",
+      "categories":"categories"
+    }
+  },
+
+  "categories":{
+    "cat":"categories",
+    "addCategory":"addCategory"
   }
 }

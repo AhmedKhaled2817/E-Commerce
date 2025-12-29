@@ -1,0 +1,64 @@
+.categories-page {
+  padding: 24px;
+  background-color: #f5f7fa;
+  min-height: 100vh;
+}
+
+.add-btn{
+  display: flex;
+  align-items: center;
+  gap: 0.6rrem;
+}
+.page-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+.table-wrapper {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* Angular Material Table Styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th.mat-header-cell {
+  background-color: #f1f3f6;
+  font-weight: 600;
+  font-size: 14px;
+  color: #34495e;
+}
+
+td.mat-cell {
+  font-size: 14px;
+  color: #555;
+}
+
+tr.mat-row {
+  transition: background-color 0.2s ease;
+}
+
+.mat-mdc-table{
+  .mat-mdc-header-cell{
+  background-color: #34495e;
+  color: #fff;
+}
+}
+
+
+tr.mat-row:hover {
+  background-color: #f9fafc;
+}
+
+/* Align ID center */
+th.mat-header-cell:first-child,
+td.mat-cell:first-child {
+  text-align: center;
+  width: 80px;
+}

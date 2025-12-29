@@ -14,6 +14,19 @@ export const routes: Routes = [
     loadComponent: ()=> import('./features/auth/forget-password/forget-password').then((c)=>c.ForgetPassword)
   },
   {
+  path:'admin',
+  loadComponent:()=>import('./admin').then((m)=>m.Admin),
+  children:[
+    {path:'categories',
+    loadComponent:()=>import('./admin/categories').then((m)=>m.Categories),
+    },
+    {
+      path:'products',
+      loadComponent:()=>import('./admin/products').then((m)=>m.Products),
+    }
+  ]
+  },
+  {
     path:'',
     redirectTo:'/public',
     pathMatch:'full'

@@ -1,0 +1,15 @@
+.categories-section .shop-by-categories {
+  font-size: 2rem;
+  color: #222;
+}
+.categories-section .nav-btn {
+  background-color: #eee;
+  transition: 0.2s ease;
+  border-radius: 8px;
+}
+.categories-section .nav-btn:hover {
+  background-color: #ddd;
+}
+.categories-section .nav-btn i {
+  font-size: 1.2rem;
+}/*# sourceMappingURL=shop-by-categories.css.map */

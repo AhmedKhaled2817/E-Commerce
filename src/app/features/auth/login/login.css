@@ -1,0 +1,118 @@
+.auth-container {
+  height: 100vh;
+  font-family: "Poppins", sans-serif;
+  background: #f5f6fa;
+  /* LEFT IMAGE */
+  /* RIGHT PANEL */
+  /* Material Form Fields Enhancements */
+  /* Forget Link */
+  /* Login Button */
+  /* Responsive */
+}
+.auth-container .auth-row {
+  height: 100%;
+}
+.auth-container .auth-img-col {
+  height: 100%;
+}
+.auth-container .auth-img-col .auth-img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  filter: brightness(0.9);
+}
+.auth-container .auth-right {
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+  border-radius: 20px 0 0 20px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+.auth-container .right-content {
+  width: 100%;
+  max-width: 380px;
+}
+.auth-container .right-content .header-text {
+  text-align: left;
+  margin-bottom: 30px;
+}
+.auth-container .right-content .header-text h1 {
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: #222;
+}
+.auth-container .right-content .header-text p {
+  font-size: 1rem;
+  color: #555;
+}
+.auth-container ::ng-deep .mat-mdc-form-field {
+  width: 100%;
+}
+.auth-container ::ng-deep .mat-mdc-text-field-wrapper {
+  border-radius: 12px !important;
+  transition: all 0.3s ease;
+}
+.auth-container .forget-link {
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: #6c5ce7;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.auth-container .forget-link:hover {
+  color: #00b894;
+  text-decoration: underline;
+}
+.auth-container .login-btn {
+  padding: 12px 0;
+  background: linear-gradient(90deg, #6c5ce7, #00b894);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.05rem;
+  border-radius: 12px;
+  border: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.auth-container .login-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+.auth-container .signup-link {
+  font-size: 0.95rem;
+  color: #444;
+}
+.auth-container .signup-link a {
+  font-weight: 600;
+  color: #6c5ce7;
+  cursor: pointer;
+  transition: 0.3s ease;
+  text-decoration: none;
+}
+.auth-container .signup-link a:hover {
+  color: #00b894;
+  text-decoration: underline;
+}
+@media (max-width: 768px) {
+  .auth-container {
+    height: auto;
+  }
+  .auth-container .auth-img-col {
+    display: none;
+  }
+  .auth-container .auth-right {
+    border-radius: 0;
+    padding: 30px 20px;
+  }
+  .auth-container .right-content .header-text {
+    text-align: center;
+  }
+  .auth-container .right-content .header-text h1 {
+    font-size: 1.9rem;
+  }
+}/*# sourceMappingURL=login.css.map */
