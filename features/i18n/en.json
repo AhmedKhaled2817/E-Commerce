@@ -30,5 +30,20 @@
   "categories":{
     "cat":"categories",
     "addCategory":"addCategory"
+  },
+    "common":{
+    "arabicName":"arabic name",
+    "englishName":"english name",
+    "arabicDesc":"arabic description",
+    "englishDesc":"english description",
+    "slug":"Slug",
+    "save":"Save",
+    "cancel":"Cancel"
+  },
+  "arabicName":{
+    "required":"arabic name is required"
+  },
+  "englishName":{
+    "required":"english name is required"
   }
 }

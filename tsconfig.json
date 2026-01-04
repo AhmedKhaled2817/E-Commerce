@@ -17,7 +17,8 @@
     "module": "preserve",
     "paths":{
     "@app/Shared": ["app/Shared/shared-module.ts"],
-    "@app/services": ["app/Shared/Service"]
+    "@app/services": ["app/Shared/Service"],
+    "@app/Shared/Enums":  ["app/Shared/Enums"]
   },
   // "strictPropertyInitialization": false
   "noUnusedLocals": true

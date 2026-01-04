@@ -1,8 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { SharedModule } from '@app/Shared';
 import { ICategory } from '.';
 import { MatTableDataSource } from '@angular/material/table';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Dialog } from 'app/Core/services/dialog';
+import { ManageCategory } from './manage-category';
+import { DialogSize } from '@app/Shared/Enums';
 
 @Component({
   selector: 'app-categories',
@@ -11,6 +14,8 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrl: './categories.scss',
 })
 export class Categories {
+
+  private readonly  dialogService=inject(Dialog);
 
   displayColumns:string[]=['id','name','weight'];
 
@@ -21,10 +26,9 @@ export class Categories {
     { id: 4, name: 'Home Appliances', weight: 6 },
   ]);
 
-
   dataSoucre= new MatTableDataSource<ICategory>(this.categories());
 
-  addCategory():void{
-
+  addUpdateCategory():void{
+    this.dialogService.openAddEditDialog(ManageCategory,DialogSize.medium)
   }
 }

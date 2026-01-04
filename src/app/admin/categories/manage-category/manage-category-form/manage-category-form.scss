@@ -1,0 +1,88 @@
+.category-form {
+  padding: 1.25rem 1.5rem;
+  background-color: #fafafa;
+
+  /* ===== Material Fields ===== */
+  mat-form-field {
+    width: 100%;
+    font-size: 14px;
+
+    .mat-mdc-text-field-wrapper {
+      border-radius: 12px;
+      background-color: #ffffff;
+    }
+  }
+
+  /* ===== Textareas ===== */
+  textarea {
+    resize: vertical;
+    min-height: 90px;
+  }
+  /* ===== Status Section ===== */
+.status-wrapper {
+  padding: 1rem 1.25rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 14px;
+  background-color: #ffffff;
+}
+
+.status-content {
+  width: 100%;
+}
+
+.status-toggle {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
+
+.status-count {
+  width: 180px;
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  .mat-mdc-text-field-wrapper {
+    background-color: #fafafa;
+  }
+}
+
+/* Slide toggle tuning */
+mat-slide-toggle {
+  --mdc-switch-selected-track-color: #3f51b5;
+  --mdc-switch-selected-handle-color: #ffffff;
+}
+
+  /* ===== Hints & Errors ===== */
+  mat-hint {
+    font-size: 12px;
+    color: #6c757d;
+  }
+
+  mat-error {
+    font-size: 12px;
+  }
+
+  /* ===== Spacing ===== */
+  .row {
+    --bs-gutter-x: 1rem;
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 768px) {
+    padding: 1rem;
+
+    .status-wrapper {
+      gap: 1rem;
+    }
+
+    .products-count-field {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 576px) {
+    padding: 0.75rem;
+  }
+}

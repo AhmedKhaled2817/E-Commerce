@@ -15,5 +15,20 @@
    "categories":{
     "cat":"التصنيفات",
     "addCategory":"اضافه تصنيف"
+  },
+    "common":{
+    "arabicName":"الاسم بالعربى",
+    "englishName":"الاسم بالانجليزى",
+    "arabicDesc":"الوصف بالعربى",
+    "englishDesc":"الوصف بالانجليزى",
+    "slug":"الرابط",
+    "save":"حفظ",
+    "cancel":"الغاء"
+  },
+   "arabicName":{
+    "required":"الاسم العربي مطلوب"
+  },
+  "englishName":{
+    "required":"الاسم الانجليزي مطلوب"
   }
 }

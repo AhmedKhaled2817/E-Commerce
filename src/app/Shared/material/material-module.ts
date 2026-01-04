@@ -13,7 +13,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
-
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 
 const modules=[
@@ -29,6 +29,7 @@ const modules=[
   MatListModule,
   MatTableModule,
   MatDialogModule,
+  MatSlideToggleModule,
 ]
 
 @NgModule({

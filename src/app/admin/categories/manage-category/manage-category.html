@@ -1,0 +1,28 @@
+<div mat-dialog-title
+     class="dialog-header d-flex justify-content-between align-items-center">
+
+  <span class="dialog-title fw-bold">
+    {{'categories.addCategory'| translate}}
+  </span>
+
+  <button mat-icon-button mat-dialog-close  (click)="close()">
+    <mat-icon>close</mat-icon>
+  </button>
+
+</div>
+
+<div mat-dialog-content class="dialog-content">
+  <app-manage-category-form/>
+</div>
+
+<div mat-dialog-actions align="end" class="dialog-actions">
+
+  <button mat-flat-button color="primary"  (click)="save($event)">
+    {{'common.save' | translate}}
+  </button>
+
+  <button mat-stroked-button mat-dialog-close>
+    {{'common.cancel'|  translate}}
+  </button>
+
+</div>

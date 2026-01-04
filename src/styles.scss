@@ -35,5 +35,16 @@ body {
 }
 /* You can add global styles to this file, and also import other style files */
 
+
+.mat-mdc-dialog-content{
+  background-color:  #f5f5f5;
+  padding: 10px !important;
+}
+.mat-mdc-dialog-title::before {
+  content: unset;
+}
+
+
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
