@@ -32,7 +32,6 @@
           type="text"
           formControlName="en"
           autocomplete="off" />
-
           @if(form.get('name.en')?.hasError('required')){
             <mat-error>{{'englishName.required' | translate}}</mat-error>
           }

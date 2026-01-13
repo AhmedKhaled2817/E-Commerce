@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import { Highlight } from 'app/Shared/directive/highlight';
 
 @Component({
   selector: 'app-banner',
-  imports: [],
+  imports: [
+    Highlight
+  ],
   standalone:true,
   templateUrl: './banner.html',
   styleUrl: './banner.scss',
