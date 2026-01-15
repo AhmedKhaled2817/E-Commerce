@@ -4,4 +4,5 @@ export interface IbestSeller {
   imgUrl:string,
   price:string,
   oldPrice:string,
+  id:number,
 }

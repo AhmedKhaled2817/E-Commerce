@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { Public } from './public';
 import { Home } from './home/home';
 import { Products } from './products/products';
+import { Cart } from './cart/cart';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
       {
         path:'products',
         component:Products
+      },
+      {
+        path:'cart',
+        component:Cart
       },
       {
         path:'',

@@ -22,56 +22,64 @@ export class BestSeller {
     imgUrl: 'images/adult.png',
     description: 'Comfort Stretch Slim Fit Pants',
     price: '$80',
-    oldPrice: '$100.00'
+    oldPrice: '$100.00',
+    id:1
   },
   {
     name: 'Women Flat Shoes',
     imgUrl: 'images/boots.png',
     description: 'Soft Casual Ballet Flats',
     price: '$45',
-    oldPrice: '$60.00'
+    oldPrice: '$60.00',
+    id:2
   },
   {
     name: 'Women Summer Top',
     imgUrl: 'images/woman-top.png',
     description: 'Short Sleeve Casual Blouse',
     price: '$32',
-    oldPrice: '$50.00'
+    oldPrice: '$50.00',
+    id:3
   },
   {
     name: 'Juicer Machine',
     imgUrl: '/images/juicer_machine.png',
     description: 'Stainless Steel Electric Juicer',
     price: '$120',
-    oldPrice: '$150.00'
+    oldPrice: '$150.00',
+    id:4
   },
     {
     name: 'Women Winter Coat Set',
     imgUrl: '/images/best-seller-5.webp',
     description: 'Elegant winter coat paired with a long-sleeve dress',
     price: '$120',
-    oldPrice: '$150.00'
+    oldPrice: '$150.00',
+    id:5
   },
   {
   name: 'Women Casual Dress Set',
   imgUrl: '/images/best-seller-6.webp',
   description: 'Soft beige dress combined with a knitted sweater',
   price: '$110',
-  oldPrice: '$140.00'
+  oldPrice: '$140.00',
+  id:6
 },
 {
   name: 'Women Modern Outfit',
   imgUrl: '/images/best-seller-7.webp',
   description: 'Stylish turquoise dress with matching beige top',
   price: '$115',
-  oldPrice: '$145.00'
+  oldPrice: '$145.00',
+  id:7
 },
 {
   name: 'Black Casual T-Shirt',
   imgUrl: '/images/best-seller-8.webp',
   description: 'Comfortable unisex cotton black printed T-shirt',
   price: '$45',
-  oldPrice: '$60.00'
+  oldPrice: '$60.00',
+  id:8
 }
     ]
   }

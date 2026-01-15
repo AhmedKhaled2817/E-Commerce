@@ -12,7 +12,6 @@ export class Highlight  implements OnInit {
 
   ngOnInit(): void {
     this.originalText=this.ele.nativeElement.innerText.trim();
-
     this.renderer.setStyle(this.ele.nativeElement,'transition','all 0.3s ease-in-out');
   }
 

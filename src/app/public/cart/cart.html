@@ -1,0 +1,15 @@
+<div class="container mt-3">
+  <div class="row">
+    @for (item of cartItems; track item.id) {
+      <div class="col-md-4">
+        <div class="card">
+          <img [src]="item.imgUrl" class="card-img-top" alt="{{ item.name }}">
+          <div class="card-body">
+            <h5>{{ item.name }}</h5>
+            <p>{{ item.price }}</p>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>
