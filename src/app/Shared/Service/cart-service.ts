@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { IbestSeller } from 'app/public/home/best-seller/models/ibest-seller';
 import { BehaviorSubject } from 'rxjs';
 
@@ -7,13 +7,19 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class CartService {
 
-  private cartItem=new BehaviorSubject<IbestSeller[]>([]);
+
+    private readonly cartKey='cartItems';
+
+  private cartItem=new BehaviorSubject<IbestSeller[]>(this.getFromLocalStorage());
 
   cartItems$=this.cartItem.asObservable();
 
+
   addToCart(product:IbestSeller){
     const currentItems=this.cartItem.value;
-    this.cartItem.next([...currentItems,product]);
+    const updatedItems=[...currentItems,product];
+    this.cartItem.next(updatedItems);
+    this.saveToLocalStorage(updatedItems);
   }
   getCartItems(): IbestSeller[]{
     return this.cartItem.value;
@@ -23,6 +29,28 @@ export class CartService {
     const currentItems=this.cartItem.value;
     const updatedItems=currentItems.filter((item)=>item.id !==id);
     this.cartItem.next(updatedItems);
+    this.saveToLocalStorage(updatedItems);
+  }
+
+   /* Local Storage   */
+
+  // get cart items from local storage
+
+  private getFromLocalStorage():IbestSeller[]{
+    const data=localStorage.getItem(this.cartKey);
+    return data? JSON.parse(data) : [];
+  }
+
+  // save cart items to local storage
+
+  private saveToLocalStorage(items:IbestSeller[]):void{
+    localStorage.setItem(this.cartKey,JSON.stringify(items));
+  }
+
+  // clear cart items from local storage
+  clearCart():void{
+    this.cartItem.next([]);
+    this.saveToLocalStorage([]);
   }
 
 }

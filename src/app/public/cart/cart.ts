@@ -21,7 +21,7 @@ export class Cart   implements OnInit, OnDestroy  {
   ngOnInit(): void {
     this.sub=this.cartService.cartItems$.subscribe({
       next:(item)=>{
-        this.cartItems=item
+        this.cartItems=item;
       },
       error:(error)=>{
         console.log(error.message);

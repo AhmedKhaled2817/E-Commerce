@@ -21,11 +21,7 @@
 
             <!-- Image -->
             <div class="cart-image me-3">
-              <img
-                [src]="item.imgUrl"
-                alt="{{ item.name }}"
-                class="img-fluid rounded-3"
-              />
+              <img [src]="item.imgUrl" alt="{{ item.name }}" class="img-fluid rounded-3" />
             </div>
 
             <!-- Info -->
@@ -35,25 +31,25 @@
 
               <div class="d-flex align-items-center">
                 <span class="fw-bold fs-5 me-3">{{ item.price }}</span>
-                <span class="text-muted text-decoration-line-through">
-                  {{ item.oldPrice }}
-                </span>
+                <span class="text-muted text-decoration-line-through">{{ item.oldPrice }}</span>
               </div>
             </div>
 
             <!-- Actions -->
-            <div class="cart-actions text-end ms-3">
+            <div class="cart-actions ms-3">
               <button
                 class="btn btn-outline-danger btn-sm rounded-circle"
                 data-bs-toggle="modal"
                 data-bs-target="#deleteModal"
                 (click)="openDeleteModal(item.id)"
+                title="Remove item"
               >
                 <i class="fa-solid fa-trash"></i>
               </button>
             </div>
 
           </div>
+
         </div>
       }
     </div>
@@ -61,18 +57,13 @@
 </div>
 
 <!-- Delete Confirmation Modal -->
-<div
-  class="modal fade"
-  id="deleteModal"
-  tabindex="-1"
-  aria-hidden="true"
->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content rounded-4">
 
       <div class="modal-header border-0">
         <h5 class="modal-title fw-bold">Confirm Deletion</h5>
-        <button class="btn-close" data-bs-dismiss="modal"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
 
       <div class="modal-body text-center">
@@ -81,20 +72,20 @@
       </div>
 
       <div class="modal-footer border-0 justify-content-center">
-
-          <button
+        <button
+          type="button"
+          class="btn btn-outline-secondary px-4"
+          data-bs-dismiss="modal"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
           class="btn btn-danger px-4"
           data-bs-dismiss="modal"
           (click)="removeFromCart()"
         >
           Delete
-        </button>
-
-        <button
-          class="btn btn-outline-secondary px-4"
-          data-bs-dismiss="modal"
-        >
-          Cancel
         </button>
       </div>
 
