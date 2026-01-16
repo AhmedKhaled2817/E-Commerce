@@ -19,4 +19,10 @@ export class CartService {
     return this.cartItem.value;
   }
 
+  removeFromCart(id:number){
+    const currentItems=this.cartItem.value;
+    const updatedItems=currentItems.filter((item)=>item.id !==id);
+    this.cartItem.next(updatedItems);
+  }
+
 }

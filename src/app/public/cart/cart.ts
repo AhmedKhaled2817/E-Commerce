@@ -16,6 +16,8 @@ export class Cart   implements OnInit, OnDestroy  {
   private sub!:Subscription;
   private cartService=inject(CartService);
 
+  selectedItemId:number| null =null;
+
   ngOnInit(): void {
     this.sub=this.cartService.cartItems$.subscribe({
       next:(item)=>{
@@ -29,5 +31,16 @@ export class Cart   implements OnInit, OnDestroy  {
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
+  }
+
+  openDeleteModal(itemId:number){
+    this.selectedItemId=itemId;
+  }
+
+  removeFromCart(){
+    if(this.selectedItemId!==null) {
+      this.cartService.removeFromCart(this.selectedItemId);
+      this.selectedItemId=null;
+    }
   }
 }
