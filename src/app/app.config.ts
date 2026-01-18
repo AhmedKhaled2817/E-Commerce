@@ -11,10 +11,13 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
+import { provideToastr } from 'ngx-toastr';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
+    provideAnimations(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(),
@@ -26,5 +29,11 @@ export const appConfig: ApplicationConfig = {
       fallbackLang: 'en',
       lang: 'en',
     }),
+    provideToastr({
+      timeOut: 3000,
+      positionClass: 'toast-top-right',
+      progressBar: true,
+      closeButton: true,
+    })
   ],
 };
