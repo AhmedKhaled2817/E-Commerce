@@ -1,0 +1,26 @@
+.favorite-item {
+  border: 1px solid #eee;
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  background: #fff;
+
+  &:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+}
+
+.favorite-image {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.favorite-info h6 {
+  font-size: 15px;
+}
+
+.modal-content {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}

@@ -3,6 +3,7 @@ import { Component, inject, Input } from '@angular/core';
 import { IbestSeller } from '../models/ibest-seller';
 import { Router } from '@angular/router';
 import { CartService } from 'app/Shared/Service/cart-service';
+import { FavoriteService } from 'app/Shared/Service/favorite-service';
 
 @Component({
   selector: 'app-product-card',
@@ -17,6 +18,7 @@ export class ProductCard {
 
   private cartService=inject(CartService);
   private router=inject(Router);
+  private favoriteService=inject(FavoriteService);
 
   isHovering:boolean=false;
   onMouseEnter(show:boolean):void{
@@ -26,5 +28,14 @@ export class ProductCard {
     this.cartService.addToCart(product);
     console.log(product);
     this.router.navigate(['/public/cart']);
+  }
+
+  addToFavorite(product:IbestSeller):void{
+    this.favoriteService.addToFavorite(product);
+    this.router.navigate(['/public/favorite']);
+  }
+
+  removeFromFavorite(id:number):void{
+    this.favoriteService.removeFromFavorite(id);
   }
 }

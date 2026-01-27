@@ -6,6 +6,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { SharedModule } from '@app/Shared';
 import { Language } from 'app/Shared/Service/language';
 
+
 @Component({
   selector: 'app-header',
   imports: [MegaMenu, CommonModule, PublicRoutingModule, TranslatePipe, SharedModule ],
@@ -29,4 +30,5 @@ export class Header {
   naviagteToLang(lang:string):void{
     this.lang.naviagteToLang(lang);
   }
+
 }
