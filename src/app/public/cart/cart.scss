@@ -7,6 +7,40 @@
   &:hover {
     transform: translateY(-2px);
   }
+
+  .quantity-control {
+    button {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid #ccc;
+      background-color: #f8f9fa;
+      color: #333;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.2s;
+
+      &:hover:not(:disabled) {
+        background-color: #343a40;
+        color: #fff;
+        border-color: #343a40;
+        cursor: pointer;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+
+    span {
+      min-width: 24px;
+      text-align: center;
+      display: inline-block;
+    }
+  }
 }
 
 .cart-image {
