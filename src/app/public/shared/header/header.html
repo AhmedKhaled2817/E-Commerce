@@ -4,27 +4,38 @@
     <i class="fa-solid fa-cart-shopping fs-5"></i>
     <span class="fw-bold">
       <small>Wear</small>
-      House</span>
+      House</span
+    >
   </div>
 
   <!-- Desktop Navigation -->
   <nav class="nav-menu d-none d-lg-flex align-items-center gap-3">
-    <a href="#">{{'home.header.home'| translate}}</a>
-    <div class="shop-menu position-relative" (mouseenter)="toggle(true)" (mouseleave)="toggle(false)">
-      <a href="#">{{'home.header.shop'| translate}} <i class="fa-solid fa-angle-down"></i></a>
+    <a routerLink="/public/home" routerLinkActive="active">{{ 'home.header.home' | translate }}</a>
+    <div
+      class="shop-menu position-relative"
+      (mouseenter)="toggle(true)"
+      (mouseleave)="toggle(false)"
+    >
+      <a >{{ 'home.header.shop' | translate }} <i class="fa-solid fa-angle-down"></i></a>
       <app-mega-menu [showMenu]="showMenu"></app-mega-menu>
     </div>
-    <a href="#">{{'home.header.ourStory'| translate}}</a>
-    <a href="#">{{'home.header.blog'| translate}}</a>
-    <a href="#">{{'home.header.contact'| translate}}</a>
+    <a href="#">{{ 'home.header.ourStory' | translate }}</a>
+    <a href="#">{{ 'home.header.blog' | translate }}</a>
+    <a href="#">{{ 'home.header.contact' | translate }}</a>
   </nav>
 
   <!-- Icons & Login -->
   <div class="actions d-flex align-items-center gap-3">
     <span class="icon cursor-pointer"><i class="fa-solid fa-magnifying-glass"></i></span>
-    <span class="icon cursor-pointer"  ><i class="fa-solid fa-globe" [mat-menu-trigger-for]="menu"></i></span>
-    <span class="icon cursor-pointer"><i class="fa-solid fa-cart-shopping fs-5" routerLink="/public/cart"></i></span>
-    <span class="icon cursor-pointer" routerLink="/public/favorite"><i class="fa-solid fa-heart"></i></span>
+    <span class="icon cursor-pointer"
+      ><i class="fa-solid fa-globe" [mat-menu-trigger-for]="menu"></i
+    ></span>
+    <span class="icon cursor-pointer"
+      ><i class="fa-solid fa-cart-shopping fs-5" routerLink="/public/cart"></i
+    ></span>
+    <span class="icon cursor-pointer" routerLink="/public/favorite"
+      ><i class="fa-solid fa-heart"></i
+    ></span>
     <button class="btn-login" routerLink="/login">Login</button>
   </div>
 
@@ -35,22 +46,25 @@
 
   <!-- Mobile Navigation -->
   <nav class="nav-menu-mobile d-lg-none" [class.show]="showMobileMenu">
-    <a href="#">{{'home.header.home'| translate}}</a>
+    <a routerLink="/public/home" routerLinkActive="active">{{ 'home.header.home' | translate }}</a>
     <div class="shop-menu position-relative">
-      <a href="#" (mouseenter)="toggle(true)" (mouseleave)="toggle(false)">{{'home.header.shop'| translate}}<i class="fa-solid fa-angle-down"></i></a>
+      <a (click)="toggleMegaMenu()"
+        >{{ 'home.header.shop' | translate }}<i class="fa-solid fa-angle-down"></i
+      ></a>
       <app-mega-menu [showMenu]="showMenu"></app-mega-menu>
     </div>
-    <a href="#">{{'home.header.ourStory'| translate}}</a>
-    <a href="#">{{'home.header.blog'| translate}}</a>
-    <a href="#">{{'home.header.contact'| translate}}</a>
+    <a href="#">{{ 'home.header.ourStory' | translate }}</a>
+    <a href="#">{{ 'home.header.blog' | translate }}</a>
+    <a href="#">{{ 'home.header.contact' | translate }}</a>
   </nav>
 </header>
-
 
 <mat-menu #menu="matMenu">
   <button mat-menu-item (click)="naviagteToLang('en')">English</button>
   <button mat-menu-item (click)="naviagteToLang('ar')">Arabic</button>
-
 </mat-menu>
 
-
+<mat-menu>
+  <button>(click)="naviagteToLang('en')">English</button>
+  <button mat-menu-item (click)="naviagteToLang('ar')">Arabic</button>
+</mat-menu>

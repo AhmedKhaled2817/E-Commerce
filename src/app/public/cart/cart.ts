@@ -56,11 +56,10 @@ export class Cart implements OnInit, OnDestroy {
     }
   }
 
-  // increase quantity of cart item
   increaseQuantity(id:number){
     this.cartService.increaseQuantity(id);
   }
-  // decrease quantity of cart item
+
   decreaseQuantity(id:number){
     this.cartService.decreaseQuantity(id);
   }

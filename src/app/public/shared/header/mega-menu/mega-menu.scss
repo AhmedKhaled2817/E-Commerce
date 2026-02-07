@@ -6,7 +6,7 @@
   transform: translateX(-50%);
   background-color: #fff;
   width: 40vw;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 1rem;
   border-radius: 0.5rem;
   z-index: 1000;
@@ -24,7 +24,7 @@
     h4 {
       margin-bottom: 0.5rem;
       font-weight: 600;
-      color: #007BFF;
+      color: #007bff;
       font-size: 1rem;
     }
 
@@ -37,7 +37,7 @@
       transition: color 0.2s;
 
       &:hover {
-        color: #007BFF;
+        color: #007bff;
       }
     }
   }
@@ -47,8 +47,20 @@
 @media (max-width: 991px) {
   .mega-menu {
     flex-direction: column;
-    width: 90vw;
-    left: 50%;
-    transform: translateX(-50%);
+    width: 100%;
+    position: static;
+    transform: none;
+    box-shadow: none;
+    padding: 0;
+
+    .menu-column {
+      padding: 0.5rem 1rem;
+      border-bottom: 1px solid #f1f1f1;
+
+      h4 {
+        font-size: 0.95rem;
+        margin-top: 0.5rem;
+      }
+    }
   }
 }

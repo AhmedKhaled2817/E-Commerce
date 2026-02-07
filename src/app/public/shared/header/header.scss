@@ -18,7 +18,7 @@
     border-radius: 0.4rem;
     transition: all 0.2s;
 
-    &:hover {
+    &.active,&:hover {
       background-color: #f8f9fa;
       color: #007BFF;
     }
@@ -76,8 +76,10 @@
       color: #333;
       font-weight: 500;
       transition: all 0.2s;
-
-      &:hover {
+      width: fit-content;
+      display: block;
+      margin: 0.5rem auto;
+      &:hover,&.active {
         background-color: #f8f9fa;
         color: #007BFF;
       }
@@ -98,6 +100,8 @@
       }
     }
   }
+}
+
 @media (max-width: 380px) {
   header{
     .logo span{
@@ -107,5 +111,4 @@
       }
     }
   }
-}
 }
