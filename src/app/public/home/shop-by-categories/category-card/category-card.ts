@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-category-card',
@@ -9,6 +10,13 @@ import { Component, Input } from '@angular/core';
 })
 export class CategoryCard {
 
+  private router = inject(Router);
   @Input({required:true}) category!:{name:string,imageUrl:string};
+
+  navigateToProducts() {
+    this.router.navigate(['/public/products'], {
+      queryParams: { category: this.category.name }
+    });
+  }
 
 }

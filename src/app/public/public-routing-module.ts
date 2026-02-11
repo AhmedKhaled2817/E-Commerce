@@ -29,6 +29,10 @@ const routes: Routes = [
         component:Favorite,
       },
       {
+        path:"category/:category",
+        component:Products
+      },
+      {
         path:'',
         redirectTo:'/public/home',
         pathMatch:'full'

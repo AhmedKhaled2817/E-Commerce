@@ -1,4 +1,22 @@
 <div class="mega-menu" [class.show]="showMenu">
+  @for(column of megaMenuData;  track column.title){
+    <div class="menu-column">
+      <h4>{{ column.title }}</h4>
+      @for(item of column.items; track item){
+        <a >{{ item }}</a>
+      }
+    </div>
+  }
+  </div>
+
+
+
+
+
+
+
+
+<!-- <div class="mega-menu" [class.show]="showMenu">
   <div class="menu-column">
     <h4>Men</h4>
     <a href="#">T-Shirts</a>
@@ -46,4 +64,4 @@
     <a href="#">Track Pants</a>
     <a href="#">Value Pack</a>
   </div>
-</div>
+</div> -->

@@ -1,5 +1,5 @@
 @if(category){
-  <div class="category-card position-relative overflow-hidden rounded">
+  <div class="category-card position-relative overflow-hidden rounded" (click)="navigateToProducts()" style="cursor: pointer;">
         <img [src]="category.imageUrl" class="img-fluid category-image" alt="img">
         <div class="category-title fw-bold text-center">{{category.name}}</div>
 </div>
