@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { Public } from './public';
 import { Home } from './home/home';
-import { Products } from './products/products';
 import { Cart } from './cart/cart';
 import { Favorite } from './favorite/favorite';
 
@@ -17,10 +16,6 @@ const routes: Routes = [
         component:Home
       },
       {
-        path:'products',
-        component:Products
-      },
-      {
         path:'cart',
         component:Cart
       },
@@ -29,8 +24,8 @@ const routes: Routes = [
         component:Favorite,
       },
       {
-        path:"category/:category",
-        component:Products
+        path:"products/:category",
+        loadComponent:()=>import('./products/products').then((m)=>m.ProductsComponent)
       },
       {
         path:'',

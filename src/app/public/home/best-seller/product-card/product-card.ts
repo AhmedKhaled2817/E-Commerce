@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule} from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import { IbestSeller } from '../models/ibest-seller';
 import { Router } from '@angular/router';
@@ -14,7 +14,7 @@ import { FavoriteService } from 'app/Shared/Service/favorite-service';
 })
 export class ProductCard {
 
-  @Input({required:true}) product!:IbestSeller;
+  @Input({required:true}) product!:any;
 
   private cartService=inject(CartService);
   private router=inject(Router);

@@ -1,0 +1,8 @@
+<div class="row g-4">
+  @for (p of products; track p.id) {
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+      <app-product-card [product]="p"></app-product-card>
+    </div>
+  }
+
+</div>

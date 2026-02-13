@@ -8,7 +8,7 @@
   <div class="image-wrapper position-relative">
 
     <div class="product-image d-flex justify-content-center align-items-center">
-      <img [src]="product.imgUrl" class="img-fluid" alt="image" loading="lazy" />
+      <img [src]="product.imgUrl || product.images?.[0]" class="img-fluid" alt="image" loading="eager"/>
     </div>
 
     @if (isHovering) {
@@ -38,7 +38,7 @@
 
   <!-- Info -->
   <div class="info mt-3">
-    <h3 class="fw-bold product-name">{{ product.name }}</h3>
+    <h3 class="fw-bold product-name">{{ product.name || product.title }}</h3>
     <p class="text-muted small">{{ product.description }}</p>
 
     <div class="prices d-flex align-items-center">

@@ -21,6 +21,14 @@ export class ProductsService {
     )
   }
 
+  getProductsBySubCategory(subCategory:string):Observable<Products[]>{
+    return this.getAllProducts().pipe(
+      map(products=> products.filter(p=>p.subCategory===subCategory))
+    )
+  }
+
+
+
   //  ==== adapter  ===
 
   private mapDummyToProduct(p:DummyProduct):Products{
