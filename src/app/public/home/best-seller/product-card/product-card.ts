@@ -1,9 +1,9 @@
 import { CommonModule} from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
-import { IbestSeller } from '../models/ibest-seller';
 import { Router } from '@angular/router';
 import { CartService } from 'app/Shared/Service/cart-service';
 import { FavoriteService } from 'app/Shared/Service/favorite-service';
+import { IbestSeller } from '../models/ibest-seller';
 
 @Component({
   selector: 'app-product-card',
@@ -24,14 +24,31 @@ export class ProductCard {
   onMouseEnter(show:boolean):void{
     this.isHovering=show;
   }
-  addToCart(product:IbestSeller){
-    this.cartService.addToCart(product);
+  addToCart(product:any){
+
+    const mapped:IbestSeller={
+      id:product.id,
+      name:product.name || product.title,
+      description: product.description,
+      price: product.price,
+      oldPrice: product.oldPrice || null,
+      imgUrl : product.imgUrl || product.images?.[0],
+    }
+    this.cartService.addToCart(mapped);
     console.log(product);
     this.router.navigate(['/public/cart']);
   }
 
-  addToFavorite(product:IbestSeller):void{
-    this.favoriteService.addToFavorite(product);
+  addToFavorite(product:any):void{
+     const mapped:IbestSeller={
+      id:product.id,
+      name:product.name || product.title,
+      description: product.description,
+      price: product.price,
+      oldPrice: product.oldPrice || null,
+      imgUrl : product.imgUrl || product.images?.[0],
+    }
+    this.favoriteService.addToFavorite(mapped);
     console.log(product)
     this.router.navigate(['/public/favorite']);
   }
