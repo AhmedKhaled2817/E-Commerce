@@ -8,7 +8,7 @@
   <div class="image-wrapper position-relative">
 
     <div class="product-image d-flex justify-content-center align-items-center">
-      <img [src]="product.imgUrl || product.images?.[0]" class="img-fluid" alt="image" loading="eager"/>
+      <img [src]="product.imgUrl || product.images?.[0] || product.image" class="img-fluid" alt="image" loading="eager"/>
     </div>
 
     @if (isHovering) {

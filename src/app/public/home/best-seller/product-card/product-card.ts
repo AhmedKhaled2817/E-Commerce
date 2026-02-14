@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CartService } from 'app/Shared/Service/cart-service';
 import { FavoriteService } from 'app/Shared/Service/favorite-service';
 import { IbestSeller } from '../models/ibest-seller';
+import { Products } from 'app/Shared/Models/products';
 
 @Component({
   selector: 'app-product-card',
@@ -14,7 +15,7 @@ import { IbestSeller } from '../models/ibest-seller';
 })
 export class ProductCard {
 
-  @Input({required:true}) product!: any;
+  @Input({required:true}) product!: Products | IbestSeller | any ;
 
   private cartService=inject(CartService);
   private router=inject(Router);
@@ -24,23 +25,20 @@ export class ProductCard {
   onMouseEnter(show:boolean):void{
     this.isHovering=show;
   }
-  addToCart(product:any){
-
-    const mapped:IbestSeller={
-      id:product.id,
-      name:product.name || product.title,
-      description: product.description,
-      price: product.price,
-      oldPrice: product.oldPrice || null,
-      imgUrl : product.imgUrl || product.images?.[0],
-    }
-    this.cartService.addToCart(mapped);
+  addToCart(product: any){
+    this.cartService.addToCart(this.mapProduct(product));
     console.log(product);
     this.router.navigate(['/public/cart']);
   }
 
   addToFavorite(product:any):void{
-     const mapped:IbestSeller={
+    this.favoriteService.addToFavorite(this.mapProduct(product));
+    console.log(product)
+    this.router.navigate(['/public/favorite']);
+  }
+
+  private mapProduct(product: any):IbestSeller{
+    return{
       id:product.id,
       name:product.name || product.title,
       description: product.description,
@@ -48,9 +46,6 @@ export class ProductCard {
       oldPrice: product.oldPrice || null,
       imgUrl : product.imgUrl || product.images?.[0],
     }
-    this.favoriteService.addToFavorite(mapped);
-    console.log(product)
-    this.router.navigate(['/public/favorite']);
   }
 
   removeFromFavorite(id:number):void{
