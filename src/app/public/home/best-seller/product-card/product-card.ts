@@ -14,7 +14,7 @@ import { FavoriteService } from 'app/Shared/Service/favorite-service';
 })
 export class ProductCard {
 
-  @Input({required:true}) product!:any;
+  @Input({required:true}) product!: any;
 
   private cartService=inject(CartService);
   private router=inject(Router);
@@ -32,6 +32,7 @@ export class ProductCard {
 
   addToFavorite(product:IbestSeller):void{
     this.favoriteService.addToFavorite(product);
+    console.log(product)
     this.router.navigate(['/public/favorite']);
   }
 
