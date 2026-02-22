@@ -198,19 +198,45 @@
 ========================= */
 
 @media (max-width: 991px) {
-  header {
+  .header {
     .logo span {
       font-size: 0.8rem;
 
       small {
         font-size: clamp(0.6rem ,vw,0.8rem);
+      }
+    }
+
+    .actions {
+      .search-box {
+        position: static;
+      }
+
+      .search-input {
+        position: fixed;
+        top: 70px;
+        left: 1rem;
+        right: 1rem;
+        width: auto;
+        margin: 0 auto;
+        max-width: 500px;
+      }
+
+      .search-dropdown {
+        position: fixed;
+        top: 110px;
+        left: 1rem;
+        right: 1rem;
+        width: auto;
+        margin: 0 auto;
+        max-width: 520px;
       }
     }
   }
 }
 
 @media (max-width: 380px) {
-  header {
+  .header {
     .logo span {
       font-size: 0.8rem;
 
@@ -218,5 +244,22 @@
         font-size: clamp(0.6rem ,vw,0.8rem);
       }
     }
+
+    .actions {
+      .search-input {
+        left: 0.5rem;
+        right: 0.5rem;
+        max-width: 100%;
+      }
+
+      .search-dropdown {
+        left: 0.5rem;
+        right: 0.5rem;
+        max-width: 100%;
+      }
+    }
   }
 }
+
+
+
