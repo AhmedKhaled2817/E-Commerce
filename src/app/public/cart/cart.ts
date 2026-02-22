@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component,inject, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CartService } from 'app/Shared/Service/cart-service';
 import { ToastrService } from 'ngx-toastr';
@@ -12,7 +12,7 @@ import { CartItem } from './cart-item';
   templateUrl: './cart.html',
   styleUrl: './cart.scss',
 })
-export class Cart implements OnInit, OnDestroy {
+export class Cart implements OnInit, OnDestroy{
   private toastr = inject(ToastrService);
 
   cartItems: CartItem[] = [];

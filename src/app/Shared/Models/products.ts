@@ -4,6 +4,7 @@ export interface Products {
   description:string,
   price:number,
   images:string[],
+  thumbnail:string,
 
   mainCategory:mainCategory
   subCategory:string,

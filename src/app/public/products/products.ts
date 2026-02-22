@@ -23,23 +23,28 @@ export class ProductsComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe({
-      next:(params)=>{
-        const subCategory=params['category'];
+    this.activatedRoute.params.subscribe(params=>{
+      const subCategory=params['category'];
+
+      if(subCategory){
         this.productService.getProductsBySubCategory(subCategory).subscribe({
           next:(res)=>{
-            this.products=res
+            this.products=res;
           },
-          error:(err)=>{
-            console.log(err.message);
-          }
+          error: err => console.log(err.message)
         })
-      },
-      error:(
-        err
-      )=>{
-        console.log(err.message);
-      },
-    })
+      }
+      else{
+        this.productService.getAllProducts().subscribe({
+          next:(res)=>{
+            this.products=res;
+          },
+          error: err => console.log(err.message)
+        })
+      }
+      })
   }
+
+
+
 }

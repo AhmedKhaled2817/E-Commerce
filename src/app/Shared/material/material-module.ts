@@ -14,6 +14,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+ import {MatSliderModule} from '@angular/material/slider';
 
 
 const modules=[
@@ -30,6 +31,7 @@ const modules=[
   MatTableModule,
   MatDialogModule,
   MatSlideToggleModule,
+  MatSliderModule
 ]
 
 @NgModule({

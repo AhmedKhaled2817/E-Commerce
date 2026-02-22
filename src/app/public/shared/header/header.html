@@ -26,7 +26,51 @@
 
   <!-- Icons & Login -->
   <div class="actions d-flex align-items-center gap-3">
-    <span class="icon cursor-pointer"><i class="fa-solid fa-magnifying-glass"></i></span>
+    <div class="search-box">
+
+  <span class="icon cursor-pointer" (click)="toggleSearch()">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </span>
+
+  @if(showSearch){
+  <input
+    class="form-control search-input"
+    placeholder="Search..."
+    (input)="onSearchInput($any($event.target).value)"
+    (keydown)="onKeyDown($event)"
+  />
+  }
+
+  @if(showDropdown){
+  <div class="search-dropdown">
+
+    @if(loading){
+      <div class="skeleton" *ngFor="let i of [1,2,3,4]"></div>
+    }
+
+    @if(!loading && result.length){
+      <div
+        class="item"
+        *ngFor="let p of result; let i = index"
+        [class.active]="i === activeIndex"
+        (click)="openProduct(p)"
+      >
+        <img [src]="p.thumbnail" width="40">
+        <div>
+          <div [innerHTML]="HighLight(p.title)"></div>
+          <small>${{p.price}}</small>
+        </div>
+      </div>
+    }
+
+    @if(!loading && result.length === 0){
+      <div class="no">No results found</div>
+    }
+
+  </div>
+  }
+
+</div>
     <span class="icon cursor-pointer"
       ><i class="fa-solid fa-globe" [mat-menu-trigger-for]="menu"></i
     ></span>

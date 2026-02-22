@@ -5,6 +5,7 @@ import { Public } from './public';
 import { Home } from './home/home';
 import { Cart } from './cart/cart';
 import { Favorite } from './favorite/favorite';
+import { ProductsComponent } from './products/products';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
       {
         path:'favorite',
         component:Favorite,
+      },
+      {
+        path:'products',
+        component: ProductsComponent
       },
       {
         path:"products/:category",

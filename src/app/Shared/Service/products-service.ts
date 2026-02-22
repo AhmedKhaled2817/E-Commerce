@@ -27,7 +27,11 @@ export class ProductsService {
     )
   }
 
-
+  searchProducts(query:string){
+    return this.httpClient.get<{products:Products[]}>(`${environment.apiUrl}/products/search?q=${query}`).pipe(
+     map(res=> res.products)
+    )
+  }
 
   //  ==== adapter  ===
 
@@ -41,6 +45,7 @@ export class ProductsService {
       description:p.description,
       price:p.price,
       images:p.images,
+      thumbnail:p.images[0],
       mainCategory,
       subCategory,
     }
