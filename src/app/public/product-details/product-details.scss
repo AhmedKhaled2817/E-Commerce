@@ -33,6 +33,7 @@
 
 .image-box img {
   max-height: 450px;
+  width: 100%;
   object-fit: contain;
   transition: .3s ease;
 }
@@ -44,6 +45,7 @@
 .thumbs {
   display: flex;
   gap: 15px;
+  flex-wrap: wrap;
 }
 
 .thumbs img {
@@ -188,30 +190,108 @@
 /* ===== RESPONSIVE ===== */
 /* ================= */
 
+/* Large tablets */
 @media (max-width: 992px) {
-
   .product-container {
     grid-template-columns: 1fr;
     gap: 40px;
-    padding: 30px 20px;
+    padding: 40px 20px;
   }
 
   .image-box img {
-    max-height: 300px;
+    max-height: 350px;
   }
 
   .action-buttons {
     flex-direction: column;
-    gap: 12px;
+    gap: 16px;
+    margin-top: 20px;
   }
 
-  .action-buttons .add-cart {
-    width: 100%;
-  }
-
+  .action-buttons .add-cart,
   .action-buttons .wishlist {
     width: 100%;
-    height: 50px;
+    height: 55px;
+    font-size: 16px;
+  }
+}
+
+/* Medium phones */
+@media (max-width: 576px) {
+  .product-container {
+    padding: 30px 15px;
+    gap: 30px;
   }
 
+  .title {
+    font-size: 24px;
+    line-height: 1.2;
+  }
+
+  .price-box {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .price-box .price {
+    font-size: 22px;
+  }
+
+  .description {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .action-buttons {
+    gap: 10px;
+    margin-top: 15px;
+  }
+
+  .action-buttons .add-cart,
+  .action-buttons .wishlist {
+    height: 50px;
+    font-size: 14px;
+    border-radius: 12px;
+  }
+
+  .thumbs img {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 375px) {
+  .product-container {
+    padding: 20px 10px;
+    gap: 20px;
+  }
+
+  .image-box img {
+    max-height: 250px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .price-box .price {
+    font-size: 20px;
+  }
+
+  .description {
+    font-size: 13px;
+  }
+
+  .action-buttons .add-cart,
+  .action-buttons .wishlist {
+    height: 45px;
+    font-size: 13px;
+  }
+
+  .thumbs img {
+    width: 50px;
+    height: 50px;
+  }
 }
