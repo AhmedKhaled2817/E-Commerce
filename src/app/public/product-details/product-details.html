@@ -1,0 +1,59 @@
+
+<div class="product-container" *ngIf="!loading; else skeleton">
+
+  <!-- LEFT SIDE -->
+  <div class="gallery-section">
+
+    <div class="image-box">
+      <img [src]="selectedImg" />
+    </div>
+
+    <div class="thumbs">
+      <img
+        *ngFor="let img of product.images"
+        [src]="img"
+        (click)="changeImg(img)"
+        [class.active]="img === selectedImg"
+      />
+    </div>
+
+  </div>
+
+  <!-- RIGHT SIDE -->
+  <div class="info-section">
+
+    <div class="category">
+      {{ product.mainCategory }} / {{ product.subCategory }}
+    </div>
+
+    <h1 class="title">
+      {{ product.title }}
+    </h1>
+
+    <div class="price-box">
+      <span class="price">${{ product.price }}</span>
+      <span class="badge">In Stock</span>
+    </div>
+
+    <p class="description">
+      {{ product.description }}
+    </p>
+
+    <div class="action-buttons">
+      <button class="add-cart" (click)="addToCart(product)">Add To Cart</button>
+      <button class="wishlist" (click)="addToFav(product)">
+        <i class="fa-regular fa-heart"></i>
+      </button>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Skeleton -->
+<ng-template #skeleton>
+  <div class="skeleton-wrapper">
+    <div class="skeleton-img"></div>
+    <div class="skeleton-info"></div>
+  </div>
+</ng-template>

@@ -2,7 +2,7 @@ import { mainCategory } from "app/Shared/Models/products";
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from 'environment/environment.products';
-import { map, Observable } from 'rxjs';
+import {map,Observable } from 'rxjs';
 import { Products } from '../Models/products';
 import { DummyProduct, dummyResponse } from '../Models/dummy-product';
 
@@ -27,9 +27,15 @@ export class ProductsService {
     )
   }
 
-  searchProducts(query:string){
-    return this.httpClient.get<{products:Products[]}>(`${environment.apiUrl}/products/search?q=${query}`).pipe(
-     map(res=> res.products)
+  searchProducts(query:string):Observable<Products[]>{
+    return this.httpClient.get<dummyResponse>(`${environment.apiUrl}/products/search?q=${query}`).pipe(
+     map(res=> res.products.map(p=> this.mapDummyToProduct(p)))
+    )
+  }
+
+  getProductsById(id:number):Observable<Products>{
+    return this.httpClient.get<DummyProduct>(`${this.apiUrl}/${id}`).pipe(
+      map(p=> this.mapDummyToProduct(p))
     )
   }
 

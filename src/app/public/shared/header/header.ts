@@ -1,7 +1,7 @@
 import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { MegaMenu } from './mega-menu/mega-menu';
 import { CommonModule } from '@angular/common';
-import { PublicRoutingModule } from '../../public-routing-module';
+import { RouterModule } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { SharedModule } from '@app/Shared';
 import { Language } from 'app/Shared/Service/language';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
-  imports: [MegaMenu, CommonModule, PublicRoutingModule, TranslatePipe, SharedModule],
+  imports: [MegaMenu, CommonModule, RouterModule, TranslatePipe, SharedModule],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })

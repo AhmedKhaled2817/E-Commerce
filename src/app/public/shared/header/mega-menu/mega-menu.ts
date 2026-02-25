@@ -3,11 +3,11 @@ import { MegaMenuModel } from './model/mega-menu-model';
 import { ProductsService } from 'app/Shared/Service/products-service';
 import { Products } from 'app/Shared/Models/products';
 import { mainCategory } from 'app/Shared/Models/products';
-import { PublicRoutingModule } from "app/public/public-routing-module";
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-mega-menu',
-  imports: [PublicRoutingModule],
+  imports: [RouterModule],
   templateUrl: './mega-menu.html',
   styleUrl: './mega-menu.scss',
 })

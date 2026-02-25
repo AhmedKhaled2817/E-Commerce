@@ -33,6 +33,10 @@ const routes: Routes = [
         loadComponent:()=>import('./products/products').then((m)=>m.ProductsComponent)
       },
       {
+        path:'product/:id',
+        loadComponent:()=>import('./product-details/product-details').then((m)=>m.ProductDetails)
+      },
+      {
         path:'',
         redirectTo:'/public/home',
         pathMatch:'full'

@@ -55,7 +55,7 @@
         [class.active]="i === activeIndex"
         (click)="openProduct(p)"
       >
-        <img [src]="p.thumbnail" width="40">
+        <img [src]="p.images[0]" width="40">
         <div>
           <div [innerHTML]="HighLight(p.title)"></div>
           <small>${{p.price}}</small>
