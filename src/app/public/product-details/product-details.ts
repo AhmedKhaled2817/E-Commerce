@@ -70,6 +70,6 @@ export class ProductDetails implements OnInit {
   addToFav(p:Products){
     const productModel=this.mapToCartModel(p)
     this.favService.addToFavorite(productModel);
-    this.router.navigate(['/public/favorites']);
+    this.router.navigate(['/public/favorite']);
   }
 }
