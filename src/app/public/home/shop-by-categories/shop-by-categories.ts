@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CategoryCard } from './category-card/category-card';
+import { ProductsService } from 'app/Shared/Service/products-service';
 
 @Component({
   selector: 'app-shop-by-categories',
@@ -9,13 +10,22 @@ import { CategoryCard } from './category-card/category-card';
   templateUrl: './shop-by-categories.html',
   styleUrl: './shop-by-categories.scss',
 })
-export class ShopByCategories {
+export class ShopByCategories implements OnInit {
 
-  readonly categoriesList:Array<{name:string,imageUrl:string}>=[
-    {name:'Casual Wear',imageUrl:'images/casual_wear.png'},
-    {name:'Western Wear',imageUrl:'images/western_wear.png'},
-    {name:'Ethnic Wear',imageUrl:'images/ethnic_wear.png'},
-    {name:'Kids Wear',imageUrl:'images/kids_wear.png'},
-  ]
+  private productService=inject(ProductsService);
+  categoriesList: Array<{name:string, imageUrl:string}>=[];
+  loading:boolean=true;
+  ngOnInit(): void {
+    this.productService.getCategoriesWithImages().subscribe({
+      next:(res)=>{
+        this.categoriesList=res.map(cat=> ({
+          name: cat.subCategory,
+          imageUrl: cat.imageUrl,
+        }))
+        this.loading=false;
+      },
+      error:()=> this.loading=false
+    })
+  }
 
 }

@@ -1,8 +1,8 @@
 import { mainCategory } from "app/Shared/Models/products";
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable} from '@angular/core';
 import { environment } from 'environment/environment.products';
-import {map,Observable } from 'rxjs';
+import {map,Observable, shareReplay } from 'rxjs';
 import { Products } from '../Models/products';
 import { DummyProduct, dummyResponse } from '../Models/dummy-product';
 
@@ -17,7 +17,8 @@ export class ProductsService {
 
   getAllProducts():Observable<Products[]>{
     return this.httpClient.get<dummyResponse>(this.apiUrl).pipe(
-      map(res=> res.products.map(p=> this.mapDummyToProduct(p)))
+      map(res=> res.products.map(p=> this.mapDummyToProduct(p))),
+      shareReplay(1)
     )
   }
 
@@ -36,6 +37,27 @@ export class ProductsService {
   getProductsById(id:number):Observable<Products>{
     return this.httpClient.get<DummyProduct>(`${this.apiUrl}/${id}`).pipe(
       map(p=> this.mapDummyToProduct(p))
+    )
+  }
+
+  getCategoriesWithImages():Observable<{mainCategory: mainCategory, subCategory:string, imageUrl:string}[]>{
+
+    return this.getAllProducts().pipe(
+      map(products=>{
+        const  grouped= new Map<string,{mainCategory: mainCategory, subCategory:string, imageUrl:string}>()
+        products.forEach(products=>{
+          if(!grouped.has(products.subCategory)){
+            grouped.set(products.subCategory,{
+              mainCategory: products.mainCategory,
+              subCategory: products.subCategory,
+              imageUrl: products.images[0]
+            });
+          }
+        });
+
+        return Array.from(grouped.values());
+      }),
+      shareReplay(1)
     )
   }
 
