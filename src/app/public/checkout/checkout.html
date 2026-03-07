@@ -6,73 +6,35 @@
 
     <!-- Shipping -->
     <div class="col-md-7">
-
       <div class="card p-4 mb-4">
-
         <h5 class="mb-3">Shipping Address</h5>
-
         <input class="form-control mb-3" placeholder="Full Name">
-
         <input class="form-control mb-3" placeholder="Phone">
-
         <input class="form-control mb-3" placeholder="City">
-
         <input class="form-control mb-3" placeholder="Address">
-
       </div>
 
       <div class="card p-4">
-
         <h5 class="mb-3">Payment Method</h5>
-
         <div class="form-check">
           <input class="form-check-input" id="cash" type="radio" name="payment">
-          <label class="form-check-label" for="cash" >
-            Cash on Delivery
-          </label>
+          <label class="form-check-label" for="cash">Cash on Delivery</label>
         </div>
-
         <div class="form-check mt-2">
           <input class="form-check-input" id="credit" type="radio" name="payment">
-          <label class="form-check-label" for="credit">
-            Credit Card
-          </label>
+          <label class="form-check-label" for="credit">Credit Card</label>
         </div>
-
       </div>
-
     </div>
 
-    <!-- Summary -->
+    <!-- Order Summary -->
     <div class="col-md-5">
-
-      <div class="card p-4">
-
-        <h5 class="mb-3">Order Summary</h5>
-
-        <div class="d-flex justify-content-between">
-          <span>Items</span>
-          <span>3</span>
-        </div>
-
-        <div class="d-flex justify-content-between mt-2">
-          <span>Shipping</span>
-          <span>Free</span>
-        </div>
-
-        <hr>
-
-        <div class="d-flex justify-content-between fw-bold">
-          <span>Total</span>
-          <span>$329.98</span>
-        </div>
-
-        <button class="btn btn-dark w-100 mt-4">
-          Place Order
-        </button>
-
-      </div>
-
+      <app-order-summary
+        [items$]="items$"
+        [totalPrice$]="totalPrice$"
+        [buttonText]="buttonText"
+        (action)="onAction()">
+      </app-order-summary>
     </div>
 
   </div>

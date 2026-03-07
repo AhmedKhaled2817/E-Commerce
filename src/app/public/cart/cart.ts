@@ -6,10 +6,11 @@ import { CommonModule } from '@angular/common';
 import { PriceNumberPipe } from 'app/Shared/pipes/price-number-pipe';
 import { CartItem } from './cart-item';
 import { Router } from '@angular/router';
+import { OrderSummary } from '../shared/components/order-summary/order-summary';
 
 @Component({
   selector: 'app-cart',
-  imports: [CommonModule,PriceNumberPipe],
+  imports: [CommonModule,PriceNumberPipe,OrderSummary],
   templateUrl: './cart.html',
   styleUrl: './cart.scss',
 })
@@ -20,6 +21,10 @@ export class Cart implements OnInit, OnDestroy{
   private sub!: Subscription;
   private cartService = inject(CartService);
   private router=inject(Router);
+
+  // Observable for cart items
+  cartItems$ = this.cartService.cartItems$;
+  cartTotalPrice$=this.cartService.totalPrice$;
 
 
 

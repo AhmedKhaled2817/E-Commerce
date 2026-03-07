@@ -1,0 +1,54 @@
+.cart-summary {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+
+  h5 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 1rem;
+  }
+
+  .d-flex {
+    font-size: 14px;
+    margin-bottom: 0.75rem;
+
+    span:last-child {
+      font-weight: 600;
+    }
+  }
+
+  .text-success {
+    color: #28a745 !important;
+  }
+
+  hr {
+    margin: 1rem 0;
+    opacity: 0.1;
+  }
+
+  .fw-bold {
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  .fs-5 {
+    font-size: 1.25rem;
+  }
+
+  button.btn-dark {
+    width: 100%;
+    height: 46px;
+    border-radius: 8px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    transition: all 0.25s ease;
+
+    &:hover {
+      background-color: #000;
+      transform: translateY(-1px);
+    }
+  }
+}
