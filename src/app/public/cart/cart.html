@@ -96,7 +96,7 @@
             <span>{{ totalPrice$ | async | currency }}</span>
           </div>
 
-          <button class="btn btn-dark w-100 rounded-pill">
+          <button class="btn btn-dark w-100 rounded-pill" (click)="navigateToCheckout()">
             Proceed to Checkout
           </button>
         </div>

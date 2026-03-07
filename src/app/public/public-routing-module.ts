@@ -6,6 +6,7 @@ import { Home } from './home/home';
 import { Cart } from './cart/cart';
 import { Favorite } from './favorite/favorite';
 import { ProductsComponent } from './products/products';
+import { Checkout } from './checkout/checkout';
 
 const routes: Routes = [
   {
@@ -35,6 +36,10 @@ const routes: Routes = [
       {
         path:'product/:id',
         loadComponent:()=>import('./product-details/product-details').then((m)=>m.ProductDetails)
+      },
+      {
+        path:'checkout',
+        component:Checkout,
       },
       {
         path:'',

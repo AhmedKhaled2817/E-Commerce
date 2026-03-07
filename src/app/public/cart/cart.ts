@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { PriceNumberPipe } from 'app/Shared/pipes/price-number-pipe';
 import { CartItem } from './cart-item';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -18,6 +19,7 @@ export class Cart implements OnInit, OnDestroy{
   cartItems: CartItem[] = [];
   private sub!: Subscription;
   private cartService = inject(CartService);
+  private router=inject(Router);
 
 
 
@@ -63,4 +65,10 @@ export class Cart implements OnInit, OnDestroy{
   decreaseQuantity(id:number){
     this.cartService.decreaseQuantity(id);
   }
+
+  //  navigate to checkout page
+  navigateToCheckout(){
+    this.router.navigate(['/public/checkout']);
+  }
+
 }

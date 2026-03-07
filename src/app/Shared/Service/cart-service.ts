@@ -96,4 +96,5 @@ export class CartService {
       this.saveToLocalStorage(updatedItems);
     }
   }
+
 }

@@ -3,8 +3,8 @@
     "header": {
       "home":"Home",
       "shop":"Shop",
-      "ourStory": "Our Story",
-      "blog": "blog",
+      "order": "My Orders",
+      "profile": "My Profile",
       "contact" :"Contact  Us"
     }
   },
