@@ -1,114 +1,265 @@
-# 🛍️ E-CommerceApp | Modern Angular E-Commerce Solution
+# 🛍️ E-CommerceApp
 
-[![Angular](https://img.shields.io/badge/Angular-20.0-DD0031?style=for-the-badge&logo=angular)](https://angular.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-[![Material Design](https://img.shields.io/badge/Material--UI-Angular-0081CB?style=for-the-badge&logo=angular-material)](https://material.angular.io/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+A modern and fully responsive E-Commerce web application built with
+**Angular** and **Angular Material**.\
+The application allows users to browse products, manage their cart, add
+favorites, and place orders with full multi-language support.
 
-A high-performance, enterprise-ready E-Commerce application built with **Angular 20**. This project focuses on modern web standards, featuring a fully responsive UI, seamless internationalization, and optimized state management.
+## 📌 1. Project Overview
 
----
+E-CommerceApp provides:
 
-## 📸 Visuals & UI/UX
+-   Smooth browsing of products and categories\
+-   Clean UI with Angular Material\
+-   Full cart management\
+-   Favorite list\
+-   Multi-language support (EN / AR)\
+-   Admin dashboard for managing the platform\
+-   Responsive design across all devices
 
-> **Note:** Add your screenshots here to showcase the beautiful UI!
+## 📦 2. Installed Packages
 
-|                              Desktop View                              |                           Mobile View                           |
-| :--------------------------------------------------------------------: | :-------------------------------------------------------------: |
-| ![Desktop](https://via.placeholder.com/600x400?text=Desktop+Home+Page) | ![Mobile](https://via.placeholder.com/200x400?text=Mobile+View) |
+### UI & Styling
 
----
+-   @angular/material
+-   bootstrap@latest
+-   @fortawesome/fontawesome-free
 
-## � Core Features
+### Notifications
 
-### 🛒 Customer Experience
+-   ngx-toastr
 
-- **⚡ High-Speed Browsing:** Optimized product loading using **Signals** for reactive UI updates.
-- **🔍 Advanced Search & Filter:** Real-time search and category-based filtering.
-- **🛍️ Cart Management:** Persistent shopping cart with real-time price calculations (Tax, Shipping, Total).
-- **❤️ Wishlist System:** Save favorite items for later.
-- **🌍 Multi-language (i18n):** Full support for **Arabic (RTL)** and **English (LTR)** with dynamic switching.
-- **📱 Ultra-Responsive:** Mobile-first design using **Bootstrap 5** and **Angular Material Flex**.
+### Localization
 
-### 🛠️ Administrative Power
+-   @ngx-translate/core
+-   @ngx-translate/http-loader
 
-- **📊 Management Dashboard:** Complete CRUD operations for products and categories.
-- **🎨 Interactive Workflows:** Smooth user interactions via Material Dialogs and Toastr notifications.
+## ✨ 3. Features
 
----
+### 🛒 User Features
 
-## 🏗️ Technical Architecture & Best Practices
+-   Browse products by category\
+-   Search products by name\
+-   View detailed product info\
+-   Add / remove items from cart\
+-   Update cart item quantity\
+-   Add / remove favorites\
+-   Checkout and place orders\
+-   Responsive design\
+-   Toastr notifications\
+-   Multi-language support
 
-This project is built using the latest **Angular 20** features and follows industry-standard best practices:
+### 🛠️ Admin Features
 
-- **Signals API:** Efficient state management for fine-grained reactivity.
-- **Standalone Components:** Reduced boilerplate and improved tree-shaking.
-- **Functional Interceptors:** Modern approach to handling HTTP requests/responses.
-- **Adapter Pattern:** Used in `ProductsService` to map API responses to clean internal models.
-- **Clean Architecture:** Strict separation of concerns between `Core`, `Shared`, and `Features`.
-- **SCSS Architecture:** Modular styling with variables and mixins.
+-   Manage products (Add / Edit / Delete)\
+-   Manage categories\
+-   Manage user feedback\
+-   Admin notifications
 
----
+## 🧰 4. Technologies Used
 
-## 📁 Folder Structure
+-   Angular\
+-   Angular Material\
+-   TypeScript\
+-   HTML5\
+-   SCSS\
+-   Bootstrap 5\
+-   Font Awesome\
+-   ngx-translate\
+-   ngx-toastr
 
-```text
-eCommerce/
-├── features/               # Global assets and configurations
-│   ├── i18n/               # Translation files (JSON)
-│   └── images/             # Static UI assets
-├── src/
-│   ├── app/
-│   │   ├── Core/           # Global singleton services (Dialogs, Auth)
-│   │   ├── Shared/         # Reusable Components, Pipes, Models, & Enums
-│   │   ├── admin/          # Admin-only modules & views
-│   │   └── public/         # Customer-facing views (Home, Auth, Cart)
-│   ├── environment/        # Environment configurations (Dev/Prod)
-│   └── main.ts             # Bootstrapping the application
-└── package.json            # Scripts & Dependencies
-```
+## 📁 5. Project Structure
 
----
+    src/
+     ├── app/
+     │   ├── core/                
+     │   │    ├── auth
+     │   │    ├── cart
+     │   │    ├── favorite
+     │   │    ├── home
+     │   │    ├── product
+     │   │    ├── orders
+     │   │    ├── profile
+     │   │    ├── notification
+     │   │    ├── interceptors
+     │   │    ├── guards
+     │   │    └── resolvers
+     │   │
+     │   ├── admin/               
+     │   │    ├── manage-products
+     │   │    ├── categories
+     │   │    ├── feedback
+     │   │    └── notification
+     │   │
+     │   ├── shared/              
+     │   │    ├── components
+     │   │    ├── models
+     │   │    ├── enums
+     │   │    ├── services
+     │   │    ├── directives
+     │   │    ├── pipes
+     │   │    └── modules
+     │   │
+     │   └── layout/              
+     │
+     ├── assets/
+     │   ├── i18n/                
+     │   │     ├── en.json
+     │   │     └── ar.json
+     │   └── images/
+     │
+     └── environments/
+          ├── environment.ts
+          └── environment.prod.ts
 
-## 🛠️ Installation & Setup
+## 🌍 6. Internationalization (i18n)
 
-### Prerequisites
+Using **ngx-translate**\
+Supported languages:
 
-- **Node.js:** Latest LTS version.
-- **Angular CLI:** `npm install -g @angular/cli`
+-   **English (en)**
+-   **Arabic (ar)**
 
-### Step-by-Step Guide
+With dynamic language switching.
 
-1. **Clone the Repo:**
-   ```bash
-   git clone https://github.com/AhmedKhaled/eCommerce.git
-   ```
-2. **Install Dependencies:**
-   ```bash
-   npm install
-   ```
-3. **Run Development Server:**
-   ```bash
-   ng serve
-   ```
-4. **Access the App:** Open [http://localhost:4200](http://localhost:4200)
+## 🔧 7. Environment Setup
 
----
+The app uses two environment files:
 
-## 🧑‍💻 Author
+-   environment.ts → Development\
+-   environment.prod.ts → Production
 
-**Ahmed Khaled**  
-_Front-End Developer (Angular)_
+Each file contains API URLs and global configuration.
 
-- 💼 [LinkedIn](https://linkedin.com/in/yourprofile)
-- 📧 [Email](mailto:ahmed.khaled@example.com)
+## 🚀 8. Run the Project
 
----
+Install dependencies:
 
-## 📄 License
+    npm install
 
-Distributed under the **MIT License**. See `LICENSE` for more information.
+Run development server:
 
----
+    ng serve -o
 
-_Developed with ❤️ by Ahmed Khaled_
+Build for production:
+
+    ng build --prod
+
+## 🧑‍💻 9. Author
+
+**Ahmed Khaled**\
+Front-End Developer (Angular)
+
+## ⭐ 10. Contributions
+
+Pull requests are welcome for improvements or new features.
+
+
+<!-- ## E-CommerceApp
+
+# 1- project Overview
+- E-CommerceApp is a web application that allows users to browse and purchase products online.
+- The application is built using Angular and Angular Material.
+- The application is responsive and works on all devices.
+
+
+# 2-  Packages :
+
+- ng add @angular/material
+- npm install ngx-toastr --save
+- npm install @ngx-translate/core
+- npm install @ngx-translate/http-loader
+- npm install bootstrap@latest
+- npm install @fortawesome/fontawesome-free
+
+
+# 3- Features
+- User can browse products by category.
+- User can search for products by name.
+- User can view product details.
+- User can add products to the cart.
+- User can remove products from the cart.
+- User can update the quantity of products in the cart.
+- User can checkout and place an order.
+
+# 4- Technologies Used
+- Angular
+- Angular Material
+- TypeScript
+- HTML
+- Scss
+- Angular Cli
+- ngx-translate
+- ngx-toastr
+- bootstrap 5
+- font-awesome
+
+# 5- Project Structure:
+
+## 5.1 core
+ - This folder contains the core modules of the application.
+- The core modules are responsible for handling the application's global state and logic.
+- The core modules are contain :
+  - auth  (account) 
+  - cart
+  - favorite
+  - home Page
+  - product
+  - orders
+  - profile
+  - Notification (toastr)
+  - Interceptor
+  - Guards
+  - Resolvers
+
+## 5.2 Admin
+ - This folder contains the admin modules of the application.
+- The admin modules are responsible for handling the application's admin features.
+- The admin modules are:
+  - Manage products
+  - Categories 
+  - Feedback
+  - Notification 
+
+## 5.3 shared
+ - This folder contains the shared modules of the application.
+- The shared modules are responsible for handling the application's shared components, directives, and pipes.
+- The shared modules are:
+  - components
+  - Models
+  - Enums
+  - Service
+  - directives
+  - pipes
+  - Modules ( as angular matrial , ngx-translate , ngx-toastr)
+  - Layout (as header , footer , sidebar)
+
+
+# 6 - public:
+### i18n 
+- This folder contains the internationalization files of the application.
+- The internationalization files are responsible for handling the application's multi-language support.
+- The internationalization files are:
+  - en.json
+  - ar.json
+
+### Images
+
+
+# 7 - Environment
+- This folder contains the environment files of the application.
+- The environment files are responsible for handling the application's environment variables.
+- The environment files are:
+  - environment.ts
+  - environment.prod.ts 
+
+
+# 8- Layout
+- This folder contains the layout modules of the application.
+- The layout modules are responsible for handling the application's layout features.
+- The layout modules are:
+  - Admin layout
+  - User layout
+  - Public layout
+  
+  -->
