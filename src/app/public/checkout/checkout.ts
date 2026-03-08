@@ -1,5 +1,5 @@
-import { Component ,inject} from '@angular/core';
-import { OrderSummary } from '../shared/components/order-summary/order-summary';
+import { OrderSummary } from './../shared/components/order-summary/order-summary';
+import { Component,inject} from '@angular/core';
 import { CartService } from 'app/Shared/Service/cart-service';
 
 @Component({
@@ -18,5 +18,4 @@ export class Checkout  {
   placeOrder(): void {
     this.cartService.clearCart();
   }
-
 }

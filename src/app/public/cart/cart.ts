@@ -1,3 +1,4 @@
+import { OrderSummary } from './../shared/components/order-summary/order-summary';
 import { Component,inject, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CartService } from 'app/Shared/Service/cart-service';
@@ -6,7 +7,6 @@ import { CommonModule } from '@angular/common';
 import { PriceNumberPipe } from 'app/Shared/pipes/price-number-pipe';
 import { CartItem } from './cart-item';
 import { Router } from '@angular/router';
-import { OrderSummary } from '../shared/components/order-summary/order-summary';
 
 @Component({
   selector: 'app-cart',
