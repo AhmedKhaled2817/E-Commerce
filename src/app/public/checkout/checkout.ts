@@ -1,7 +1,5 @@
-import { Component, EventEmitter, inject, Input,Output } from '@angular/core';
+import { Component ,inject} from '@angular/core';
 import { OrderSummary } from '../shared/components/order-summary/order-summary';
-import { Observable } from 'rxjs';
-import { CartItem } from '../cart/cart-item';
 import { CartService } from 'app/Shared/Service/cart-service';
 
 @Component({
@@ -13,12 +11,12 @@ import { CartService } from 'app/Shared/Service/cart-service';
 export class Checkout  {
   private cartService = inject(CartService);
 
-  @Input() items$: Observable<CartItem[]> = this.cartService.cartItems$;
-  @Input() totalPrice$: Observable<number> = this.cartService.totalPrice$;
-  @Input() buttonText: string = 'Checkout';
-  @Output() action = new EventEmitter<void>();
-  onAction(): void {
-    this.action.emit();
+  items$= this.cartService.cartItems$;
+  totalPrice$= this.cartService.totalPrice$;
+  buttonText: string = 'Place Order';
+
+  placeOrder(): void {
+    this.cartService.clearCart();
   }
 
 }
