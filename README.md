@@ -1,265 +1,89 @@
 # 🛍️ E-CommerceApp
 
-A modern and fully responsive E-Commerce web application built with
-**Angular** and **Angular Material**.\
-The application allows users to browse products, manage their cart, add
-favorites, and place orders with full multi-language support.
+A modern, high-performance, and fully responsive E-Commerce web application built with **Angular 20** and **Angular Material**. This project demonstrates a clean architecture, modular design, and full internationalization support.
 
 ## 📌 1. Project Overview
 
-E-CommerceApp provides:
+E-CommerceApp is designed to provide a seamless shopping experience:
+- **Client Side:** Browsing products, category filtering, advanced search, cart management, and a wishlist system.
+- **Admin Side:** A dedicated dashboard to manage products, categories, and monitor platform activity.
+- **Modern Tech:** Built using Angular's latest features like **Signals**, **Standalone Components**, and **Functional Interceptors**.
 
--   Smooth browsing of products and categories\
--   Clean UI with Angular Material\
--   Full cart management\
--   Favorite list\
--   Multi-language support (EN / AR)\
--   Admin dashboard for managing the platform\
--   Responsive design across all devices
+## 📦 2. Key Features
 
-## 📦 2. Installed Packages
+### 🛒 User Experience
+- **Dynamic Product Catalog:** Smooth browsing with real-time search and category filtering.
+- **Full Cart Management:** Add/remove items, update quantities with instant price calculation.
+- **Favorites/Wishlist:** Save products for later viewing.
+- **Multilingual Support:** Full RTL/LTR support for Arabic and English using `@ngx-translate`.
+- **Responsive UI:** Optimized for Mobile, Tablet, and Desktop using **Bootstrap 5** and **Angular Material**.
 
-### UI & Styling
+### 🛠️ Admin Dashboard
+- **Product Management:** Full CRUD operations for products.
+- **Category Management:** Organize the store with custom categories.
+- **Dialog-based Workflows:** Clean and intuitive management using Material Dialogs.
 
--   @angular/material
--   bootstrap@latest
--   @fortawesome/fontawesome-free
+## 🧰 3. Technologies & Packages
 
-### Notifications
+- **Framework:** [Angular 20](https://angular.dev/)
+- **UI Components:** [Angular Material](https://material.angular.io/)
+- **Styling:** SCSS, Bootstrap 5, Font Awesome 7
+- **Localization:** `@ngx-translate/core`
+- **Notifications:** `ngx-toastr`
+- **State Management:** Angular Signals & RxJS BehaviorSubjects
 
--   ngx-toastr
+## 📁 4. Project Structure
 
-### Localization
+The project follows a modular structure for better scalability:
 
--   @ngx-translate/core
--   @ngx-translate/http-loader
+```text
+eCommerce/
+├── features/               # Global assets and configurations
+│   ├── i18n/               # Translation files (ar.json, en.json)
+│   └── images/             # Project images and banners
+├── src/
+│   ├── app/
+│   │   ├── Core/           # Global services (Dialog, etc.)
+│   │   ├── Shared/         # Reusable Components, Models, Pipes, and Services
+│   │   ├── admin/          # Admin Dashboard modules
+│   │   └── public/         # User-facing modules (Home, Auth, Cart, etc.)
+│   ├── environment/        # Environment-specific configurations
+│   └── main.ts             # Application entry point
+└── package.json            # Dependencies and scripts
+```
 
-## ✨ 3. Features
+## 🌍 5. Internationalization (i18n)
 
-### 🛒 User Features
+The app supports dynamic language switching between:
+- 🇺🇸 **English (EN)** - Left-to-Right (LTR)
+- 🇪🇬 **Arabic (AR)** - Right-to-Left (RTL)
 
--   Browse products by category\
--   Search products by name\
--   View detailed product info\
--   Add / remove items from cart\
--   Update cart item quantity\
--   Add / remove favorites\
--   Checkout and place orders\
--   Responsive design\
--   Toastr notifications\
--   Multi-language support
+Translations are managed in `features/i18n/`.
 
-### 🛠️ Admin Features
+## 🚀 6. Getting Started
 
--   Manage products (Add / Edit / Delete)\
--   Manage categories\
--   Manage user feedback\
--   Admin notifications
+### Prerequisites
+- Node.js (Latest LTS)
+- Angular CLI (`npm install -g @angular/cli`)
 
-## 🧰 4. Technologies Used
+### Installation
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
--   Angular\
--   Angular Material\
--   TypeScript\
--   HTML5\
--   SCSS\
--   Bootstrap 5\
--   Font Awesome\
--   ngx-translate\
--   ngx-toastr
+### Running the App
+Run the development server:
+```bash
+ng serve
+```
+Navigate to `http://localhost:4200/`.
 
-## 📁 5. Project Structure
+## 🧑‍💻 7. Author
 
-    src/
-     ├── app/
-     │   ├── core/                
-     │   │    ├── auth
-     │   │    ├── cart
-     │   │    ├── favorite
-     │   │    ├── home
-     │   │    ├── product
-     │   │    ├── orders
-     │   │    ├── profile
-     │   │    ├── notification
-     │   │    ├── interceptors
-     │   │    ├── guards
-     │   │    └── resolvers
-     │   │
-     │   ├── admin/               
-     │   │    ├── manage-products
-     │   │    ├── categories
-     │   │    ├── feedback
-     │   │    └── notification
-     │   │
-     │   ├── shared/              
-     │   │    ├── components
-     │   │    ├── models
-     │   │    ├── enums
-     │   │    ├── services
-     │   │    ├── directives
-     │   │    ├── pipes
-     │   │    └── modules
-     │   │
-     │   └── layout/              
-     │
-     ├── assets/
-     │   ├── i18n/                
-     │   │     ├── en.json
-     │   │     └── ar.json
-     │   └── images/
-     │
-     └── environments/
-          ├── environment.ts
-          └── environment.prod.ts
+**Ahmed Khaled**  
+*Front-End Developer (Angular)*
 
-## 🌍 6. Internationalization (i18n)
-
-Using **ngx-translate**\
-Supported languages:
-
--   **English (en)**
--   **Arabic (ar)**
-
-With dynamic language switching.
-
-## 🔧 7. Environment Setup
-
-The app uses two environment files:
-
--   environment.ts → Development\
--   environment.prod.ts → Production
-
-Each file contains API URLs and global configuration.
-
-## 🚀 8. Run the Project
-
-Install dependencies:
-
-    npm install
-
-Run development server:
-
-    ng serve -o
-
-Build for production:
-
-    ng build --prod
-
-## 🧑‍💻 9. Author
-
-**Ahmed Khaled**\
-Front-End Developer (Angular)
-
-## ⭐ 10. Contributions
-
-Pull requests are welcome for improvements or new features.
-
-
-<!-- ## E-CommerceApp
-
-# 1- project Overview
-- E-CommerceApp is a web application that allows users to browse and purchase products online.
-- The application is built using Angular and Angular Material.
-- The application is responsive and works on all devices.
-
-
-# 2-  Packages :
-
-- ng add @angular/material
-- npm install ngx-toastr --save
-- npm install @ngx-translate/core
-- npm install @ngx-translate/http-loader
-- npm install bootstrap@latest
-- npm install @fortawesome/fontawesome-free
-
-
-# 3- Features
-- User can browse products by category.
-- User can search for products by name.
-- User can view product details.
-- User can add products to the cart.
-- User can remove products from the cart.
-- User can update the quantity of products in the cart.
-- User can checkout and place an order.
-
-# 4- Technologies Used
-- Angular
-- Angular Material
-- TypeScript
-- HTML
-- Scss
-- Angular Cli
-- ngx-translate
-- ngx-toastr
-- bootstrap 5
-- font-awesome
-
-# 5- Project Structure:
-
-## 5.1 core
- - This folder contains the core modules of the application.
-- The core modules are responsible for handling the application's global state and logic.
-- The core modules are contain :
-  - auth  (account) 
-  - cart
-  - favorite
-  - home Page
-  - product
-  - orders
-  - profile
-  - Notification (toastr)
-  - Interceptor
-  - Guards
-  - Resolvers
-
-## 5.2 Admin
- - This folder contains the admin modules of the application.
-- The admin modules are responsible for handling the application's admin features.
-- The admin modules are:
-  - Manage products
-  - Categories 
-  - Feedback
-  - Notification 
-
-## 5.3 shared
- - This folder contains the shared modules of the application.
-- The shared modules are responsible for handling the application's shared components, directives, and pipes.
-- The shared modules are:
-  - components
-  - Models
-  - Enums
-  - Service
-  - directives
-  - pipes
-  - Modules ( as angular matrial , ngx-translate , ngx-toastr)
-  - Layout (as header , footer , sidebar)
-
-
-# 6 - public:
-### i18n 
-- This folder contains the internationalization files of the application.
-- The internationalization files are responsible for handling the application's multi-language support.
-- The internationalization files are:
-  - en.json
-  - ar.json
-
-### Images
-
-
-# 7 - Environment
-- This folder contains the environment files of the application.
-- The environment files are responsible for handling the application's environment variables.
-- The environment files are:
-  - environment.ts
-  - environment.prod.ts 
-
-
-# 8- Layout
-- This folder contains the layout modules of the application.
-- The layout modules are responsible for handling the application's layout features.
-- The layout modules are:
-  - Admin layout
-  - User layout
-  - Public layout
-  
-  -->
+---
+*If you like this project, feel free to give it a ⭐!*
