@@ -1,89 +1,114 @@
-# 🛍️ E-CommerceApp
+# 🛍️ E-CommerceApp | Modern Angular E-Commerce Solution
 
-A modern, high-performance, and fully responsive E-Commerce web application built with **Angular 20** and **Angular Material**. This project demonstrates a clean architecture, modular design, and full internationalization support.
+[![Angular](https://img.shields.io/badge/Angular-20.0-DD0031?style=for-the-badge&logo=angular)](https://angular.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![Material Design](https://img.shields.io/badge/Material--UI-Angular-0081CB?style=for-the-badge&logo=angular-material)](https://material.angular.io/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-## 📌 1. Project Overview
+A high-performance, enterprise-ready E-Commerce application built with **Angular 20**. This project focuses on modern web standards, featuring a fully responsive UI, seamless internationalization, and optimized state management.
 
-E-CommerceApp is designed to provide a seamless shopping experience:
-- **Client Side:** Browsing products, category filtering, advanced search, cart management, and a wishlist system.
-- **Admin Side:** A dedicated dashboard to manage products, categories, and monitor platform activity.
-- **Modern Tech:** Built using Angular's latest features like **Signals**, **Standalone Components**, and **Functional Interceptors**.
+---
 
-## 📦 2. Key Features
+## 📸 Visuals & UI/UX
 
-### 🛒 User Experience
-- **Dynamic Product Catalog:** Smooth browsing with real-time search and category filtering.
-- **Full Cart Management:** Add/remove items, update quantities with instant price calculation.
-- **Favorites/Wishlist:** Save products for later viewing.
-- **Multilingual Support:** Full RTL/LTR support for Arabic and English using `@ngx-translate`.
-- **Responsive UI:** Optimized for Mobile, Tablet, and Desktop using **Bootstrap 5** and **Angular Material**.
+> **Note:** Add your screenshots here to showcase the beautiful UI!
 
-### 🛠️ Admin Dashboard
-- **Product Management:** Full CRUD operations for products.
-- **Category Management:** Organize the store with custom categories.
-- **Dialog-based Workflows:** Clean and intuitive management using Material Dialogs.
+|                              Desktop View                              |                           Mobile View                           |
+| :--------------------------------------------------------------------: | :-------------------------------------------------------------: |
+| ![Desktop](https://via.placeholder.com/600x400?text=Desktop+Home+Page) | ![Mobile](https://via.placeholder.com/200x400?text=Mobile+View) |
 
-## 🧰 3. Technologies & Packages
+---
 
-- **Framework:** [Angular 20](https://angular.dev/)
-- **UI Components:** [Angular Material](https://material.angular.io/)
-- **Styling:** SCSS, Bootstrap 5, Font Awesome 7
-- **Localization:** `@ngx-translate/core`
-- **Notifications:** `ngx-toastr`
-- **State Management:** Angular Signals & RxJS BehaviorSubjects
+## � Core Features
 
-## 📁 4. Project Structure
+### 🛒 Customer Experience
 
-The project follows a modular structure for better scalability:
+- **⚡ High-Speed Browsing:** Optimized product loading using **Signals** for reactive UI updates.
+- **🔍 Advanced Search & Filter:** Real-time search and category-based filtering.
+- **🛍️ Cart Management:** Persistent shopping cart with real-time price calculations (Tax, Shipping, Total).
+- **❤️ Wishlist System:** Save favorite items for later.
+- **🌍 Multi-language (i18n):** Full support for **Arabic (RTL)** and **English (LTR)** with dynamic switching.
+- **📱 Ultra-Responsive:** Mobile-first design using **Bootstrap 5** and **Angular Material Flex**.
+
+### 🛠️ Administrative Power
+
+- **📊 Management Dashboard:** Complete CRUD operations for products and categories.
+- **🎨 Interactive Workflows:** Smooth user interactions via Material Dialogs and Toastr notifications.
+
+---
+
+## 🏗️ Technical Architecture & Best Practices
+
+This project is built using the latest **Angular 20** features and follows industry-standard best practices:
+
+- **Signals API:** Efficient state management for fine-grained reactivity.
+- **Standalone Components:** Reduced boilerplate and improved tree-shaking.
+- **Functional Interceptors:** Modern approach to handling HTTP requests/responses.
+- **Adapter Pattern:** Used in `ProductsService` to map API responses to clean internal models.
+- **Clean Architecture:** Strict separation of concerns between `Core`, `Shared`, and `Features`.
+- **SCSS Architecture:** Modular styling with variables and mixins.
+
+---
+
+## 📁 Folder Structure
 
 ```text
 eCommerce/
 ├── features/               # Global assets and configurations
-│   ├── i18n/               # Translation files (ar.json, en.json)
-│   └── images/             # Project images and banners
+│   ├── i18n/               # Translation files (JSON)
+│   └── images/             # Static UI assets
 ├── src/
 │   ├── app/
-│   │   ├── Core/           # Global services (Dialog, etc.)
-│   │   ├── Shared/         # Reusable Components, Models, Pipes, and Services
-│   │   ├── admin/          # Admin Dashboard modules
-│   │   └── public/         # User-facing modules (Home, Auth, Cart, etc.)
-│   ├── environment/        # Environment-specific configurations
-│   └── main.ts             # Application entry point
-└── package.json            # Dependencies and scripts
+│   │   ├── Core/           # Global singleton services (Dialogs, Auth)
+│   │   ├── Shared/         # Reusable Components, Pipes, Models, & Enums
+│   │   ├── admin/          # Admin-only modules & views
+│   │   └── public/         # Customer-facing views (Home, Auth, Cart)
+│   ├── environment/        # Environment configurations (Dev/Prod)
+│   └── main.ts             # Bootstrapping the application
+└── package.json            # Scripts & Dependencies
 ```
 
-## 🌍 5. Internationalization (i18n)
+---
 
-The app supports dynamic language switching between:
-- 🇺🇸 **English (EN)** - Left-to-Right (LTR)
-- 🇪🇬 **Arabic (AR)** - Right-to-Left (RTL)
-
-Translations are managed in `features/i18n/`.
-
-## 🚀 6. Getting Started
+## 🛠️ Installation & Setup
 
 ### Prerequisites
-- Node.js (Latest LTS)
-- Angular CLI (`npm install -g @angular/cli`)
 
-### Installation
-1. Clone the repository
-2. Install dependencies:
+- **Node.js:** Latest LTS version.
+- **Angular CLI:** `npm install -g @angular/cli`
+
+### Step-by-Step Guide
+
+1. **Clone the Repo:**
+   ```bash
+   git clone https://github.com/AhmedKhaled/eCommerce.git
+   ```
+2. **Install Dependencies:**
    ```bash
    npm install
    ```
-
-### Running the App
-Run the development server:
-```bash
-ng serve
-```
-Navigate to `http://localhost:4200/`.
-
-## 🧑‍💻 7. Author
-
-**Ahmed Khaled**  
-*Front-End Developer (Angular)*
+3. **Run Development Server:**
+   ```bash
+   ng serve
+   ```
+4. **Access the App:** Open [http://localhost:4200](http://localhost:4200)
 
 ---
-*If you like this project, feel free to give it a ⭐!*
+
+## 🧑‍💻 Author
+
+**Ahmed Khaled**  
+_Front-End Developer (Angular)_
+
+- 💼 [LinkedIn](https://linkedin.com/in/yourprofile)
+- 📧 [Email](mailto:ahmed.khaled@example.com)
+
+---
+
+## 📄 License
+
+Distributed under the **MIT License**. See `LICENSE` for more information.
+
+---
+
+_Developed with ❤️ by Ahmed Khaled_
