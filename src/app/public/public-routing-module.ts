@@ -38,6 +38,10 @@ const routes: Routes = [
         loadComponent:()=>import('./product-details/product-details').then((m)=>m.ProductDetails)
       },
       {
+        path:'my-orders',
+        loadComponent:()=>import('./my-orders/my-orders').then((m)=>m.MyOrders)
+      },
+      {
         path:'checkout',
         component:Checkout,
       },

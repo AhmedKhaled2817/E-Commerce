@@ -1,0 +1,62 @@
+<div class="container my-5">
+  <h2 class="mb-4 fw-bold">My Orders</h2>
+
+  @if (orders$ | async; as orders) {
+    @if (orders.length === 0) {
+      <div class="text-center py-5 text-muted fs-5">
+        <i class="fa-solid fa-box-open fs-1 mb-3"></i>
+        No orders yet
+      </div>
+    } @else {
+      @for (order of orders; track order.id) {
+        <div class="card mb-4 order-card">
+          <!-- Header -->
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <div>
+              <strong>Order #{{ order.id }}</strong>
+              <small class="text-muted"> - {{ order.date | date: 'medium' }}</small>
+            </div>
+          </div>
+
+          <!-- Items List -->
+          <div class="card-body">
+            @for (item of order.items; track item.id) {
+              <div
+                class="order-item d-flex justify-content-between align-items-center mb-3 p-2 rounded hover-bg"
+              >
+                <div class="d-flex align-items-center gap-3">
+                  <img [src]="item.imgUrl" alt="{{ item.name }}" class="order-item-img" />
+                  <div class="order-item-details">
+                    <div class="order-item-name">{{ item.name }}</div>
+                    <div class="order-item-description text-muted small">
+                      {{ item.description || '' }}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="text-end fw-semibold">
+                  <div>Qty: {{ item.quantity }}</div>
+                  <div>{{ item.price | currency }}</div>
+                </div>
+              </div>
+            }
+
+            <hr class="my-3" />
+
+            <!-- Total -->
+            <div class="d-flex justify-content-between align-items-center total-section">
+              <div class="fw-bold fs-5">Total:</div>
+              <div class="fw-bold fs-5">{{ order.totalPrice | currency }}</div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="mt-3 d-flex gap-2 flex-wrap order-buttons-container">
+              <button class="btn btn-primary">View Details</button>
+              <button class="btn btn-outline-secondary">Reorder</button>
+            </div>
+          </div>
+        </div>
+      }
+    }
+  }
+</div>

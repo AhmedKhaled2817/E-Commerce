@@ -1,0 +1,226 @@
+.order-card {
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  transition: all 0.25s ease-in-out;
+  margin-bottom: 1.5rem;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+  }
+
+  .card-header {
+    background: linear-gradient(90deg, #f8f9fa, #e9ecef);
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #dee2e6;
+    font-size: 1rem;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .order-id {
+      color: #343a40;
+    }
+
+    .order-date {
+      font-size: 0.875rem;
+      color: #6c757d;
+    }
+  }
+
+  .card-body {
+    padding: 1.25rem 1.5rem;
+
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0.5rem;
+      border-radius: 0.5rem;
+      transition:
+        background 0.2s,
+        transform 0.2s;
+
+      &:hover {
+        background: #f1f3f5;
+        transform: translateX(2px);
+      }
+
+      .order-item-img {
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        flex-shrink: 0;
+      }
+
+      .order-item-details {
+        margin-left: 1rem;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-width: 0; // Fix for text-overflow
+
+        .order-item-name {
+          font-weight: 600;
+          font-size: 0.95rem;
+          color: #212529;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .order-item-description {
+          font-size: 0.8rem;
+          color: #6c757d;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+      }
+
+      .text-end {
+        font-weight: 500;
+        font-size: 0.9rem;
+        min-width: 90px;
+        text-align: right;
+      }
+    }
+
+    .total-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.15rem;
+      font-weight: 600;
+      padding: 0.75rem 0;
+      border-top: 1px solid #dee2e6;
+      margin-top: 0.5rem;
+    }
+
+    .order-buttons-container {
+      justify-content: flex-start; // Default on desktop
+
+      .btn {
+        font-size: 0.95rem;
+        padding: 0.55rem 1.25rem;
+        border-radius: 0.4rem;
+        transition: all 0.25s;
+        min-width: 140px;
+        flex: 0 1 auto; // Don't grow on desktop
+
+        &.btn-primary {
+          background-color: #007bff;
+          border-color: #007bff;
+          color: #fff;
+
+          &:hover {
+            background-color: #0069d9;
+            border-color: #0062cc;
+            // Removed scale to prevent layout shifting
+            opacity: 0.9;
+          }
+        }
+
+        &.btn-outline-secondary {
+          border-color: #6c757d;
+          color: #6c757d;
+
+          &:hover {
+            background-color: #6c757d;
+            color: #fff;
+            // Removed scale to prevent layout shifting
+            opacity: 0.9;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* ======= Responsive ======= */
+@media (max-width: 768px) {
+  .order-card {
+    .card-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+      padding: 1rem;
+    }
+
+    .card-body {
+      padding: 1rem;
+
+      .order-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 0.75rem;
+        padding: 1rem 0.5rem;
+
+        .d-flex.align-items-center.gap-3 {
+          flex-direction: column;
+          width: 100%;
+        }
+
+        .order-item-img {
+          width: 100px;
+          height: 100px;
+        }
+
+        .order-item-details {
+          margin-left: 0;
+          width: 100%;
+          align-items: center;
+
+          .order-item-name {
+            white-space: normal;
+            font-size: 1.1rem;
+          }
+
+          .order-item-description {
+            white-space: normal;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+
+        .text-end {
+          text-align: center;
+          width: 100%;
+          margin-top: 0.5rem;
+          font-size: 1rem;
+        }
+      }
+
+      .total-section {
+        padding: 1rem 0;
+        font-size: 1.25rem;
+      }
+
+      .order-buttons-container {
+        flex-direction: column;
+
+        .btn {
+          width: 100%;
+          margin: 0;
+          padding: 0.75rem;
+          flex: 1 1 auto; // Stretch on mobile
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .order-card {
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+    border-radius: 0;
+  }
+}
