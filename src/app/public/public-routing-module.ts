@@ -38,8 +38,8 @@ const routes: Routes = [
         loadComponent:()=>import('./product-details/product-details').then((m)=>m.ProductDetails)
       },
       {
-        path:'my-orders',
-        loadComponent:()=>import('./my-orders/my-orders').then((m)=>m.MyOrders)
+        path:'orders',
+        loadChildren:()=>import('./orders/orders-routing-module').then((m)=>m.OrdersRoutingModule)
       },
       {
         path:'checkout',

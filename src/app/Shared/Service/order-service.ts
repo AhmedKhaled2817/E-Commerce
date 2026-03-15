@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Order } from '../Models/order';
+import { Order, orderStatus } from '../Models/order';
 import { BehaviorSubject } from 'rxjs';
 import { CartItem } from 'app/public/cart/cart-item';
 
@@ -29,6 +29,7 @@ export class OrderService {
       items,
       totalPrice:total,
       date: new Date().toString(),
+      status:orderStatus.Pending
     }
     this.orders.push(order);
     localStorage.setItem('orders',JSON.stringify(this.orders));

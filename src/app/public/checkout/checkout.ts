@@ -29,6 +29,6 @@ export class Checkout  {
       this.orderService.createOrder(items,total);
       this.cartService.clearCart()
     })
-    this.router.navigate(['/public/my-orders']);
+    this.router.navigate(['/public/orders/my-orders']);
   }
 }

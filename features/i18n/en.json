@@ -3,7 +3,9 @@
     "header": {
       "home":"Home",
       "shop":"Shop",
-      "order": "My Orders",
+      "order": {
+        "myOrder":"My Orders"
+      },
       "profile": "My Profile",
       "contact" :"Contact  Us"
     }

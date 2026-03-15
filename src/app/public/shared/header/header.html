@@ -16,10 +16,10 @@
       (mouseenter)="toggle(true)"
       (mouseleave)="toggle(false)"
     >
-      <a >{{ 'home.header.shop' | translate }} <i class="fa-solid fa-angle-down"></i></a>
+      <a>{{ 'home.header.shop' | translate }} <i class="fa-solid fa-angle-down"></i></a>
       <app-mega-menu [showMenu]="showMenu"></app-mega-menu>
     </div>
-    <a routerLink="/public/my-orders">{{ 'home.header.order' | translate }}</a>
+    <a routerLink="/public/orders/my-orders">{{ 'home.header.order.myOrder' | translate }}</a>
     <a href="#">{{ 'home.header.profile' | translate }}</a>
     <a href="#">{{ 'home.header.contact' | translate }}</a>
   </nav>
@@ -27,50 +27,46 @@
   <!-- Icons & Login -->
   <div class="actions d-flex align-items-center gap-3">
     <div class="search-box">
+      <span class="icon cursor-pointer" (click)="toggleSearch()">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </span>
 
-  <span class="icon cursor-pointer" (click)="toggleSearch()">
-    <i class="fa-solid fa-magnifying-glass"></i>
-  </span>
+      @if (showSearch) {
+        <input
+          class="form-control search-input"
+          placeholder="Search..."
+          (input)="onSearchInput($any($event.target).value)"
+          (keydown)="onKeyDown($event)"
+        />
+      }
 
-  @if(showSearch){
-  <input
-    class="form-control search-input"
-    placeholder="Search..."
-    (input)="onSearchInput($any($event.target).value)"
-    (keydown)="onKeyDown($event)"
-  />
-  }
+      @if (showDropdown) {
+        <div class="search-dropdown">
+          @if (loading) {
+            <div class="skeleton" *ngFor="let i of [1, 2, 3, 4]"></div>
+          }
 
-  @if(showDropdown){
-  <div class="search-dropdown">
+          @if (!loading && result.length) {
+            <div
+              class="item"
+              *ngFor="let p of result; let i = index"
+              [class.active]="i === activeIndex"
+              (click)="openProduct(p)"
+            >
+              <img [src]="p.images[0]" width="40" />
+              <div>
+                <div [innerHTML]="HighLight(p.title)"></div>
+                <small>${{ p.price }}</small>
+              </div>
+            </div>
+          }
 
-    @if(loading){
-      <div class="skeleton" *ngFor="let i of [1,2,3,4]"></div>
-    }
-
-    @if(!loading && result.length){
-      <div
-        class="item"
-        *ngFor="let p of result; let i = index"
-        [class.active]="i === activeIndex"
-        (click)="openProduct(p)"
-      >
-        <img [src]="p.images[0]" width="40">
-        <div>
-          <div [innerHTML]="HighLight(p.title)"></div>
-          <small>${{p.price}}</small>
+          @if (!loading && result.length === 0) {
+            <div class="no">No results found</div>
+          }
         </div>
-      </div>
-    }
-
-    @if(!loading && result.length === 0){
-      <div class="no">No results found</div>
-    }
-
-  </div>
-  }
-
-</div>
+      }
+    </div>
     <span class="icon cursor-pointer"
       ><i class="fa-solid fa-globe" [mat-menu-trigger-for]="menu"></i
     ></span>
@@ -97,18 +93,13 @@
       ></a>
       <app-mega-menu [showMenu]="showMenu"></app-mega-menu>
     </div>
-    <a routerLink="/public/my-orders">{{ 'home.header.order' | translate }}</a>
-    <a >{{ 'home.header.profile' | translate }}</a>
-    <a >{{ 'home.header.contact' | translate }}</a>
+    <a routerLink="/public/orders/my-orders">{{ 'home.header.order.myOrder' | translate }}</a>
+    <a>{{ 'home.header.profile' | translate }}</a>
+    <a>{{ 'home.header.contact' | translate }}</a>
   </nav>
 </header>
 
 <mat-menu #menu="matMenu">
   <button mat-menu-item (click)="naviagteToLang('en')">English</button>
-  <button mat-menu-item (click)="naviagteToLang('ar')">Arabic</button>
-</mat-menu>
-
-<mat-menu>
-  <button>(click)="naviagteToLang('en')">English</button>
   <button mat-menu-item (click)="naviagteToLang('ar')">Arabic</button>
 </mat-menu>
