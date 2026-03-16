@@ -5,10 +5,11 @@ export interface Order {
   items:CartItem[];
   totalPrice:number;
   date:string;
-  status: typeof orderStatus.Pending
+  status: keyof typeof orderStatus;
 }
 export const  orderStatus={
   Pending:'Pending',
   Shipped:'Shipped',
-  Delivered:'Delivered'
-}
+  Delivered:'Delivered',
+  Cancelled:'Cancelled'
+} as const

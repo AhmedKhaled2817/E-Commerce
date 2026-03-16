@@ -16,6 +16,19 @@
               <strong>Order #{{ order.id }}</strong>
               <small class="text-muted"> - {{ order.date | date: 'medium' }}</small>
             </div>
+
+            <!-- Status Badge -->
+            <span
+              class="badge fs-6"
+              [ngClass]="{
+                'bg-warning': order.status === 'Pending',
+                'bg-info': order.status === 'Shipped',
+                'bg-success': order.status === 'Delivered',
+                'bg-danger': order.status === 'Cancelled'
+              }"
+            >
+              {{ order.status }}
+            </span>
           </div>
 
           <!-- Items List -->
@@ -52,7 +65,10 @@
             <!-- Buttons -->
             <div class="mt-3 d-flex gap-2 flex-wrap order-buttons-container">
               <button class="btn btn-primary" [routerLink]="['/public/orders/order-details',order.id]">View Details</button>
-              <button class="btn btn-outline-secondary">Reorder</button>
+              <button class="btn btn-outline-secondary" (click)="Reorder(order)">Reorder</button>
+              @if(order.status==='Pending'){
+                <button class="btn btn-danger" (click)="cancelOrder(order.id)">Cancel Order</button>
+              }
             </div>
           </div>
         </div>

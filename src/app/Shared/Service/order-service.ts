@@ -14,10 +14,10 @@ export class OrderService {
   orders$=this.orderSubject.asObservable();
   constructor(){
     this.orders=[];
-    const storedOrders=localStorage.getItem('orders');
+    const storedOrders=localStorage.getItem('orders') ;
 
     if(storedOrders){
-      this.orders=JSON.parse(storedOrders);
+      this.orders=JSON.parse(storedOrders) as Order[];
       this.orderSubject.next(this.orders);
     }
 
@@ -29,10 +29,22 @@ export class OrderService {
       items,
       totalPrice:total,
       date: new Date().toString(),
-      status:orderStatus.Pending
+      status: orderStatus.Pending as keyof typeof orderStatus
     }
     this.orders.push(order);
     localStorage.setItem('orders',JSON.stringify(this.orders));
     this.orderSubject.next(this.orders);
   }
+
+  cancelOrder(id:number){
+    this.orders=this.orders.map((order)=>{
+      if(order.id===id){
+        return {...order,status:orderStatus.Cancelled}
+      }
+      return order;
+    })
+    localStorage.setItem('orders',JSON.stringify(this.orders));
+    this.orderSubject.next(this.orders);
+  }
+
 }

@@ -14,7 +14,7 @@ export class CartService {
 
   cartItems$ = this.cartItem.asObservable();
 
-  addToCart(product: IbestSeller) {
+  addToCart(product: IbestSeller| CartItem) {
     const currentItems = this.cartItem.value;
     const existingItem= currentItems.find((item)=>item.id===product.id);
     let updatedItems:CartItem[]
