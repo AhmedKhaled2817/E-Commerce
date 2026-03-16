@@ -14,11 +14,48 @@
         [ngClass]="{
           'bg-warning': order.status === 'Pending',
           'bg-info': order.status === 'Shipped',
-          'bg-success': order.status === 'Delivered'
+          'bg-success': order.status === 'Delivered',
+          'bg-danger': order.status === 'Cancelled'
         }"
       >
         {{ order.status }}
       </span>
+
+    </div>
+
+    <!-- Order Tracking -->
+    <div class="order-tracking">
+
+      <!-- progress line -->
+        <div class="progress-line"
+        [style.width]="progressWidth">
+      </div>
+
+      @for(step of steps; track step; let i = $index){
+
+        <div class="step"
+            [class.completed]="i < currentStep"
+            [class.active]="i === currentStep">
+
+            <div class="circle">
+              @if (i < currentStep) {
+                <i class="fa-solid fa-check"></i>
+              }
+            </div>
+
+            <div class="label">
+              {{ step }}
+            </div>
+
+            @if (i === currentStep) {
+              <div class="date">
+                {{ order.date | date: 'medium'}}
+              </div>
+            }
+
+        </div>
+
+      }
 
     </div>
 

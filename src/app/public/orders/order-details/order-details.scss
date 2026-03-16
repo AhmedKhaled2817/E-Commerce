@@ -2,10 +2,117 @@
 
   max-width: 900px;
 
+  /* =========================
+        Header
+  ==========================*/
+
   .order-header {
     border-bottom: 1px solid #eee;
     padding-bottom: 10px;
   }
+
+  /* =========================
+        Order Tracking
+  ==========================*/
+
+  .order-tracking {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 40px 0;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 15px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: #e5e7eb;
+      z-index: 0;
+    }
+
+.progress-line{
+  position:absolute;
+  top:15px;
+  left:0;
+  height:3px;
+  background:#16a34a;
+  z-index:1;
+  transition: width .6s cubic-bezier(.4,0,.2,1);
+}
+
+    .step {
+      position: relative;
+      text-align: center;
+      flex: 1;
+
+    .circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #e5e7eb;
+      margin: auto;
+      position: relative;
+      z-index: 2;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: white;
+      font-size: 12px;
+    }
+
+      .label {
+        margin-top: 10px;
+        font-size: 14px;
+        color: #6b7280;
+        transition: all 0.3s ease;
+      }
+
+      .date{
+        font-size:12px;
+        color:#9ca3af;
+        margin-top:4px;
+      }
+
+      &.completed {
+
+        .circle {
+          background: #16a34a;
+        }
+
+        .label {
+          color: #16a34a;
+          font-weight: 600;
+        }
+
+      }
+
+      &.active {
+
+        .circle {
+          background: #2563eb;
+          transform: scale(1.25);
+          box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+        }
+
+        .label {
+          color: #2563eb;
+          font-weight: 600;
+        }
+
+      }
+
+    }
+
+  }
+
+  /* =========================
+        Order Info
+  ==========================*/
 
   .order-info {
 
@@ -28,6 +135,10 @@
     }
 
   }
+
+  /* =========================
+        Order Items
+  ==========================*/
 
   .order-items {
 
@@ -52,15 +163,21 @@
 
   }
 
-  .item-img {
+  /* =========================
+        Item Image
+  ==========================*/
 
+  .item-img {
     width: 70px;
     height: 70px;
     object-fit: cover;
     border-radius: 8px;
     border: 1px solid #eee;
-
   }
+
+  /* =========================
+        Item Info
+  ==========================*/
 
   .item-name {
     font-weight: 600;
