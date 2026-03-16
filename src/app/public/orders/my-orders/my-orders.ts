@@ -4,6 +4,7 @@ import { OrderService } from 'app/Shared/Service/order-service';
 import { Router, RouterModule } from '@angular/router';
 import { CartService } from 'app/Shared/Service/cart-service';
 import { Order } from 'app/Shared/Models/order';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-my-orders',
@@ -18,6 +19,13 @@ export class MyOrders {
 
   orders$ = this.orderService.orders$;
 
+  totalOrders$=this.orders$.pipe(
+    map((orders)=> orders.length)
+  )
+
+  totalSpent$=this.orders$.pipe(
+    map((orders)=> orders.reduce((acc,order)=> acc+order.totalPrice,0))
+  )
 
   Reorder(order:Order){
     order.items.forEach((item)=>{

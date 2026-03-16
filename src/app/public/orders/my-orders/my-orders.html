@@ -1,44 +1,68 @@
 <div class="container my-5">
+
+  <!-- Statistics -->
+  <div class="stats-row">
+
+    <div class="stat-card">
+      <i class="fa-solid fa-box stat-icon"></i>
+      <div>
+        <div class="stat-value">{{ totalOrders$ | async }}</div>
+        <div class="stat-label">Total Orders</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <i class="fa-solid fa-wallet stat-icon"></i>
+      <div>
+        <div class="stat-value">{{ totalSpent$ | async | currency }}</div>
+        <div class="stat-label">Total Spent</div>
+      </div>
+    </div>
+
+  </div>
+
   <h2 class="mb-4 fw-bold">My Orders</h2>
 
   @if (orders$ | async; as orders) {
+
     @if (orders.length === 0) {
       <div class="text-center py-5 text-muted fs-5">
-        <i class="fa-solid fa-box-open fs-1 mb-3"></i>
+        <i class="fa-solid fa-box-open fs-1 mb-3 d-block"></i>
         No orders yet
       </div>
     } @else {
+
       @for (order of orders; track order.id) {
         <div class="card mb-4 order-card">
+
           <!-- Header -->
           <div class="card-header d-flex justify-content-between align-items-center">
             <div>
-              <strong>Order #{{ order.id }}</strong>
-              <small class="text-muted"> - {{ order.date | date: 'medium' }}</small>
+              <strong class="order-id">Order #{{ order.id }}</strong>
+              <small class="order-date d-block">
+                {{ order.date | date: 'medium' }}
+              </small>
             </div>
-
-            <!-- Status Badge -->
-            <span
-              class="badge fs-6"
+            <span class="badge fs-6"
               [ngClass]="{
                 'bg-warning': order.status === 'Pending',
-                'bg-info': order.status === 'Shipped',
+                'bg-info':    order.status === 'Shipped',
                 'bg-success': order.status === 'Delivered',
-                'bg-danger': order.status === 'Cancelled'
-              }"
-            >
+                'bg-danger':  order.status === 'Cancelled'
+              }">
               {{ order.status }}
             </span>
           </div>
 
-          <!-- Items List -->
+          <!-- Items -->
           <div class="card-body">
+
             @for (item of order.items; track item.id) {
-              <div
-                class="order-item d-flex justify-content-between align-items-center mb-3 p-2 rounded hover-bg"
-              >
+              <div class="order-item d-flex justify-content-between align-items-center mb-3 p-2 rounded">
                 <div class="d-flex align-items-center gap-3">
-                  <img [src]="item.imgUrl" alt="{{ item.name }}" class="order-item-img" />
+                  <img [src]="item.imgUrl"
+                       alt="{{ item.name }}"
+                       class="order-item-img" />
                   <div class="order-item-details">
                     <div class="order-item-name">{{ item.name }}</div>
                     <div class="order-item-description text-muted small">
@@ -46,7 +70,6 @@
                     </div>
                   </div>
                 </div>
-
                 <div class="text-end fw-semibold">
                   <div>Qty: {{ item.quantity }}</div>
                   <div>{{ item.price | currency }}</div>
@@ -64,11 +87,26 @@
 
             <!-- Buttons -->
             <div class="mt-3 d-flex gap-2 flex-wrap order-buttons-container">
-              <button class="btn btn-primary" [routerLink]="['/public/orders/order-details',order.id]">View Details</button>
-              <button class="btn btn-outline-secondary" (click)="Reorder(order)">Reorder</button>
-              @if(order.status==='Pending'){
-                <button class="btn btn-danger" (click)="cancelOrder(order.id)">Cancel Order</button>
+
+              <button class="btn btn-primary"
+                [routerLink]="['/public/orders/order-details', order.id]">
+                View Details
+              </button>
+
+              @if (order.status !== 'Cancelled') {
+                <button class="btn btn-outline-secondary"
+                  (click)="Reorder(order)">
+                  Reorder
+                </button>
               }
+
+              @if (order.status === 'Pending') {
+                <button class="btn btn-danger"
+                  (click)="cancelOrder(order.id)">
+                  Cancel Order
+                </button>
+              }
+
             </div>
           </div>
         </div>
