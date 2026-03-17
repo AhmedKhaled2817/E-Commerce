@@ -35,10 +35,10 @@ export class OrderDetails  implements OnInit {
   }
 
   steps=[
-    "Order Placed",
-    "Processing",
-    "Shipped",
-    "Delivered"
+    { label: 'Order Placed', icon: 'fa-cart-shopping' },
+    { label: 'Processing', icon: 'fa-gear' },
+    { label: 'Shipped', icon: 'fa-truck' },
+    { label: 'Delivered', icon: 'fa-box' }
   ]
 
   calculateCurrentStep():number{
@@ -62,7 +62,9 @@ export class OrderDetails  implements OnInit {
   const progress = ((this.currentStep + 1) / this.steps.length) * 100;
 
   return progress + '%';
-
 }
+isCancelled(): boolean {
+    return this.order.status === orderStatus.Cancelled;
+  }
 
 }

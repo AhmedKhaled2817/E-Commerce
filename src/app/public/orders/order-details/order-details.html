@@ -2,7 +2,9 @@
 
   @if (order) {
 
-    <!-- Header -->
+    <!-- =========================
+          Header
+    ========================== -->
     <div class="order-header d-flex justify-content-between align-items-center mb-4">
 
       <h2 class="fw-bold">
@@ -23,35 +25,50 @@
 
     </div>
 
-    <!-- Order Tracking -->
-    <div class="order-tracking">
+    <!-- =========================
+          Order Tracking
+    ========================== -->
+    <div class="order-tracking" [class.cancelled]="isCancelled()">
 
-      <!-- progress line -->
-        <div class="progress-line"
+      <!-- Progress Line -->
+      <div
+        class="progress-line"
         [style.width]="progressWidth">
       </div>
 
+      <!-- Steps -->
       @for(step of steps; track step; let i = $index){
 
         <div class="step"
             [class.completed]="i < currentStep"
             [class.active]="i === currentStep">
 
-            <div class="circle">
-              @if (i < currentStep) {
-                <i class="fa-solid fa-check"></i>
-              }
-            </div>
+          <!-- Circle -->
+          <div class="circle">
 
-            <div class="label">
-              {{ step }}
-            </div>
+            @if (i < currentStep) {
 
-            @if (i === currentStep) {
-              <div class="date">
-                {{ order.date | date: 'medium'}}
-              </div>
+              <i class="fa-solid fa-check"></i>
+
+            } @else {
+
+              <i class="fa-solid {{ step.icon }}"></i>
+
             }
+
+          </div>
+
+          <!-- Label -->
+          <div class="label">
+            {{ step.label }}
+          </div>
+
+          <!-- Date (current step only) -->
+          @if (i === currentStep && !isCancelled()) {
+            <div class="date">
+              {{ order.date | date:'MMM d, y' }}
+            </div>
+          }
 
         </div>
 
@@ -59,7 +76,9 @@
 
     </div>
 
-    <!-- Order Info -->
+    <!-- =========================
+          Order Info
+    ========================== -->
     <div class="card order-info mb-4 p-4">
 
       <div class="row">
@@ -82,20 +101,25 @@
 
     </div>
 
-    <!-- Items -->
+    <!-- =========================
+          Order Items
+    ========================== -->
     <div class="card order-items p-4">
 
-      <h5 class="fw-bold mb-4">Items in this order</h5>
+      <h5 class="fw-bold mb-4">
+        Items in this order
+      </h5>
 
       @for (item of order.items; track item.id) {
 
         <div class="order-item d-flex justify-content-between align-items-center">
 
-          <div class="item-left d-flex align-items-center gap-3">
+          <!-- Left -->
+          <div class="d-flex align-items-center gap-3">
 
             <img
               [src]="item.imgUrl"
-              alt="{{ item.name }}"
+              [alt]="item.name"
               class="item-img"
             >
 
@@ -113,7 +137,8 @@
 
           </div>
 
-          <div class="item-right text-end">
+          <!-- Right -->
+          <div class="text-end">
 
             <div>
               Qty: <strong>{{ item.quantity }}</strong>
@@ -133,11 +158,17 @@
 
   } @else {
 
+    <!-- =========================
+          Empty State
+    ========================== -->
     <div class="text-center py-5">
+
       <i class="fa-solid fa-box-open fs-1 text-muted mb-3"></i>
+
       <div class="text-muted fs-5">
         Order not found
       </div>
+
     </div>
 
   }
