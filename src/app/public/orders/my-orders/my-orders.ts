@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { OrderService } from 'app/Shared/Service/order-service';
 import { Router, RouterModule } from '@angular/router';
 import { CartService } from 'app/Shared/Service/cart-service';
 import { Order, orderStatus } from 'app/Shared/Models/order';
-import { BehaviorSubject, combineLatest, map } from 'rxjs';
+import { BehaviorSubject, combineLatest, delay, map } from 'rxjs';
 
 @Component({
   selector: 'app-my-orders',
@@ -12,17 +12,25 @@ import { BehaviorSubject, combineLatest, map } from 'rxjs';
   templateUrl: './my-orders.html',
   styleUrl: './my-orders.scss',
 })
-export class MyOrders {
+export class MyOrders  implements  OnInit {
   private orderService = inject(OrderService);
   private cartService=inject(CartService);
   private router=inject(Router);
 
   orders$ = this.orderService.orders$;
 
-    /* ==== Filtered Orders ====  */
+  /* ==== Filtered Orders ====  */
   selectedStatus$=new BehaviorSubject<string>('All');
   activeFilter='All';
   filters = ['All',...Object.values(orderStatus)];
+
+  loading:boolean=true;
+  skeletonItems=Array(3);
+  ngOnInit(): void {
+    this.orders$.pipe(delay(800)).subscribe(()=>{
+      this.loading=false;
+    })
+  }
 
   totalOrders$=this.orders$.pipe(
     map((orders)=> orders.length)

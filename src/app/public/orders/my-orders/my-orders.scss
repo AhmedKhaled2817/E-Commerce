@@ -1,3 +1,22 @@
+/* ===== Shimmer Animation ===== */
+
+@keyframes shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position:  600px 0; }
+}
+
+%shimmer {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e0e0e0 37%,
+    #f0f0f0 63%
+  );
+  background-size: 600px 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: 8px;
+}
+
 /* ===== Statistics ===== */
 
 .stats-row {
@@ -29,6 +48,14 @@
 .stat-icon  { font-size: 28px; color: #0d6efd; opacity: 0.85; }
 .stat-value { font-size: 22px; font-weight: 700; color: #111; }
 .stat-label { font-size: 13px; color: #888; margin-top: 2px; }
+
+.stat-skeleton {
+  @extend %shimmer;
+  flex: 1;
+  min-width: 180px;
+  height: 80px;
+  border-radius: 14px;
+}
 
 /* ===== Filter Tabs ===== */
 
@@ -63,6 +90,19 @@
   }
 }
 
+.filter-skeleton-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.filter-skeleton {
+  @extend %shimmer;
+  width: 90px;
+  height: 36px;
+  border-radius: 50px;
+}
+
 /* ===== Empty State ===== */
 
 .empty-state {
@@ -70,8 +110,91 @@
   padding: 60px 0;
   color: #aaa;
 
-  i   { font-size: 48px; margin-bottom: 16px; display: block; }
-  p   { font-size: 18px; }
+  i { font-size: 48px; margin-bottom: 16px; display: block; }
+  p { font-size: 18px; }
+}
+
+/* ===== Order Card Skeleton ===== */
+
+.skeleton-card {
+  background: #fff;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+
+.skeleton-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.skeleton-body {
+  padding: 1.25rem 1.5rem;
+}
+
+.skeleton-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.skeleton-img {
+  @extend %shimmer;
+  width: 70px;
+  height: 70px;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.skeleton-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skeleton-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid #dee2e6;
+  margin-top: 8px;
+}
+
+.skeleton-btns {
+  display: flex;
+  gap: 10px;
+}
+
+.skeleton-btn {
+  @extend %shimmer;
+  width: 100px;
+  height: 34px;
+  border-radius: 6px;
+}
+
+.skeleton-badge {
+  @extend %shimmer;
+  width: 80px;
+  height: 26px;
+  border-radius: 20px;
+}
+
+.skeleton-line {
+  @extend %shimmer;
+  height: 14px;
+
+  &.w-30 { width: 30%; }
+  &.w-40 { width: 40%; }
+  &.w-50 { width: 50%; }
+  &.w-60 { width: 60%; }
 }
 
 /* ===== Order Card ===== */
@@ -178,9 +301,9 @@
         min-width: 130px;
         flex: 0 1 auto;
 
-        &.btn-primary:hover         { background-color: #0069d9; opacity: 0.9; }
+        &.btn-primary:hover          { background-color: #0069d9; opacity: 0.9; }
         &.btn-outline-secondary:hover { background-color: #6c757d; color: #fff; opacity: 0.9; }
-        &.btn-danger:hover           { opacity: 0.9; }
+        &.btn-danger:hover            { opacity: 0.9; }
       }
     }
   }
@@ -190,17 +313,15 @@
 
 @media (max-width: 768px) {
 
-  .stats-row { gap: 12px; }
+  .stats-row    { gap: 12px; }
+  .filter-tabs  { gap: 8px; }
+  .filter-btn   { padding: 6px 14px; font-size: 13px; }
 
   .stat-card {
     min-width: 140px;
     padding: 16px;
     .stat-value { font-size: 18px; }
   }
-
-  .filter-tabs { gap: 8px; }
-
-  .filter-btn { padding: 6px 14px; font-size: 13px; }
 
   .order-card {
 
@@ -255,8 +376,12 @@
 
 @media (max-width: 576px) {
 
-  .stats-row    { flex-direction: column; }
-  .stat-card    { min-width: 100%; }
+  .stats-row { flex-direction: column; }
+  .stat-card { min-width: 100%; }
+
+  .filter-skeleton-row { gap: 8px; }
+
+  .filter-skeleton { width: 70px; }
 
   .order-card {
     margin-left: -0.5rem;
