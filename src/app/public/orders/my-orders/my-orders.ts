@@ -24,6 +24,13 @@ export class MyOrders  implements  OnInit {
   activeFilter='All';
   filters = ['All',...Object.values(orderStatus)];
 
+
+  // ==== Search  ====
+  searchQuery$=new BehaviorSubject<string>('');
+  searchValue:string='';
+
+
+  // ==== Loading & Skeleton ====
   loading:boolean=true;
   skeletonItems=Array(3);
   ngOnInit(): void {
@@ -53,15 +60,33 @@ export class MyOrders  implements  OnInit {
     this.orderService.cancelOrder(id);
   }
 
-  filteredOrders$=combineLatest([this.orders$,this.selectedStatus$]).pipe(
-    map(([orders,selectedStatus])=>{
-     return (selectedStatus==='All')? orders:
-     orders.filter((order)=>order.status===selectedStatus)
+  // ==== Filtered Orders  & Search ====
+  filteredOrders$=combineLatest([this.orders$,this.selectedStatus$,this.searchQuery$]).pipe(
+    map(([orders,selectedStatus,search])=>{
+      let result=orders;
+
+      // filter by status
+      if(selectedStatus !=='All'){
+        result=result.filter((order)=>order.status===selectedStatus)
+      }
+
+      // filter by search
+      if(search.trim()){
+        result=result.filter((order)=>{
+          return order.id.toString().includes(search.trim())
+        })
+      }
+      return result;
     })
   )
 
   setFilters(filter:string){
     this.activeFilter=filter;
     this.selectedStatus$.next(filter);
+  }
+
+  onSearch(value:string){
+    this.searchValue=value;
+    this.searchQuery$.next(value);
   }
 }

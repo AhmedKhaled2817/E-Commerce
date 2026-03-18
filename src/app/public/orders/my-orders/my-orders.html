@@ -27,6 +27,25 @@
 
   <h2 class="mb-4 fw-bold">My Orders</h2>
 
+  <!-- Search -->
+  @if (!loading) {
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Search by order ID..."
+        [value]="searchValue"
+        (input)="onSearch($any($event.target).value)"
+      />
+      @if (searchValue) {
+        <button class="clear-btn" (click)="onSearch('')">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      }
+    </div>
+  }
+
   <!-- Filter Tabs -->
   @if (loading) {
     <div class="filter-skeleton-row">
@@ -47,19 +66,15 @@
     </div>
   }
 
-  <!-- Orders -->
+  <!-- Orders Skeleton -->
   @if (loading) {
-
     @for (i of skeletonItems; track $index) {
       <div class="skeleton-card">
-
         <div class="skeleton-header">
           <div class="skeleton-line w-40"></div>
           <div class="skeleton-badge"></div>
         </div>
-
         <div class="skeleton-body">
-
           <div class="skeleton-item">
             <div class="skeleton-img"></div>
             <div class="skeleton-info">
@@ -67,7 +82,6 @@
               <div class="skeleton-line w-40"></div>
             </div>
           </div>
-
           <div class="skeleton-item">
             <div class="skeleton-img"></div>
             <div class="skeleton-info">
@@ -75,7 +89,6 @@
               <div class="skeleton-line w-30"></div>
             </div>
           </div>
-
           <div class="skeleton-footer">
             <div class="skeleton-line w-30"></div>
             <div class="skeleton-btns">
@@ -83,7 +96,6 @@
               <div class="skeleton-btn"></div>
             </div>
           </div>
-
         </div>
       </div>
     }
@@ -95,8 +107,16 @@
       @if (orders.length === 0) {
         <div class="empty-state">
           <i class="fa-solid fa-box-open"></i>
-          <p>No {{ activeFilter === 'All' ? '' : activeFilter }} orders found</p>
+          @if (searchValue) {
+            <p>No results for <strong>"{{ searchValue }}"</strong></p>
+            <button class="btn btn-outline-primary btn-sm mt-2" (click)="onSearch('')">
+              Clear search
+            </button>
+          } @else {
+            <p>No {{ activeFilter === 'All' ? '' : activeFilter }} orders found</p>
+          }
         </div>
+
       } @else {
 
         @for (order of orders; track order.id) {
