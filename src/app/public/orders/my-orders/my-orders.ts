@@ -29,6 +29,8 @@ export class MyOrders  implements  OnInit {
   searchQuery$=new BehaviorSubject<string>('');
   searchValue:string='';
 
+  // === Loading Per Item ====
+  loadingCancel$=new BehaviorSubject<number| null>(null);
 
   // ==== Loading & Skeleton ====
   loading:boolean=true;
@@ -57,7 +59,12 @@ export class MyOrders  implements  OnInit {
   }
 
   cancelOrder(id:number){
-    this.orderService.cancelOrder(id);
+    this.loadingCancel$.next(id);
+
+    setTimeout(()=>{
+      this.orderService.cancelOrder(id);
+      this.loadingCancel$.next(null);
+    },700)
   }
 
   // ==== Filtered Orders  & Search ====

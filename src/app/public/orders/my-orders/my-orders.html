@@ -192,22 +192,36 @@
               </div>
 
               <div class="mt-3 d-flex gap-2 flex-wrap order-buttons-container">
+
                 <button class="btn btn-primary"
                   [routerLink]="['/public/orders/order-details', order.id]">
                   View Details
                 </button>
+
                 @if (order.status !== 'Cancelled') {
                   <button class="btn btn-outline-secondary"
                     (click)="Reorder(order)">
                     Reorder
                   </button>
                 }
+
+                <!-- ✅ Cancel Order with Loading per item -->
                 @if (order.status === 'Pending') {
-                  <button class="btn btn-danger"
+                  <button
+                    class="btn btn-danger"
+                    [disabled]="(loadingCancel$ | async) === order.id"
                     (click)="cancelOrder(order.id)">
-                    Cancel Order
+
+                    @if ((loadingCancel$ | async) === order.id) {
+                      <span class="spinner-border spinner-border-sm me-2"></span>
+                      Cancelling...
+                    } @else {
+                      Cancel Order
+                    }
+
                   </button>
                 }
+
               </div>
 
             </div>
