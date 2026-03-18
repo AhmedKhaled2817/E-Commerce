@@ -19,9 +19,15 @@
       <a>{{ 'home.header.shop' | translate }} <i class="fa-solid fa-angle-down"></i></a>
       <app-mega-menu [showMenu]="showMenu"></app-mega-menu>
     </div>
-    <a routerLink="/public/orders/my-orders">{{ 'home.header.order.myOrder' | translate }}</a>
-    <a href="#">{{ 'home.header.profile' | translate }}</a>
-    <a href="#">{{ 'home.header.contact' | translate }}</a>
+    <a routerLink="/public/orders" routerLinkActive="active">{{
+      'home.header.order.myOrder' | translate
+    }}</a>
+    <a routerLink="/public/profile" routerLinkActive="active">{{
+      'home.header.profile' | translate
+    }}</a>
+    <a routerLink="/public/contact" routerLinkActive="active">{{
+      'home.header.contact' | translate
+    }}</a>
   </nav>
 
   <!-- Icons & Login -->
@@ -93,9 +99,15 @@
       ></a>
       <app-mega-menu [showMenu]="showMenu"></app-mega-menu>
     </div>
-    <a routerLink="/public/orders/my-orders">{{ 'home.header.order.myOrder' | translate }}</a>
-    <a>{{ 'home.header.profile' | translate }}</a>
-    <a>{{ 'home.header.contact' | translate }}</a>
+    <a routerLink="/public/orders" routerLinkActive="active">{{
+      'home.header.order.myOrder' | translate
+    }}</a>
+    <a routerLink="/public/profile" routerLinkActive="active">{{
+      'home.header.profile' | translate
+    }}</a>
+    <a routerLink="/public/contact" routerLinkActive="active">{{
+      'home.header.contact' | translate
+    }}</a>
   </nav>
 </header>
 
