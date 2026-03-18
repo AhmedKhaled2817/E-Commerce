@@ -104,17 +104,43 @@
 
     @if (filteredOrders$ | async; as orders) {
 
+      <!-- Empty State -->
       @if (orders.length === 0) {
         <div class="empty-state">
-          <i class="fa-solid fa-box-open"></i>
-          @if (searchValue) {
-            <p>No results for <strong>"{{ searchValue }}"</strong></p>
-            <button class="btn btn-outline-primary btn-sm mt-2" (click)="onSearch('')">
-              Clear search
+
+          @if (!searchValue && activeFilter === 'All') {
+            <div class="empty-icon">📦</div>
+            <h4>No orders yet</h4>
+            <p>Start shopping and your orders will appear here</p>
+            <button class="btn btn-primary mt-3"
+              routerLink="/public/products">
+              <i class="fa-solid fa-bag-shopping me-2"></i>
+              Start Shopping
             </button>
-          } @else {
-            <p>No {{ activeFilter === 'All' ? '' : activeFilter }} orders found</p>
           }
+
+          @if (searchValue) {
+            <div class="empty-icon">🔍</div>
+            <h4>No results for <span class="highlight">"{{ searchValue }}"</span></h4>
+            <p>Try a different order ID</p>
+            <button class="btn btn-outline-primary mt-3"
+              (click)="onSearch('')">
+              <i class="fa-solid fa-xmark me-2"></i>
+              Clear Search
+            </button>
+          }
+
+          @if (!searchValue && activeFilter !== 'All') {
+            <div class="empty-icon">📋</div>
+            <h4>No {{ activeFilter }} orders</h4>
+            <p>You don't have any {{ activeFilter }} orders at the moment</p>
+            <button class="btn btn-outline-primary mt-3"
+              (click)="setFilters('All')">
+              <i class="fa-solid fa-list me-2"></i>
+              Show All Orders
+            </button>
+          }
+
         </div>
 
       } @else {

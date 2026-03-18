@@ -5,6 +5,12 @@
   100% { background-position:  600px 0; }
 }
 
+@keyframes float {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}
+
 %shimmer {
   background: linear-gradient(
     90deg,
@@ -158,11 +164,39 @@
 
 .empty-state {
   text-align: center;
-  padding: 60px 0;
-  color: #aaa;
+  padding: 70px 20px;
 
-  i { font-size: 48px; margin-bottom: 16px; display: block; }
-  p { font-size: 18px; margin-bottom: 0; }
+  .empty-icon {
+    font-size: 56px;
+    margin-bottom: 20px;
+    display: block;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  h4 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 15px;
+    color: #888;
+    margin-bottom: 0;
+  }
+
+  .highlight {
+    color: #0d6efd;
+    font-weight: 600;
+  }
+
+  .btn {
+    padding: 10px 24px;
+    border-radius: 50px;
+    font-weight: 500;
+    font-size: 14px;
+  }
 }
 
 /* ===== Order Card Skeleton ===== */
@@ -184,7 +218,7 @@
   border-bottom: 1px solid #dee2e6;
 }
 
-.skeleton-body    { padding: 1.25rem 1.5rem; }
+.skeleton-body { padding: 1.25rem 1.5rem; }
 
 .skeleton-item {
   display: flex;
@@ -217,7 +251,7 @@
   margin-top: 8px;
 }
 
-.skeleton-btns   { display: flex; gap: 10px; }
+.skeleton-btns { display: flex; gap: 10px; }
 
 .skeleton-btn {
   @extend %shimmer;
