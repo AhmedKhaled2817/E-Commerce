@@ -1,5 +1,4 @@
 <div class="container my-5">
-
   <!-- Statistics -->
   @if (loading) {
     <div class="stats-row">
@@ -46,27 +45,42 @@
     </div>
   }
 
-  <!-- Filter Tabs -->
-  @if (loading) {
+  <!-- Filter Bar -->
+  @if (!loading) {
+    <div class="filter-bar">
+      <!-- Filter Tabs -->
+      <div class="filter-tabs mb-0">
+        @for (filter of filters; track filter) {
+          <button
+            class="filter-btn"
+            [class.active]="activeFilter === filter"
+            (click)="setFilters(filter)"
+          >
+            {{ filter }}
+          </button>
+        }
+      </div>
+
+      <!-- Page Size -->
+      <select
+        class="page-size-select"
+        [value]="pageSize$ | async"
+        (change)="pageSize$.next(+$any($event.target).value)"
+      >
+        <option [value]="5">5 per page</option>
+        <option [value]="10">10 per page</option>
+        <option [value]="20">20 per page</option>
+      </select>
+    </div>
+  } @else {
     <div class="filter-skeleton-row">
       @for (i of skeletonItems; track $index) {
         <div class="filter-skeleton"></div>
       }
     </div>
-  } @else {
-    <div class="filter-tabs">
-      @for (filter of filters; track filter) {
-        <button
-          class="filter-btn"
-          [class.active]="activeFilter === filter"
-          (click)="setFilters(filter)">
-          {{ filter }}
-        </button>
-      }
-    </div>
   }
 
-  <!-- Orders Skeleton -->
+  <!-- Orders Content -->
   @if (loading) {
     @for (i of skeletonItems; track $index) {
       <div class="skeleton-card">
@@ -82,13 +96,6 @@
               <div class="skeleton-line w-40"></div>
             </div>
           </div>
-          <div class="skeleton-item">
-            <div class="skeleton-img"></div>
-            <div class="skeleton-info">
-              <div class="skeleton-line w-50"></div>
-              <div class="skeleton-line w-30"></div>
-            </div>
-          </div>
           <div class="skeleton-footer">
             <div class="skeleton-line w-30"></div>
             <div class="skeleton-btns">
@@ -99,21 +106,16 @@
         </div>
       </div>
     }
-
   } @else {
-
-    @if (filteredOrders$ | async; as orders) {
-
+    @if (vm$ | async; as vm) {
       <!-- Empty State -->
-      @if (orders.length === 0) {
+      @if (vm.data.length === 0) {
         <div class="empty-state">
-
           @if (!searchValue && activeFilter === 'All') {
             <div class="empty-icon">📦</div>
             <h4>No orders yet</h4>
             <p>Start shopping and your orders will appear here</p>
-            <button class="btn btn-primary mt-3"
-              routerLink="/public/products">
+            <button class="btn btn-primary mt-3" routerLink="/public/products">
               <i class="fa-solid fa-bag-shopping me-2"></i>
               Start Shopping
             </button>
@@ -121,10 +123,11 @@
 
           @if (searchValue) {
             <div class="empty-icon">🔍</div>
-            <h4>No results for <span class="highlight">"{{ searchValue }}"</span></h4>
+            <h4>
+              No results for <span class="highlight">"{{ searchValue }}"</span>
+            </h4>
             <p>Try a different order ID</p>
-            <button class="btn btn-outline-primary mt-3"
-              (click)="onSearch('')">
+            <button class="btn btn-outline-primary mt-3" (click)="onSearch('')">
               <i class="fa-solid fa-xmark me-2"></i>
               Clear Search
             </button>
@@ -134,40 +137,39 @@
             <div class="empty-icon">📋</div>
             <h4>No {{ activeFilter }} orders</h4>
             <p>You don't have any {{ activeFilter }} orders at the moment</p>
-            <button class="btn btn-outline-primary mt-3"
-              (click)="setFilters('All')">
+            <button class="btn btn-outline-primary mt-3" (click)="setFilters('All')">
               <i class="fa-solid fa-list me-2"></i>
               Show All Orders
             </button>
           }
-
         </div>
-
       } @else {
-
-        @for (order of orders; track order.id) {
+        <!-- Orders List -->
+        @for (order of vm.data; track order.id) {
           <div class="card mb-4 order-card">
-
             <div class="card-header d-flex justify-content-between align-items-center">
               <div>
                 <strong class="order-id">Order #{{ order.id }}</strong>
                 <small class="order-date d-block">{{ order.date | date: 'medium' }}</small>
               </div>
-              <span class="badge fs-6"
+              <span
+                class="badge fs-6"
                 [ngClass]="{
                   'bg-warning': order.status === 'Pending',
-                  'bg-info':    order.status === 'Shipped',
+                  'bg-info': order.status === 'Shipped',
                   'bg-success': order.status === 'Delivered',
-                  'bg-danger':  order.status === 'Cancelled'
-                }">
+                  'bg-danger': order.status === 'Cancelled',
+                }"
+              >
                 {{ order.status }}
               </span>
             </div>
 
             <div class="card-body">
-
               @for (item of order.items; track item.id) {
-                <div class="order-item d-flex justify-content-between align-items-center mb-3 p-2 rounded">
+                <div
+                  class="order-item d-flex justify-content-between align-items-center mb-3 p-2 rounded"
+                >
                   <div class="d-flex align-items-center gap-3">
                     <img [src]="item.imgUrl" alt="{{ item.name }}" class="order-item-img" />
                     <div class="order-item-details">
@@ -192,43 +194,60 @@
               </div>
 
               <div class="mt-3 d-flex gap-2 flex-wrap order-buttons-container">
-
-                <button class="btn btn-primary"
-                  [routerLink]="['/public/orders/order-details', order.id]">
+                <button
+                  class="btn btn-primary"
+                  [routerLink]="['/public/orders/order-details', order.id]"
+                >
                   View Details
                 </button>
 
                 @if (order.status !== 'Cancelled') {
-                  <button class="btn btn-outline-secondary"
-                    (click)="Reorder(order)">
+                  <button class="btn btn-outline-secondary" (click)="Reorder(order)">
                     Reorder
                   </button>
                 }
 
-                <!-- ✅ Cancel Order with Loading per item -->
                 @if (order.status === 'Pending') {
                   <button
                     class="btn btn-danger"
                     [disabled]="(loadingCancel$ | async) === order.id"
-                    (click)="cancelOrder(order.id)">
-
+                    (click)="cancelOrder(order.id)"
+                  >
                     @if ((loadingCancel$ | async) === order.id) {
                       <span class="spinner-border spinner-border-sm me-2"></span>
                       Cancelling...
                     } @else {
                       Cancel Order
                     }
-
                   </button>
                 }
-
               </div>
-
             </div>
           </div>
         }
+
+        <!-- Pagination Controls -->
+        <div class="showing-info">
+          Showing {{ (vm.page - 1) * vm.pageSize + 1 }} to
+          {{ Math.min(vm.page * vm.pageSize, vm.total) }} of {{ vm.total }} orders
+        </div>
+
+        <div class="pagination-wrapper mb-5">
+          <button class="page-btn" [disabled]="vm.page === 1" (click)="prevPage()">
+            <i class="fa-solid fa-angle-left"></i>
+          </button>
+
+          @for (p of getPages(vm.totalPages); track p) {
+            <button class="page-btn" [class.active]="p === vm.page" (click)="changePage(p)">
+              {{ p }}
+            </button>
+          }
+
+          <button class="page-btn" [disabled]="vm.page === vm.totalPages" (click)="nextPage()">
+            <i class="fa-solid fa-angle-right"></i>
+          </button>
+        </div>
       }
     }
   }
-
 </div>
