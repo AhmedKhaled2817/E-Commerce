@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Order, orderStatus } from 'app/Shared/Models/order';
 import { OrderService } from 'app/Shared/Service/order-service';
-import {takeUntilDestroyed}  from '@angular/core/rxjs-interop'
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-order-details',
@@ -13,7 +13,7 @@ import {takeUntilDestroyed}  from '@angular/core/rxjs-interop'
   templateUrl: './order-details.html',
   styleUrl: './order-details.scss',
 })
-export class OrderDetails  implements OnInit {
+export class OrderDetails  implements OnInit, OnDestroy {
 
   private ActivatedRoute=inject(ActivatedRoute);
   private orderService=inject(OrderService);
@@ -24,12 +24,13 @@ export class OrderDetails  implements OnInit {
   currentStep:number = 0;
   progressWidth:string = '0%';
   loading:boolean=true;
+  destroy$=new Subject<void>
 
   ngOnInit(): void {
-    this.ActivatedRoute.paramMap.pipe(takeUntilDestroyed()).subscribe((params)=>{
+    this.ActivatedRoute.paramMap.pipe(takeUntil(this.destroy$)).subscribe((params)=>{
       const id = Number(params.get('id'));
       if(id){
-        this.orderService.orders$.pipe(takeUntilDestroyed()).subscribe((o)=>{
+        this.orderService.orders$.pipe(takeUntil(this.destroy$)).subscribe((o)=>{
           const found=o.find((order)=>order.id===id)
           if(found){
             this.order=found;
@@ -77,5 +78,10 @@ isCancelled(): boolean {
 
   goBack(){
     this.router.navigate(['/public/orders']);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
