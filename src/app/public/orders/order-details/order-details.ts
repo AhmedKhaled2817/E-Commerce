@@ -3,6 +3,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Order, orderStatus } from 'app/Shared/Models/order';
 import { OrderService } from 'app/Shared/Service/order-service';
+import {takeUntilDestroyed}  from '@angular/core/rxjs-interop'
 
 @Component({
   selector: 'app-order-details',
@@ -25,15 +26,19 @@ export class OrderDetails  implements OnInit {
   loading:boolean=true;
 
   ngOnInit(): void {
-      const id = Number(this.ActivatedRoute.snapshot.paramMap.get('id'));
-    this.orderService.orders$.subscribe((o)=>{
-     const found=o.find((order)=>order.id===id)
-     if(found){
-      this.order=found;
-      this.currentStep=this.calculateCurrentStep();
-      this.progressWidth=this.calculateProgressWidth();
-     }
-     this.loading=false;
+    this.ActivatedRoute.paramMap.pipe(takeUntilDestroyed()).subscribe((params)=>{
+      const id = Number(params.get('id'));
+      if(id){
+        this.orderService.orders$.pipe(takeUntilDestroyed()).subscribe((o)=>{
+          const found=o.find((order)=>order.id===id)
+          if(found){
+            this.order=found;
+            this.currentStep=this.calculateCurrentStep();
+            this.progressWidth=this.calculateProgressWidth();
+          }
+          this.loading=false;
+        })
+      }
     })
   }
 
@@ -50,7 +55,7 @@ export class OrderDetails  implements OnInit {
       case orderStatus.Pending:
           return 0;
         case orderStatus.Shipped:
-          return 2;
+          return 1;
         case orderStatus.Delivered:
           return 3
         case orderStatus.Cancelled:
