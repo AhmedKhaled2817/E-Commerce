@@ -1,138 +1,51 @@
 <div class="order-details container my-5">
 
-  <!-- Back Button -->
-   <button class="back-btn mb-4" (click)="goBack()">
-    <i class="fa-solid fa-arrow-left me-2"></i>
-    Back to Orders
-  </button>
+  <!-- ===== Skeleton ===== -->
+  @if (loading) {
 
-  @if (order) {
+    <div class="skeleton-line w-20 mb-4"></div>
 
-    <!-- ===== Header ===== -->
-    <div class="order-header d-flex justify-content-between align-items-center mb-3">
-      <h2 class="fw-bold">Order #{{ order.id }}</h2>
-      <span class="badge fs-6"
-        [ngClass]="{
-          'bg-warning': order.status === 'Pending',
-          'bg-info':    order.status === 'Shipped',
-          'bg-success': order.status === 'Delivered',
-          'bg-danger':  order.status === 'Cancelled'
-        }">
-        {{ order.status }}
-      </span>
+    <div class="skeleton-header-row mb-3">
+      <div class="skeleton-line w-40"></div>
+      <div class="skeleton-badge"></div>
     </div>
 
-    <!-- ===== Status Alert ===== -->
-    @if (!isCancelled()) {
-      <div class="alert status-alert mb-4"
-        [ngClass]="{
-          'alert-warning': order.status === 'Pending',
-          'alert-info':    order.status === 'Shipped',
-          'alert-success': order.status === 'Delivered'
-        }">
-        <i class="fa-solid me-2"
-          [ngClass]="{
-            'fa-clock':        order.status === 'Pending',
-            'fa-truck':        order.status === 'Shipped',
-            'fa-circle-check': order.status === 'Delivered'
-          }"></i>
-        Your order is currently <strong>{{ order.status }}</strong>
-      </div>
-    } @else {
-      <div class="alert alert-danger status-alert mb-4">
-        <i class="fa-solid fa-circle-xmark me-2"></i>
-        This order has been <strong>cancelled</strong>
-      </div>
-    }
+    <div class="skeleton-alert mb-4"></div>
 
-    <!-- ===== Order Tracking ===== -->
-    <div class="order-tracking" [class.cancelled]="isCancelled()">
-      <div class="progress-line" [style.width]="progressWidth"></div>
-      @for (step of steps; track step; let i = $index) {
-        <div class="step"
-          [class.completed]="i < currentStep"
-          [class.active]="i === currentStep">
-          <div class="circle">
-            @if (i < currentStep) {
-              <i class="fa-solid fa-check"></i>
-            } @else {
-              <i class="fa-solid {{ step.icon }}"></i>
-            }
-          </div>
-          <div class="label">{{ step.label }}</div>
-          @if (i === currentStep && !isCancelled()) {
-            <div class="date">{{ order.date | date:'MMM d, y' }}</div>
-          }
+    <div class="skeleton-tracking mb-4">
+      @for (i of [1,2,3,4]; track i) {
+        <div class="skeleton-step">
+          <div class="skeleton-circle"></div>
+          <div class="skeleton-line w-60 mt-2"></div>
         </div>
       }
     </div>
 
-    <!-- ===== Order Info ===== -->
-    <div class="card order-info mb-4 p-4">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="label">Date</div>
-          <div class="value">{{ order.date | date:'medium' }}</div>
-        </div>
-        <div class="col-md-6 text-md-end">
-          <div class="label">Total Price</div>
-          <div class="value total">{{ order.totalPrice | currency }}</div>
-        </div>
-      </div>
+    <div class="skeleton-card mb-4">
+      <div class="skeleton-line w-40 mb-3"></div>
+      <div class="skeleton-line w-60"></div>
     </div>
 
-    <!-- ===== Shipping Address ===== -->
-    <div class="card order-info mb-4 p-4">
-      <h5 class="fw-bold mb-3">
-        <i class="fa-solid fa-location-dot me-2 text-primary"></i>
-        Shipping Address
-      </h5>
-      <div class="shipping-box">
-        <div class="shipping-name">{{ order.shippingAddress.fullName }}</div>
-        <div class="text-muted">{{ order.shippingAddress.address }}</div>
-        <div class="text-muted">{{ order.shippingAddress.city }}</div>
-        <div class="shipping-phone mt-2">
-          <i class="fa-solid fa-phone me-1"></i>
-          {{ order.shippingAddress.phone }}
-        </div>
-      </div>
+    <div class="skeleton-card mb-4">
+      <div class="skeleton-line w-30 mb-3"></div>
+      <div class="skeleton-line w-50 mb-2"></div>
+      <div class="skeleton-line w-40 mb-2"></div>
+      <div class="skeleton-line w-30"></div>
     </div>
 
-    <!-- ===== Payment Method ===== -->
-    <div class="card order-info mb-4 p-4">
-      <h5 class="fw-bold mb-3">
-        <i class="fa-solid fa-credit-card me-2 text-primary"></i>
-        Payment Method
-      </h5>
-      <div class="payment-box">
-        @if (order.payment === 'cashOnDelivery') {
-          <i class="fa-solid fa-money-bill-wave text-success"></i>
-          <span>Cash on Delivery</span>
-        } @else {
-          <i class="fa-solid fa-credit-card text-primary"></i>
-          <span>Credit Card</span>
-        }
-      </div>
+    <div class="skeleton-card mb-4">
+      <div class="skeleton-line w-30 mb-3"></div>
+      <div class="skeleton-line w-40"></div>
     </div>
 
-    <!-- ===== Order Items ===== -->
-    <div class="card order-items p-4 mb-5">
-      <h5 class="fw-bold mb-4">
-        <i class="fa-solid fa-bag-shopping me-2 text-primary"></i>
-        Items in this order
-      </h5>
-      @for (item of order.items; track item.id) {
-        <div class="order-item d-flex justify-content-between align-items-center">
-          <div class="d-flex align-items-center gap-3">
-            <img [src]="item.imgUrl" [alt]="item.name" class="item-img" />
-            <div>
-              <div class="item-name">{{ item.name }}</div>
-              <div class="item-desc text-muted small">{{ item.description || '' }}</div>
-            </div>
-          </div>
-          <div class="text-end">
-            <div>Qty: <strong>{{ item.quantity }}</strong></div>
-            <div class="item-price">{{ item.price | currency }}</div>
+    <div class="skeleton-card">
+      <div class="skeleton-line w-30 mb-4"></div>
+      @for (i of [1,2]; track i) {
+        <div class="skeleton-item mb-3">
+          <div class="skeleton-img"></div>
+          <div class="skeleton-info">
+            <div class="skeleton-line w-60"></div>
+            <div class="skeleton-line w-40"></div>
           </div>
         </div>
       }
@@ -140,16 +53,157 @@
 
   } @else {
 
-    <!-- ===== Empty State ===== -->
-    <div class="text-center py-5">
-      <i class="fa-solid fa-box-open fs-1 text-muted mb-3 d-block"></i>
-      <div class="text-muted fs-5 mb-3">Order not found</div>
-      <button class="btn btn-outline-primary" routerLink="/public/orders/">
+    @if (order) {
+
+      <!-- ===== Back Button ===== -->
+      <button class="back-btn mb-4" (click)="goBack()">
         <i class="fa-solid fa-arrow-left me-2"></i>
         Back to Orders
       </button>
-    </div>
 
+      <!-- ===== Header ===== -->
+      <div class="order-header d-flex justify-content-between align-items-center mb-3">
+        <h2 class="fw-bold">Order #{{ order.id }}</h2>
+        <span class="badge fs-6"
+          [ngClass]="{
+            'bg-warning': order.status === 'Pending',
+            'bg-info':    order.status === 'Shipped',
+            'bg-success': order.status === 'Delivered',
+            'bg-danger':  order.status === 'Cancelled'
+          }">
+          {{ order.status }}
+        </span>
+      </div>
+
+      <!-- ===== Status Alert ===== -->
+      @if (!isCancelled()) {
+        <div class="alert status-alert mb-4"
+          [ngClass]="{
+            'alert-warning': order.status === 'Pending',
+            'alert-info':    order.status === 'Shipped',
+            'alert-success': order.status === 'Delivered'
+          }">
+          <i class="fa-solid me-2"
+            [ngClass]="{
+              'fa-clock':        order.status === 'Pending',
+              'fa-truck':        order.status === 'Shipped',
+              'fa-circle-check': order.status === 'Delivered'
+            }"></i>
+          Your order is currently <strong>{{ order.status }}</strong>
+        </div>
+      } @else {
+        <div class="alert alert-danger status-alert mb-4">
+          <i class="fa-solid fa-circle-xmark me-2"></i>
+          This order has been <strong>cancelled</strong>
+        </div>
+      }
+
+      <!-- ===== Order Tracking ===== -->
+      <div class="order-tracking" [class.cancelled]="isCancelled()">
+        <div class="progress-line" [style.width]="progressWidth"></div>
+        @for (step of steps; track step; let i = $index) {
+          <div class="step"
+            [class.completed]="i < currentStep"
+            [class.active]="i === currentStep">
+            <div class="circle">
+              @if (i < currentStep) {
+                <i class="fa-solid fa-check"></i>
+              } @else {
+                <i class="fa-solid {{ step.icon }}"></i>
+              }
+            </div>
+            <div class="label">{{ step.label }}</div>
+            @if (i === currentStep && !isCancelled()) {
+              <div class="date">{{ order.date | date:'MMM d, y' }}</div>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- ===== Order Info ===== -->
+      <div class="card order-info mb-4 p-4">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="label">Date</div>
+            <div class="value">{{ order.date | date:'medium' }}</div>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <div class="label">Total Price</div>
+            <div class="value total">{{ order.totalPrice | currency }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== Shipping Address ===== -->
+      <div class="card order-info mb-4 p-4">
+        <h5 class="fw-bold mb-3">
+          <i class="fa-solid fa-location-dot me-2 text-primary"></i>
+          Shipping Address
+        </h5>
+        <div class="shipping-box">
+          <div class="shipping-name">{{ order.shippingAddress.fullName }}</div>
+          <div class="text-muted">{{ order.shippingAddress.address }}</div>
+          <div class="text-muted">{{ order.shippingAddress.city }}</div>
+          <div class="shipping-phone mt-2">
+            <i class="fa-solid fa-phone me-1"></i>
+            {{ order.shippingAddress.phone }}
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== Payment Method ===== -->
+      <div class="card order-info mb-4 p-4">
+        <h5 class="fw-bold mb-3">
+          <i class="fa-solid fa-credit-card me-2 text-primary"></i>
+          Payment Method
+        </h5>
+        <div class="payment-box">
+          @if (order.payment === 'cashOnDelivery') {
+            <i class="fa-solid fa-money-bill-wave text-success"></i>
+            <span>Cash on Delivery</span>
+          } @else {
+            <i class="fa-solid fa-credit-card text-primary"></i>
+            <span>Credit Card</span>
+          }
+        </div>
+      </div>
+
+      <!-- ===== Order Items ===== -->
+      <div class="card order-items p-4 mb-5">
+        <h5 class="fw-bold mb-4">
+          <i class="fa-solid fa-bag-shopping me-2 text-primary"></i>
+          Items in this order
+        </h5>
+        @for (item of order.items; track item.id) {
+          <div class="order-item d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-3">
+              <img [src]="item.imgUrl" [alt]="item.name" class="item-img" />
+              <div>
+                <div class="item-name">{{ item.name }}</div>
+                <div class="item-desc text-muted small">{{ item.description || '' }}</div>
+              </div>
+            </div>
+            <div class="text-end">
+              <div>Qty: <strong>{{ item.quantity }}</strong></div>
+              <div class="item-price">{{ item.price | currency }}</div>
+            </div>
+          </div>
+        }
+      </div>
+
+    } @else {
+
+      <!-- ===== Empty State ===== -->
+      <div class="text-center py-5">
+        <i class="fa-solid fa-box-open fs-1 text-muted mb-3 d-block"></i>
+        <div class="text-muted fs-5 mb-3">Order not found</div>
+        <button class="btn btn-outline-primary" (click)="goBack()">
+          <i class="fa-solid fa-arrow-left me-2"></i>
+          Back to Orders
+        </button>
+      </div>
+
+    }
   }
 
 </div>

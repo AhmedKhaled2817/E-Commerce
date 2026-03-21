@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Order, orderStatus } from 'app/Shared/Models/order';
 import { OrderService } from 'app/Shared/Service/order-service';
 
@@ -8,7 +8,6 @@ import { OrderService } from 'app/Shared/Service/order-service';
   selector: 'app-order-details',
   imports: [
     CommonModule,
-    RouterLink
   ],
   templateUrl: './order-details.html',
   styleUrl: './order-details.scss',
@@ -21,8 +20,9 @@ export class OrderDetails  implements OnInit {
 
   order!:Order;
 
-  currentStep = 0;
-  progressWidth = '0%';
+  currentStep:number = 0;
+  progressWidth:string = '0%';
+  loading:boolean=true;
 
   ngOnInit(): void {
       const id = Number(this.ActivatedRoute.snapshot.paramMap.get('id'));
@@ -33,6 +33,7 @@ export class OrderDetails  implements OnInit {
       this.currentStep=this.calculateCurrentStep();
       this.progressWidth=this.calculateProgressWidth();
      }
+     this.loading=false;
     })
   }
 
