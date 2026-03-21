@@ -2,17 +2,24 @@
 
   max-width: 900px;
 
-  /* =========================
-        Header
-  ==========================*/
+  /* ===== Header ===== */
+
   .order-header {
     border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
+    padding-bottom: 12px;
   }
 
-  /* =========================
-        Order Tracking
-  ==========================*/
+  /* ===== Status Alert ===== */
+
+  .status-alert {
+    border-radius: 10px;
+    font-size: 14px;
+    border: none;
+    padding: 12px 16px;
+  }
+
+  /* ===== Order Tracking ===== */
+
   .order-tracking {
     display: flex;
     justify-content: space-between;
@@ -20,7 +27,6 @@
     margin: 40px 0;
     position: relative;
 
-    /*  Progress Line Container  */
     &::before {
       content: '';
       position: absolute;
@@ -32,7 +38,6 @@
       z-index: 0;
     }
 
-    /*  Progress Line */
     .progress-line {
       position: absolute;
       top: 16px;
@@ -40,16 +45,14 @@
       height: 3px;
       background: #16a34a;
       z-index: 1;
-      transition: width 0.6s cubic-bezier(.4,0,.2,1);
+      transition: width 0.6s cubic-bezier(.4, 0, .2, 1);
     }
 
-    /*  Step  */
     .step {
       flex: 1;
       text-align: center;
       position: relative;
 
-      /*  Circle */
       .circle {
         width: 32px;
         height: 32px;
@@ -58,18 +61,14 @@
         margin: auto;
         z-index: 2;
         position: relative;
-
         display: flex;
         align-items: center;
         justify-content: center;
-
         color: white;
         font-size: 13px;
-
         transition: all 0.3s ease;
       }
 
-      /*  Step Label */
       .label {
         margin-top: 10px;
         font-size: 14px;
@@ -77,116 +76,96 @@
         transition: all 0.3s ease;
       }
 
-      /*  Step Date */
       .date {
         font-size: 12px;
         color: #9ca3af;
         margin-top: 4px;
       }
 
-      /* Hover */
-      &:hover .circle {
-        transform: scale(1.1);
-      }
+      &:hover .circle { transform: scale(1.1); }
 
-      /* Completed */
       &.completed {
-
-        .circle {
-          background: #16a34a;
-        }
-
-        .label {
-          color: #16a34a;
-          font-weight: 600;
-        }
-
+        .circle { background: #16a34a; }
+        .label  { color: #16a34a; font-weight: 600; }
       }
 
-      /* Active */
       &.active {
-
         .circle {
           background: #2563eb;
           transform: scale(1.25);
           box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
         }
-
-        .label {
-          color: #2563eb;
-          font-weight: 600;
-        }
-
+        .label { color: #2563eb; font-weight: 600; }
       }
 
-      /* Icons */
-      i {
-        font-size: 12px;
-      }
+      i { font-size: 12px; }
 
-      /* اللون الافتراضي للأيقونات */
-      &:not(.completed):not(.active) i {
-        color: #9ca3af;
-      }
-
-      &.completed i,
-      &.active i {
-        color: #fff;
-      }
-
+      &:not(.completed):not(.active) i { color: #9ca3af; }
+      &.completed i, &.active i        { color: #fff; }
     }
 
-    /* حالة Cancelled */
     &.cancelled {
-
-      .progress-line {
-        background: #dc2626;
-        width: 100% !important;
-      }
-
-      .circle {
-        background: #dc2626 !important;
-      }
-
-      .label {
-        color: #dc2626 !important;
-      }
-
+      .progress-line { background: #dc2626; width: 100% !important; }
+      .circle        { background: #dc2626 !important; }
+      .label         { color: #dc2626 !important; }
     }
-
   }
 
-  /* =========================
-        Order Info
-  ==========================*/
-  .order-info {
+  /* ===== Order Info ===== */
 
+  .order-info {
     border-radius: 10px;
     border: 1px solid #eee;
+    box-shadow: none;
 
-    .label {
-      font-size: 13px;
-      color: #777;
-    }
-
-    .value {
-      font-weight: 600;
-      font-size: 16px;
-    }
-
-    .total {
-      font-size: 20px;
-      color: #0d6efd;
-    }
-
+    .label { font-size: 13px; color: #777; }
+    .value { font-weight: 600; font-size: 16px; }
+    .total { font-size: 20px; color: #0d6efd; }
   }
 
-  /* =========================
-        Order Items
-  ==========================*/
+  /* ===== Shipping Box ===== */
+
+  .shipping-box {
+    background: #f9fafb;
+    border: 1px dashed #e5e7eb;
+    border-radius: 10px;
+    padding: 16px;
+    line-height: 1.8;
+
+    .shipping-name {
+      font-weight: 600;
+      font-size: 16px;
+      color: #111;
+      margin-bottom: 4px;
+    }
+
+    .shipping-phone {
+      font-size: 14px;
+      color: #555;
+    }
+  }
+
+  /* ===== Payment Box ===== */
+
+  .payment-box {
+    background: #f9fafb;
+    border: 1px dashed #e5e7eb;
+    border-radius: 10px;
+    padding: 16px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* ===== Order Items ===== */
+
   .order-items {
     border-radius: 10px;
     border: 1px solid #eee;
+    box-shadow: none;
   }
 
   .order-item {
@@ -194,18 +173,10 @@
     border-bottom: 1px solid #f1f1f1;
     transition: background 0.25s ease;
 
-    &:last-child {
-      border-bottom: none;
-    }
-
-    &:hover {
-      background: #fafafa;
-    }
+    &:last-child { border-bottom: none; }
+    &:hover      { background: #fafafa; }
   }
 
-  /* =========================
-        Item Image
-  ==========================*/
   .item-img {
     width: 70px;
     height: 70px;
@@ -214,21 +185,52 @@
     border: 1px solid #eee;
   }
 
-  /* =========================
-        Item Info
-  ==========================*/
-  .item-name {
-    font-weight: 600;
-    font-size: 15px;
+  .item-name  { font-weight: 600; font-size: 15px; }
+  .item-desc  { max-width: 300px; }
+  .item-price { font-weight: 600; color: #333; }
+
+  /* ===== Responsive ===== */
+
+  @media (max-width: 768px) {
+
+    .order-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .order-tracking {
+      margin: 30px 0;
+
+      .step .label { font-size: 11px; }
+      .step .date  { font-size: 10px; }
+    }
+
+    .order-info .row > div + div {
+      margin-top: 16px;
+      text-align: left !important;
+    }
+
+    .order-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+
+      .text-end {
+        text-align: left !important;
+        width: 100%;
+      }
+    }
+
+    .item-img { width: 60px; height: 60px; }
   }
 
-  .item-desc {
-    max-width: 300px;
-  }
+  @media (max-width: 576px) {
 
-  .item-price {
-    font-weight: 600;
-    color: #333;
-  }
+    .order-tracking {
+      .step .label { display: none; }
+    }
 
+    .item-desc { max-width: 200px; }
+  }
 }

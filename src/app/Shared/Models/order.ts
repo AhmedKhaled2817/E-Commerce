@@ -6,6 +6,8 @@ export interface Order {
   totalPrice:number;
   date:string;
   status: keyof typeof orderStatus;
+  shippingAddress:ShippingAddress;
+  payment:string
 }
 export const  orderStatus={
   Pending:'Pending',
@@ -13,3 +15,10 @@ export const  orderStatus={
   Delivered:'Delivered',
   Cancelled:'Cancelled'
 } as const
+
+export interface ShippingAddress{
+  fullName:string,
+  phone:string,
+  city:string,
+  address:string,
+}

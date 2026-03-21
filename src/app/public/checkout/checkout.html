@@ -6,25 +6,32 @@
 
     <!-- Shipping -->
     <div class="col-md-7">
-      <div class="card p-4 mb-4">
-        <h5 class="mb-3">Shipping Address</h5>
-        <input class="form-control mb-3" placeholder="Full Name">
-        <input class="form-control mb-3" placeholder="Phone">
-        <input class="form-control mb-3" placeholder="City">
-        <input class="form-control mb-3" placeholder="Address">
-      </div>
+    <form [formGroup]="checkoutForm">
 
-      <div class="card p-4">
-        <h5 class="mb-3">Payment Method</h5>
-        <div class="form-check">
-          <input class="form-check-input" id="cash" type="radio" name="payment">
-          <label class="form-check-label" for="cash">Cash on Delivery</label>
-        </div>
-        <div class="form-check mt-2">
-          <input class="form-check-input" id="credit" type="radio" name="payment">
-          <label class="form-check-label" for="credit">Credit Card</label>
-        </div>
-      </div>
+  <div class="card p-4 mb-4">
+    <h5 class="mb-3">Shipping Address</h5>
+
+    <input class="form-control mb-3" placeholder="Full Name" formControlName="fullName">
+    <input class="form-control mb-3" placeholder="Phone" formControlName="phone">
+    <input class="form-control mb-3" placeholder="City" formControlName="city">
+    <input class="form-control mb-3" placeholder="Address" formControlName="address">
+  </div>
+
+  <div class="card p-4">
+    <h5 class="mb-3">Payment Method</h5>
+
+    <div class="form-check">
+      <input class="form-check-input" id="cash" type="radio" value="cashOnDelivery" formControlName="payment">
+      <label for="cash">Cash on Delivery</label>
+    </div>
+
+    <div class="form-check mt-2">
+      <input class="form-check-input" id="credit" type="radio" value="credit" formControlName="payment">
+      <label for="credit">Credit Card</label>
+    </div>
+  </div>
+
+</form>
     </div>
 
     <!-- Order Summary -->

@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Order, orderStatus } from 'app/Shared/Models/order';
 import { OrderService } from 'app/Shared/Service/order-service';
 
 @Component({
   selector: 'app-order-details',
   imports: [
-    CommonModule
+    CommonModule,
+    RouterLink
   ],
   templateUrl: './order-details.html',
   styleUrl: './order-details.scss',

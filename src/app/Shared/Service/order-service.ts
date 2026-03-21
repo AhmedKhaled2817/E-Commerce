@@ -1,3 +1,4 @@
+import { ShippingAddress } from './../Models/order';
 import { Injectable } from '@angular/core';
 import { Order, orderStatus } from '../Models/order';
 import { BehaviorSubject } from 'rxjs';
@@ -23,13 +24,15 @@ export class OrderService {
 
   }
 
-  createOrder(items:CartItem[],total:number){
+  createOrder(items:CartItem[],total:number,ShippingAddress:ShippingAddress,payment:string){
     const order:Order={
       id:Date.now(),
       items,
       totalPrice:total,
       date: new Date().toString(),
-      status: orderStatus.Pending as keyof typeof orderStatus
+      status: orderStatus.Pending as keyof typeof orderStatus,
+      shippingAddress:ShippingAddress,
+      payment
     }
     this.orders.push(order);
     localStorage.setItem('orders',JSON.stringify(this.orders));
