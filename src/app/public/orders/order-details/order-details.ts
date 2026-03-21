@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Order, orderStatus } from 'app/Shared/Models/order';
 import { OrderService } from 'app/Shared/Service/order-service';
 
@@ -17,6 +17,7 @@ export class OrderDetails  implements OnInit {
 
   private ActivatedRoute=inject(ActivatedRoute);
   private orderService=inject(OrderService);
+  private router=inject(Router);
 
   order!:Order;
 
@@ -68,4 +69,7 @@ isCancelled(): boolean {
     return this.order.status === orderStatus.Cancelled;
   }
 
+  goBack(){
+    this.router.navigate(['/public/orders']);
+  }
 }

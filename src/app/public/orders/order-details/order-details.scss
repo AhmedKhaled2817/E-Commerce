@@ -2,6 +2,31 @@
 
   max-width: 900px;
 
+  /* ===== Back Button ===== */
+ .back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: #555;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 6px 0;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #0d6efd;
+
+    i { transform: translateX(-3px); }
+  }
+
+  i {
+    transition: transform 0.2s ease;
+  }
+}
+
   /* ===== Header ===== */
 
   .order-header {

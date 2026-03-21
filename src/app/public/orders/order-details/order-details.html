@@ -1,5 +1,11 @@
 <div class="order-details container my-5">
 
+  <!-- Back Button -->
+   <button class="back-btn mb-4" (click)="goBack()">
+    <i class="fa-solid fa-arrow-left me-2"></i>
+    Back to Orders
+  </button>
+
   @if (order) {
 
     <!-- ===== Header ===== -->
@@ -138,7 +144,7 @@
     <div class="text-center py-5">
       <i class="fa-solid fa-box-open fs-1 text-muted mb-3 d-block"></i>
       <div class="text-muted fs-5 mb-3">Order not found</div>
-      <button class="btn btn-outline-primary" routerLink="/public/orders">
+      <button class="btn btn-outline-primary" routerLink="/public/orders/">
         <i class="fa-solid fa-arrow-left me-2"></i>
         Back to Orders
       </button>
