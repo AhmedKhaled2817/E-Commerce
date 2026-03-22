@@ -24,7 +24,7 @@ export class OrderDetails  implements OnInit, OnDestroy {
   currentStep:number = 0;
   progressWidth:string = '0%';
   loading:boolean=true;
-  destroy$=new Subject<void>
+  destroy$=new Subject<void>()
 
   ngOnInit(): void {
     this.ActivatedRoute.paramMap.pipe(

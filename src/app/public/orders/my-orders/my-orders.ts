@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { OrderService } from 'app/Shared/Service/order-service';
 import { Router, RouterModule } from '@angular/router';
 import { CartService } from 'app/Shared/Service/cart-service';
 import { Order, orderStatus } from 'app/Shared/Models/order';
-import { BehaviorSubject, combineLatest, delay, map } from 'rxjs';
+import { BehaviorSubject, combineLatest, delay, map, Subject, takeUntil} from 'rxjs';
 
 @Component({
   selector: 'app-my-orders',
@@ -12,12 +12,15 @@ import { BehaviorSubject, combineLatest, delay, map } from 'rxjs';
   templateUrl: './my-orders.html',
   styleUrl: './my-orders.scss',
 })
-export class MyOrders implements OnInit {
+export class MyOrders implements OnInit ,OnDestroy {
   private orderService = inject(OrderService);
   private cartService = inject(CartService);
   private router = inject(Router);
 
+
   orders$ = this.orderService.orders$;
+
+  destroy$=new Subject<void>();
 
   // ===== Filter =====
   selectedStatus$ = new BehaviorSubject<string>('All');
@@ -79,7 +82,7 @@ export class MyOrders implements OnInit {
 
   // ===== Lifecycle =====
   ngOnInit(): void {
-    this.orders$.pipe(delay(800)).subscribe(() => {
+    this.orders$.pipe(delay(800),takeUntil(this.destroy$)).subscribe(() => {
       this.loading = false;
     });
   }
@@ -126,5 +129,10 @@ export class MyOrders implements OnInit {
       }
     });
     this.router.navigate(['/public/cart']);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
