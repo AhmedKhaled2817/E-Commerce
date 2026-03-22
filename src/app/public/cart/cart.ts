@@ -21,11 +21,11 @@ export class Cart implements OnInit, OnDestroy{
   private sub!: Subscription;
   private cartService = inject(CartService);
   private router=inject(Router);
+  private previousLength:number=0;
 
   // Observable for cart items
   cartItems$ = this.cartService.cartItems$;
   cartTotalPrice$=this.cartService.totalPrice$;
-
 
 
   // Observable for total price
@@ -37,9 +37,10 @@ export class Cart implements OnInit, OnDestroy{
     this.sub = this.cartService.cartItems$.subscribe({
       next: (item) => {
         this.cartItems = item;
-        if (item.length > 0) {
+        if (item.length > this.previousLength) {
           this.toastr.success('Item added to cart successfully');
         }
+        this.previousLength=item.length;
       },
       error: (error) => {
         console.log(error.message);
