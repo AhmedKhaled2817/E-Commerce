@@ -1,37 +1,78 @@
 <div class="container my-5">
-
   <h2 class="mb-4 fw-bold">Checkout</h2>
-
   <div class="row">
 
     <!-- Shipping -->
     <div class="col-md-7">
-    <form [formGroup]="checkoutForm">
+      <form [formGroup]="checkoutForm">
 
-  <div class="card p-4 mb-4">
-    <h5 class="mb-3">Shipping Address</h5>
+        <div class="card p-4 mb-4">
+          <h5 class="mb-3">Shipping Address</h5>
+          <input class="form-control mb-3" placeholder="Full Name" formControlName="fullName">
+          <input class="form-control mb-3" placeholder="Phone" formControlName="phone">
+          <input class="form-control mb-3" placeholder="City" formControlName="city">
+          <input class="form-control mb-3" placeholder="Address" formControlName="address">
+        </div>
 
-    <input class="form-control mb-3" placeholder="Full Name" formControlName="fullName">
-    <input class="form-control mb-3" placeholder="Phone" formControlName="phone">
-    <input class="form-control mb-3" placeholder="City" formControlName="city">
-    <input class="form-control mb-3" placeholder="Address" formControlName="address">
-  </div>
+        <div class="card p-4">
+          <h5 class="mb-3">Payment Method</h5>
 
-  <div class="card p-4">
-    <h5 class="mb-3">Payment Method</h5>
+          <div class="form-check">
+            <input class="form-check-input" id="cash" type="radio"
+              value="cashOnDelivery" formControlName="payment">
+            <label class="form-check-label" for="cash">Cash on Delivery</label>
+          </div>
 
-    <div class="form-check">
-      <input class="form-check-input" id="cash" type="radio" value="cashOnDelivery" formControlName="payment">
-      <label for="cash">Cash on Delivery</label>
-    </div>
+          <div class="form-check mt-2">
+            <input class="form-check-input" id="credit" type="radio"
+              value="credit" formControlName="payment">
+            <label class="form-check-label" for="credit">Credit Card</label>
+          </div>
 
-    <div class="form-check mt-2">
-      <input class="form-check-input" id="credit" type="radio" value="credit" formControlName="payment">
-      <label for="credit">Credit Card</label>
-    </div>
-  </div>
+          <!-- ✅ Credit Card Fields -->
+          @if (checkoutForm.get('payment')?.value === 'credit') {
+            <div class="card-fields mt-3">
 
-</form>
+              <div class="mb-3">
+                <label class="form-label">Card Number</label>
+                <input
+                  class="form-control"
+                  placeholder="1234 5678 9012 3456"
+                  formControlName="cardNumber"
+                  maxlength="19"
+                  (input)="formatCardNumber($event)"
+                />
+              </div>
+
+              <div class="row">
+                <div class="col-6">
+                  <label class="form-label">Expiry Date</label>
+                  <input
+                    class="form-control"
+                    placeholder="MM / YY"
+                    formControlName="expiryDate"
+                    maxlength="7"
+                    (input)="formatExpiry($event)"
+                  />
+                </div>
+                <div class="col-6">
+                  <label class="form-label">CVV</label>
+                  <input
+                    class="form-control"
+                    placeholder="123"
+                    formControlName="cvv"
+                    maxlength="3"
+                    type="password"
+                  />
+                </div>
+              </div>
+
+            </div>
+          }
+
+        </div>
+
+      </form>
     </div>
 
     <!-- Order Summary -->
@@ -40,10 +81,9 @@
         [items$]="items$"
         [totalPrice$]="totalPrice$"
         [buttonText]="buttonText"
-        (action)="placeOrder()" #ordersummary>
+        (action)="placeOrder()">
       </app-order-summary>
     </div>
 
   </div>
-
 </div>

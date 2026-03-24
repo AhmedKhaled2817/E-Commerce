@@ -51,6 +51,27 @@ export class Checkout  {
     phone:['',Validators.required],
     city:['',Validators.required],
     address:['',Validators.required],
-    payment:['cashOnDelivery',Validators.required]
+    payment:['cashOnDelivery',Validators.required],
+    cardNumber:[''],
+    expiryDate:[''],
+    cvv:['']
   })
+
+  formatCardNumber(event:Event):void{
+    const input=event.target as HTMLInputElement;
+    let value=input.value.replace(/\D/g,'');
+    value=value.match(/.{1,4}/g)?.join(' ')?? value;
+    input.value=value;
+    this.checkoutForm.get('cardNumber')?.setValue(value,{emitEvent:false});
+  }
+  formatExpiry(event:Event):void{
+    const input=event.target as HTMLInputElement;
+    let value=input.value.replace(/\D/g,'');
+
+    if(value.length>=2){
+      value=value.slice(0,2)+' / '+value.slice(2)
+    }
+    input.value=value;
+    this.checkoutForm.get('expiryDate')?.setValue(value,{emitEvent:false})
+  }
 }

@@ -40,14 +40,8 @@ input.form-control {
   align-items: center;
   gap: 10px;
 
-  .form-check-input {
-    cursor: pointer;
-  }
-
-  .form-check-label {
-    font-size: 14px;
-    cursor: pointer;
-  }
+  .form-check-input  { cursor: pointer; }
+  .form-check-label  { font-size: 14px; cursor: pointer; }
 }
 
 hr {
@@ -57,15 +51,10 @@ hr {
 
 .d-flex {
   font-size: 14px;
-
-  span:last-child {
-    font-weight: 500;
-  }
+  span:last-child { font-weight: 500; }
 }
 
-.fw-bold {
-  font-size: 16px;
-}
+.fw-bold { font-size: 16px; }
 
 button.btn-dark {
   height: 46px;
@@ -77,5 +66,71 @@ button.btn-dark {
   &:hover {
     background: #000;
     transform: translateY(-1px);
+  }
+}
+
+/* ===== Credit Card Fields ===== */
+
+.card-fields {
+  background: #f9fafb;
+  border: 1px dashed #dee2e6;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 16px;
+
+  .form-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 6px;
+  }
+
+  input.form-control {
+    height: 44px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 15px;
+    letter-spacing: 2px;
+    transition: all 0.2s ease;
+
+    &:focus {
+      border-color: #0d6efd;
+      box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
+    }
+
+    &::placeholder {
+      color: #bbb;
+      letter-spacing: 1px;
+      font-size: 13px;
+    }
+  }
+}
+
+/* ===== Responsive ===== */
+
+@media (max-width: 768px) {
+
+  .container h2 { font-size: 22px; }
+
+  .card { padding: 1rem !important; }
+
+  h5 { font-size: 16px; }
+
+  .card-fields {
+    padding: 16px;
+
+    .row {
+      gap: 12px;
+
+      .col-6 { width: 100%; }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+
+  .card-fields input.form-control {
+    font-size: 14px;
+    letter-spacing: 1px;
   }
 }
