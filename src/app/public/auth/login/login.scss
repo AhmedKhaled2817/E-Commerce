@@ -2,7 +2,6 @@
   min-height: 100vh;
   font-family: 'Poppins', sans-serif;
   background: #f5f6fa;
-  overflow-y: auto;
 
   .auth-row {
     min-height: 100vh;
@@ -119,6 +118,12 @@
   /* Responsive */
   @media (max-width: 768px) {
     height: auto;
+    min-height: 100vh;
+
+    .auth-row {
+      height: auto;
+      min-height: 100vh;
+    }
 
     .auth-img-col {
       display: none; // hide image on small screens
@@ -126,7 +131,8 @@
 
     .auth-right {
       border-radius: 0;
-      padding: 30px 20px;
+      padding: 40px 20px 60px 20px;
+      align-items: flex-start;
     }
 
     .right-content {

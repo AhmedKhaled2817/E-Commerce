@@ -2,11 +2,11 @@
   min-height: 100vh;
   background: #f9fafb;
   font-family: 'Poppins', sans-serif;
-  overflow-y: auto;
 }
 
 .auth-row {
   min-height: 100vh;
+  margin: 0;
 }
 
 /* ===================
@@ -44,6 +44,7 @@
   .right-content {
     width: 100%;
     max-width: 420px;
+    padding-bottom: 2rem;
     animation: fadeIn 0.5s ease;
 
     .header-text {
@@ -147,13 +148,23 @@
    RESPONSIVE
 =================== */
 @media (max-width: 992px) {
+  .auth-container {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .auth-row {
+    height: auto;
+    min-height: 100vh;
+  }
+
   .auth-img-col {
     display: none;
   }
 
   .auth-right {
-    justify-content: flex-start;
-    padding-top: 4rem;
+    align-items: flex-start;
+    padding: 4rem 1.5rem 5rem 1.5rem;
   }
 
   .right-content {
