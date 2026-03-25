@@ -41,24 +41,15 @@ export class Header implements OnInit {
     this.showUserMenu = false;
   }
 
-  isLoggedIn(): boolean {
-    const profile = this.userProfile() as UserProfile;
-    // Simple check: if name is not default OR has avatar
-    return profile?.name !== 'Ahmed Khaled' || !!profile?.avatar;
-  }
+  isLoggedIn = this.profileService.isLoggedIn;
 
   getUserName(): string {
     const profile = this.userProfile() as UserProfile;
-    return profile?.name ? profile.name.split(' ')[0] : '';
+    return profile?.name && profile.name !== 'Guest' ? profile.name.split(' ')[0] : 'Guest';
   }
 
   logout() {
-    this.profileService.updateProfile({
-      name: 'Ahmed Khaled',
-      email: 'ahmed.khaled@example.com',
-      avatar: null,
-      isPrime: true,
-    });
+    this.profileService.logout();
     this.router.navigate(['/public/auth/login']);
   }
 

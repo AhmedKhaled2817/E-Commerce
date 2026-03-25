@@ -76,4 +76,8 @@ export class Register implements OnInit {
       };
     });
   }
+
+  navigateToLogin(): void {
+    this.router.navigate(['/public/auth/login']);
+  }
 }
