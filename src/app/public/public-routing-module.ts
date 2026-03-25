@@ -6,56 +6,104 @@ import { Home } from './home/home';
 import { Cart } from './cart/cart';
 import { Favorite } from './favorite/favorite';
 import { ProductsComponent } from './products/products';
-import { Checkout } from './checkout/checkout';
+import { authGuard } from '../Shared/Guards/auth.guard';
+import { guestGuard } from '../Shared/Guards/guest.guard';
 
 const routes: Routes = [
   {
-    path:'',
-    component:Public,
-    children:[
+    path: '',
+    component: Public,
+    children: [
       {
-        path:'home',
-        component:Home
+        path: 'home',
+        component: Home,
       },
       {
-        path:'cart',
-        component:Cart
+        path: 'cart',
+        component: Cart,
+        canActivate: [authGuard],
       },
       {
-        path:'favorite',
-        component:Favorite,
+        path: 'favorite',
+        component: Favorite,
+        canActivate: [authGuard],
       },
       {
-        path:'products',
-        component: ProductsComponent
+        path: 'products',
+        component: ProductsComponent,
       },
       {
-        path:"products/:category",
-        loadComponent:()=>import('./products/products').then((m)=>m.ProductsComponent)
+        path: 'profile',
+        canActivate: [authGuard],
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('./profile/profile').then((m) => m.Profile),
+          },
+          {
+            path: 'addresses',
+            loadComponent: () =>
+              import('./profile/sub-pages/addresses/addresses').then((m) => m.Addresses),
+          },
+          {
+            path: 'security',
+            loadComponent: () =>
+              import('./profile/sub-pages/security/security').then((m) => m.Security),
+          },
+          {
+            path: 'payment',
+            loadComponent: () =>
+              import('./profile/sub-pages/payment-methods/payment-methods').then(
+                (m) => m.PaymentMethods,
+              ),
+          },
+        ],
       },
       {
-        path:'product/:id',
-        loadComponent:()=>import('./product-details/product-details').then((m)=>m.ProductDetails)
+        path: 'products/:category',
+        loadComponent: () => import('./products/products').then((m) => m.ProductsComponent),
       },
       {
-        path:'orders',
-        loadChildren:()=>import('./orders/orders-routing-module').then((m)=>m.OrdersRoutingModule)
+        path: 'product/:id',
+        loadComponent: () =>
+          import('./product-details/product-details').then((m) => m.ProductDetails),
       },
       {
-        path:'checkout',
-        component:Checkout,
+        path: 'orders',
+        canActivate: [authGuard],
+        loadChildren: () =>
+          import('./orders/orders-routing-module').then((m) => m.OrdersRoutingModule),
       },
       {
-        path:'',
-        redirectTo:'/public/home',
-        pathMatch:'full'
-      }
-    ]
-  }
+        path: 'checkout',
+        canActivate: [authGuard],
+        loadComponent: () => import('./checkout/checkout').then((m) => m.Checkout),
+      },
+      {
+        path: 'auth',
+        canActivate: [guestGuard],
+        children: [
+          {
+            path: 'login',
+            loadComponent: () => import('./auth/login/login').then((m) => m.Login),
+          },
+          {
+            path: 'register',
+            loadComponent: () => import('./auth/register/register').then((m) => m.Register),
+          },
+        ],
+      },
+      {
+        path: '',
+        redirectTo: '/public/home',
+        pathMatch: 'full',
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class PublicRoutingModule { }
+export class PublicRoutingModule {}

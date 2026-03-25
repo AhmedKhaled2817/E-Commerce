@@ -1,0 +1,176 @@
+<div class="profile-container pb-5">
+  <!-- Profile Hero / Header Banner -->
+  <div class="profile-hero mb-5">
+    <div class="container py-4">
+      <div
+        class="d-flex align-items-center gap-4 flex-wrap flex-md-nowrap justify-content-center justify-content-md-start"
+      >
+        <!-- Avatar Section with Upload Overlay -->
+        <div class="avatar-container position-relative">
+          <div class="avatar-circle shadow-sm">
+            @if (userProfile().avatar) {
+              <img [src]="userProfile().avatar" alt="Avatar" class="avatar-img" />
+            } @else {
+              <mat-icon>account_circle</mat-icon>
+            }
+          </div>
+          <label
+            for="avatar-upload"
+            class="avatar-upload-btn"
+            [title]="'profile.editAvatar' | translate"
+          >
+            <mat-icon>photo_camera</mat-icon>
+            <input
+              type="file"
+              id="avatar-upload"
+              class="d-none"
+              (change)="onFileSelected($event)"
+              accept="image/*"
+            />
+          </label>
+        </div>
+
+        <!-- User Brief Info -->
+        <div class="user-brief-info text-center text-md-start">
+          <h1 class="fw-bold mb-1 text-white">{{ userProfile().name }}</h1>
+          <p class="mb-2 text-white-50 small">{{ userProfile().email }}</p>
+          <div
+            class="d-flex align-items-center gap-2 justify-content-center justify-content-md-start"
+          >
+            <span class="badge rounded-pill bg-warning text-dark px-3 py-2 fw-bold">
+              <mat-icon class="small-icon me-1">workspace_premium</mat-icon>
+              {{ userProfile().isPrime ? 'Prime Member' : 'Regular Member' }}
+            </span>
+            <button
+              class="btn btn-sm btn-light rounded-pill px-3 py-1 shadow-sm"
+              (click)="toggleEdit()"
+            >
+              <mat-icon class="small-icon me-1">edit</mat-icon>
+              {{ 'profile.edit' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Edit Mode Form (Modal-like Overlay if needed, but here simple toggle) -->
+    @if (isEditMode()) {
+      <div class="edit-profile-section card border-0 shadow-sm p-4 mb-5 animate-fade-in">
+        <h3 class="fw-bold mb-4 border-bottom pb-2">{{ 'profile.edit' | translate }}</h3>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label small fw-bold text-muted">{{
+              'common.name' | translate
+            }}</label>
+            <input
+              type="text"
+              class="form-control form-control-lg"
+              [(ngModel)]="editModel.name"
+              [placeholder]="'profile.namePlaceholder' | translate"
+            />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label small fw-bold text-muted">{{
+              'common.email' | translate
+            }}</label>
+            <input
+              type="email"
+              class="form-control form-control-lg"
+              [(ngModel)]="editModel.email"
+              [placeholder]="'profile.emailPlaceholder' | translate"
+            />
+          </div>
+          <div class="col-12 mt-4">
+            <button class="btn btn-primary px-4 py-2 me-2" (click)="saveProfile()">
+              {{ 'common.save' | translate }}
+            </button>
+            <button class="btn btn-outline-secondary px-4 py-2" (click)="toggleEdit()">
+              {{ 'common.cancel' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Main Account Grid -->
+    <div class="account-title mb-4">
+      <h2 class="fw-bold h3">{{ 'profile.title' | translate }}</h2>
+      <p class="text-muted small">{{ 'profile.subtitle' | translate }}</p>
+    </div>
+
+    <div class="row g-4">
+      @for (card of profileCards; track card.title) {
+        <div class="col-lg-4 col-md-6 col-12">
+          <a [routerLink]="card.link" class="account-card-link h-100">
+            <div
+              class="account-card p-4 h-100 d-flex gap-3 align-items-start border rounded-3 shadow-sm-hover"
+            >
+              <div
+                class="card-icon-wrapper rounded-circle p-3 d-flex align-items-center justify-content-center"
+              >
+                <mat-icon>{{ card.icon }}</mat-icon>
+              </div>
+              <div class="card-text">
+                <h4 class="fw-bold mb-1 h5">{{ card.title | translate }}</h4>
+                <p class="text-muted mb-0 small line-height-sm">
+                  {{ card.description | translate }}
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+      }
+    </div>
+
+    <!-- More Features Section -->
+    <div class="more-features mt-5 pt-5 border-top">
+      <h3 class="fw-bold mb-4">{{ 'profile.moreAccount' | translate }}</h3>
+      <div class="row g-4">
+        <div class="col-md-3 col-sm-6">
+          <div class="feature-group">
+            <h5 class="fw-bold mb-3 text-muted small text-uppercase letter-spacing">
+              {{ 'profile.groups.ordering' | translate }}
+            </h5>
+            <ul class="list-unstyled">
+              <li>
+                <a href="#" class="feature-link"
+                  ><mat-icon class="small-icon">list_alt</mat-icon>
+                  {{ 'profile.sublinks.lists' | translate }}</a
+                >
+              </li>
+              <li>
+                <a href="#" class="feature-link"
+                  ><mat-icon class="small-icon">local_offer</mat-icon>
+                  {{ 'profile.sublinks.coupons' | translate }}</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="feature-group">
+            <h5 class="fw-bold mb-3 text-muted small text-uppercase letter-spacing">
+              {{ 'profile.groups.settings' | translate }}
+            </h5>
+            <ul class="list-unstyled">
+              <li>
+                <a href="#" class="feature-link"
+                  ><mat-icon class="small-icon">notifications</mat-icon>
+                  {{ 'profile.sublinks.notifications' | translate }}</a
+                >
+              </li>
+              <li>
+                <a href="#" class="feature-link"
+                  ><mat-icon class="small-icon">verified_user</mat-icon>
+                  {{ 'profile.sublinks.prime' | translate }}</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

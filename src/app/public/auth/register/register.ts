@@ -1,7 +1,9 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ValidationService } from '@app/services';               // @app/services
-import { SharedModule } from '@app/Shared';                      // @app/shared
+import { ValidationService } from '@app/services';
+import { SharedModule } from '@app/Shared';
+import { Router } from '@angular/router';
+import { LocalStorage } from '../../../Shared/Service/local-storage';
 
 @Component({
   selector: 'app-register',
@@ -18,6 +20,8 @@ export class Register implements OnInit {
   });
 
   private readonly formBuilder = inject(FormBuilder);
+  private readonly router = inject(Router);
+  private readonly localStorage = inject(LocalStorage);
 
   ngOnInit(): void {
     this.initForm();
@@ -25,7 +29,20 @@ export class Register implements OnInit {
 
   signUp(): void {
     if (this.form.valid) {
-      console.log(this.form.value);
+      const { firstName, lastName, email, password } = this.form.value;
+      const userData = {
+        name: `${firstName} ${lastName}`,
+        email,
+        password, // In a real app, this should be encrypted
+        avatar: null,
+        isPrime: false,
+      };
+
+      // Save to temporary storage for registration (mocking a database)
+      this.localStorage.setItem('registered_user', JSON.stringify(userData) as string);
+
+      // Redirect to login
+      this.router.navigate(['/public/auth/login']);
     }
   }
 
@@ -47,7 +64,7 @@ export class Register implements OnInit {
       },
       {
         validators: ValidationService.mustMatch('password', 'confirmPassword'),
-      }
+      },
     );
   }
 

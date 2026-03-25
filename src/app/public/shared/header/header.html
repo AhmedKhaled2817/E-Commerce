@@ -19,12 +19,16 @@
       <a>{{ 'home.header.shop' | translate }} <i class="fa-solid fa-angle-down"></i></a>
       <app-mega-menu [showMenu]="showMenu"></app-mega-menu>
     </div>
-    <a routerLink="/public/orders" routerLinkActive="active">{{
-      'home.header.order.myOrder' | translate
-    }}</a>
-    <a routerLink="/public/profile" routerLinkActive="active">{{
-      'home.header.profile' | translate
-    }}</a>
+
+    @if (isLoggedIn()) {
+      <a routerLink="/public/orders" routerLinkActive="active">{{
+        'home.header.order.myOrder' | translate
+      }}</a>
+      <a routerLink="/public/profile" routerLinkActive="active">{{
+        'home.header.profile' | translate
+      }}</a>
+    }
+
     <a routerLink="/public/contact" routerLinkActive="active">{{
       'home.header.contact' | translate
     }}</a>
@@ -33,7 +37,7 @@
   <!-- Icons & Login -->
   <div class="actions d-flex align-items-center gap-3">
     <div class="search-box">
-      <span class="icon cursor-pointer" (click)="toggleSearch()">
+      <span class="icon cursor-pointer" (click)="toggleSearch(); $event.stopPropagation()">
         <i class="fa-solid fa-magnifying-glass"></i>
       </span>
 
@@ -49,22 +53,21 @@
       @if (showDropdown) {
         <div class="search-dropdown">
           @if (loading) {
-            <div class="skeleton" *ngFor="let i of [1, 2, 3, 4]"></div>
+            @for (i of [1, 2, 3, 4]; track i) {
+              <div class="skeleton"></div>
+            }
           }
 
           @if (!loading && result.length) {
-            <div
-              class="item"
-              *ngFor="let p of result; let i = index"
-              [class.active]="i === activeIndex"
-              (click)="openProduct(p)"
-            >
-              <img [src]="p.images[0]" width="40" />
-              <div>
-                <div [innerHTML]="HighLight(p.title)"></div>
-                <small>${{ p.price }}</small>
+            @for (p of result; track p.id; let i = $index) {
+              <div class="item" [class.active]="i === activeIndex" (click)="openProduct(p)">
+                <img [src]="p.images[0]" width="40" />
+                <div>
+                  <div [innerHTML]="HighLight(p.title)"></div>
+                  <small>${{ p.price }}</small>
+                </div>
               </div>
-            </div>
+            }
           }
 
           @if (!loading && result.length === 0) {
@@ -73,16 +76,47 @@
         </div>
       }
     </div>
+
     <span class="icon cursor-pointer"
       ><i class="fa-solid fa-globe" [mat-menu-trigger-for]="menu"></i
     ></span>
-    <span class="icon cursor-pointer"
-      ><i class="fa-solid fa-cart-shopping fs-5" routerLink="/public/cart"></i
-    ></span>
-    <span class="icon cursor-pointer" routerLink="/public/favorite"
-      ><i class="fa-solid fa-heart"></i
-    ></span>
-    <button class="btn-login" routerLink="/login">Login</button>
+
+    @if (isLoggedIn()) {
+      <span class="icon cursor-pointer"
+        ><i class="fa-solid fa-cart-shopping fs-5" routerLink="/public/cart"></i
+      ></span>
+      <span class="icon cursor-pointer" routerLink="/public/favorite"
+        ><i class="fa-solid fa-heart"></i
+      ></span>
+
+      <div
+        class="user-nav-info d-flex align-items-center gap-2 cursor-pointer position-relative"
+        (click)="toggleUserMenu($event)"
+      >
+        <div class="user-avatar-small shadow-sm">
+          @if (userProfile().avatar) {
+            <img [src]="userProfile().avatar" alt="User" />
+          } @else {
+            <i class="fa-solid fa-user-circle fs-4"></i>
+          }
+        </div>
+        <span class="fw-bold small d-none d-md-inline">{{ getUserName() }}</span>
+
+        <!-- Dropdown for Logout -->
+        @if (showUserMenu) {
+          <div class="user-dropdown shadow-sm p-2 animate-fade-in">
+            <a routerLink="/public/profile" class="dropdown-item p-2 small"
+              ><mat-icon class="small-icon">person</mat-icon> Profile</a
+            >
+            <button class="dropdown-item p-2 small text-danger" (click)="logout()">
+              <mat-icon class="small-icon">logout</mat-icon> Logout
+            </button>
+          </div>
+        }
+      </div>
+    } @else {
+      <button class="btn-login" routerLink="/public/auth/login">Login</button>
+    }
   </div>
 
   <!-- Mobile Menu Toggle -->
@@ -99,12 +133,16 @@
       ></a>
       <app-mega-menu [showMenu]="showMenu"></app-mega-menu>
     </div>
-    <a routerLink="/public/orders" routerLinkActive="active">{{
-      'home.header.order.myOrder' | translate
-    }}</a>
-    <a routerLink="/public/profile" routerLinkActive="active">{{
-      'home.header.profile' | translate
-    }}</a>
+
+    @if (isLoggedIn()) {
+      <a routerLink="/public/orders" routerLinkActive="active">{{
+        'home.header.order.myOrder' | translate
+      }}</a>
+      <a routerLink="/public/profile" routerLinkActive="active">{{
+        'home.header.profile' | translate
+      }}</a>
+    }
+
     <a routerLink="/public/contact" routerLinkActive="active">{{
       'home.header.contact' | translate
     }}</a>
@@ -112,6 +150,6 @@
 </header>
 
 <mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="naviagteToLang('en')">English</button>
-  <button mat-menu-item (click)="naviagteToLang('ar')">Arabic</button>
+  <button mat-menu-item (click)="navigateToLang('en')">English</button>
+  <button mat-menu-item (click)="navigateToLang('ar')">Arabic</button>
 </mat-menu>

@@ -1,5 +1,8 @@
 {
   "home":{
+    "customer_comments": {
+      "title": "What Our Customer Says"
+    },
     "header": {
       "home":"Home",
       "shop":"Shop",
@@ -40,12 +43,58 @@
     "englishDesc":"english description",
     "slug":"Slug",
     "save":"Save",
-    "cancel":"Cancel"
+    "cancel":"Cancel",
+    "comingSoon": "Coming Soon"
   },
   "arabicName":{
     "required":"arabic name is required"
   },
   "englishName":{
     "required":"english name is required"
+  },
+  "profile": {
+    "title": "Your Account",
+    "subtitle": "Manage your orders, security, and addresses",
+    "moreAccount": "More Account Features",
+    "cards": {
+      "orders": {
+        "title": "Your Orders",
+        "desc": "Track, return, or buy things again"
+      },
+      "security": {
+        "title": "Login & Security",
+        "desc": "Edit login, name, and mobile number"
+      },
+      "addresses": {
+        "title": "Your Addresses",
+        "desc": "Edit addresses for orders and gifts"
+      },
+      "payment": {
+        "title": "Payment Options",
+        "desc": "Edit or add payment methods"
+      },
+      "favorites": {
+        "title": "Your Favorites",
+        "desc": "View and manage your saved items"
+      },
+      "contact": {
+        "title": "Contact Us",
+        "desc": "Get help with your orders or account"
+      }
+    },
+    "sublinks": {
+      "lists": "Your Lists",
+      "coupons": "Your Coupons",
+      "notifications": "Notifications",
+      "prime": "Your Prime Membership"
+    },
+    "edit": "Edit",
+    "editAvatar": "Change Profile Picture",
+    "namePlaceholder": "Enter your name",
+    "emailPlaceholder": "Enter your email",
+    "groups": {
+      "ordering": "Ordering & Shopping",
+      "settings": "Account Settings"
+    }
   }
 }
