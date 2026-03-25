@@ -1,95 +1,113 @@
-# 🛒 WearHouse E-Commerce App
+# 🛒 WearHouse | Advanced E-Commerce Ecosystem
 
-A modern, full-featured E-Commerce web application built with **Angular** and **Angular Material**. It features a responsive design, multi-language support (English & Arabic), and a comprehensive admin dashboard.
+[![Angular](https://img.shields.io/badge/Angular-20-DD0031?style=for-the-badge&logo=angular)](https://angular.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![Vercel](https://img.shields.io/badge/Vercel-Deployed-000000?style=for-the-badge&logo=vercel)](https://vercel.com/)
 
----
-
-## 🚀 Project Overview
-
-**WearHouse** provides a seamless shopping experience for users while offering a robust management interface for administrators to handle products and categories.
-
-### 🌟 Key Features:
-
-- **Exceptional UX/UI**: Clean and modern interface using Angular Material and Bootstrap 5.
-- **Multi-language Support (i18n)**: Full support for English and Arabic with automatic RTL/LTR layout switching.
-- **Cart Management**: Add products, adjust quantities, and automatic total price calculation.
-- **Wishlist/Favorites**: Save products for later viewing.
-- **Order Tracking**: View order history, detailed order summaries, and a "Reorder" feature.
-- **Advanced Search**: Real-time product search with keyword highlighting.
-- **Admin Dashboard**: Full CRUD operations for managing products and categories.
+**WearHouse** is a high-performance, enterprise-grade E-Commerce platform built with a focus on **Scalable Architecture**, **Modern State Management**, and **Bulletproof Security**. It represents a state-of-the-art implementation of Angular 20, pushing the boundaries of what's possible in web development.
 
 ---
 
-## 🛠️ Tech Stack
+## 🏛️ Architectural Excellence
 
-- **Framework**: [Angular 18+](https://angular.io/)
-- **UI Components**: [Angular Material](https://material.angular.io/)
-- **Styling**: SCSS, Bootstrap 5, Font Awesome 6
-- **Localization**: [@ngx-translate](https://github.com/ngx-translate/core)
-- **State Management**: RxJS (Observables & Subjects), Angular Signals
-- **Notifications**: [ngx-toastr](https://github.com/scttcper/ngx-toastr)
+The project is built on a **Modular, Domain-Driven Architecture** designed for long-term maintainability and high scalability:
+
+- **Core Module**: Singleton services, global interceptors, and application-wide configurations.
+- **Shared Module**: Reusable Signal-based services, UI components, custom pipes, and models.
+- **Public Domain**: Feature-rich user interface encompassing Auth, Shop, and Profile ecosystems.
+- **Admin Domain**: A robust dashboard for inventory and category management.
+- **Standalone APIs**: 100% migration to Standalone Components, ensuring a lightweight bundle and faster hydration.
 
 ---
 
-## 📂 Project Structure
+## 🚀 Key Engineering Pillars
 
-The project follows Angular best practices to ensure maintainability and scalability:
+### ⚡ Reactive State Engine (Angular Signals)
+
+Unlike traditional applications, WearHouse uses **Angular Signals** for fine-grained reactivity:
+
+- **Zero-Detection Overhead**: Minimal change detection cycles for peak performance.
+- **Global Signal Services**: Centralized state for User Profiles, Cart, and Auth, ensuring real-time UI updates across the entire app.
+
+### 🔐 Advanced Security & Routing
+
+- **Dual-Layer Guards**: Implementation of `AuthGuard` and `GuestGuard` using `CanActivateFn` for robust route protection.
+- **Persistence Strategy**: A sophisticated `LocalStorage` wrapper that maintains session state and user preferences across browser sessions.
+- **Data Integrity**: Secure data handoff between registration, login, and profile services.
+
+### 🌍 Global Experience (i18n & RTL)
+
+- **Bidirectional Layouts**: Full **RTL (Arabic)** and **LTR (English)** support with zero layout shift during switching.
+- **Localization Engine**: Dynamic content loading powered by `@ngx-translate`.
+
+### 📱 High-End UI/UX Design
+
+- **Amazon-Inspired Profile**: A comprehensive account management system including Address CRUD, Security inline editing, and Payment Method visualization.
+- **Modern Interactions**: Integration of **Swiper.js** for high-performance, touch-optimized testimonial sliders.
+- **Responsive Engineering**: Mobile-first design that handles complex forms and interactions seamlessly on small screens.
+
+---
+
+## 🛠️ Tech Stack & Tooling
+
+| Category                 | Technology                          |
+| :----------------------- | :---------------------------------- |
+| **Framework**            | Angular 20 (Latest)                 |
+| **Language**             | TypeScript (Strict Mode)            |
+| **State Management**     | Angular Signals, RxJS               |
+| **Styling**              | SCSS (BEM Methodology), Bootstrap 5 |
+| **UI Components**        | Angular Material 3                  |
+| **Internationalization** | @ngx-translate                      |
+| **Deployment**           | Vercel (CI/CD Pipeline)             |
+
+---
+
+## 📂 Structural Overview
 
 ```text
 eCommerce/
-├── features/               # External assets (translations, images)
-│   ├── i18n/               # Translation files (ar.json, en.json)
-│   └── images/             # Product and UI images
+├── features/               # Decoupled Static Assets (i18n, Images)
 ├── src/
 │   ├── app/
-│   │   ├── admin/          # Admin module (Product & Category management)
-│   │   ├── public/         # Public/User module (Home, Shop, Orders)
-│   │   │   ├── auth/       # Login and Registration
-│   │   │   ├── cart/       # Shopping Cart
-│   │   │   ├── orders/     # Order history and details
-│   │   │   └── shared/     # Public-specific shared components
-│   │   ├── Shared/         # Global Services, Models, and Constants
-│   │   │   ├── Service/    # Global Services (Cart, Order, Products, Translation)
-│   │   │   ├── Models/     # Data Interfaces
-│   │   │   └── Pipes/      # Data Formatters (Price, Search Highlight)
-│   │   ├── Core/           # Core Services (Dialogs, Guards)
-│   │   └── app.routes.ts   # Main routing configuration
-│   └── main.ts             # Application entry point
-└── angular.json            # Build configuration and asset management
+│   │   ├── Core/           # Interceptors, Guards, Core Configuration
+│   │   ├── Shared/         # Signal Services, Models, Utility Pipes
+│   │   ├── public/         # Public Domain (Auth, Home, Profile, Shop)
+│   │   └── admin/          # Management Domain (Inventory, Categories)
+│   └── main.ts             # Bootstrapping with Standalone APIs
 ```
 
 ---
 
 ## ⚙️ Getting Started
 
-### Prerequisites:
+### Installation
 
-- [Node.js](https://nodejs.org/) (v18 or later)
-- [Angular CLI](https://angular.io/cli)
+```bash
+git clone https://github.com/AhmedKhaled2817/E-Commerce.git
+cd eCommerce
+npm install
+```
 
-### Installation:
+### Development
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/eCommerce.git
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Run the development server:
-   ```bash
-   ng serve -o
-   ```
+```bash
+ng serve
+```
 
----
+### Build & Optimization
 
-## 🧑‍💻 Developer
-
-**Ahmed Khaled** - Front-End Developer (Angular)
+```bash
+ng build --configuration production
+```
 
 ---
 
-## 📝 Technical Notes
+## 🧑‍💻 Lead Architect
 
-The `angular.json` is configured to use the `features` folder at the project root as an external assets directory. This approach decouples static assets like images and translation files from the application source code for better organization.
+**Ahmed Khaled** - Senior Front-End Developer & Angular Specialist
+
+---
+
+## 📝 Engineering Notes
+
+The build process is optimized for **Vercel** with a custom configuration to handle external asset mapping. The application uses **Swiper Web Components** to minimize main-thread execution time and ensure a smooth 60fps experience.
