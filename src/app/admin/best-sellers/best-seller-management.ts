@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormsModule,
@@ -8,9 +8,16 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { BestSellerService } from 'app/Shared/Service/best-seller.service';
 import { IbestSeller } from '../../public/home/best-seller/models/ibest-seller';
 import { ToastService } from 'app/Core/services/toast.service';
+
+// NgRx Store
+import { Store } from '@ngrx/store';
+import { BestSellerActions } from 'app/Core/store/best-sellers/best-sellers.actions';
+import {
+  selectAllBestSellers,
+  selectBestSellersLoading,
+} from 'app/Core/store/best-sellers/best-sellers.selectors';
 
 @Component({
   selector: 'app-best-seller-management',
@@ -20,15 +27,14 @@ import { ToastService } from 'app/Core/services/toast.service';
     <div class="admin-best-seller p-4">
       <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-          <h2 class="fw-bold mb-0">Best Seller Management</h2>
-          <p class="text-muted small">
-            Manage the products displayed in the "Our Best Seller" section
-          </p>
+          <h2 class="fw-bold mb-0">Best Seller Management (NgRx)</h2>
+          <p class="text-muted small">Enterprise state management for "Our Best Seller" section</p>
         </div>
         <div class="actions d-flex gap-2">
           <button
             class="btn btn-danger btn-sm d-flex align-items-center gap-1"
             (click)="deleteAll()"
+            [disabled]="loading()"
           >
             <mat-icon>delete_sweep</mat-icon>
             Delete All
@@ -36,6 +42,7 @@ import { ToastService } from 'app/Core/services/toast.service';
           <button
             class="btn btn-primary btn-sm d-flex align-items-center gap-1"
             (click)="openForm()"
+            [disabled]="loading()"
           >
             <mat-icon>add</mat-icon>
             Add Product
@@ -48,71 +55,81 @@ import { ToastService } from 'app/Core/services/toast.service';
         <div class="col-md-3">
           <div class="stat-card p-3 border rounded-3 bg-white shadow-sm">
             <span class="text-muted small text-uppercase fw-bold">Total Products</span>
-            <h3 class="fw-bold mb-0">{{ products().length }}</h3>
+            <h3 class="fw-bold mb-0">{{ allProducts().length }}</h3>
           </div>
         </div>
       </div>
 
-      <!-- Table -->
-      <div class="table-responsive bg-white rounded-3 shadow-sm border">
-        <table class="table table-hover align-middle mb-0">
-          <thead class="bg-light">
-            <tr>
-              <th class="px-4">Product</th>
-              <th>Description</th>
-              <th>Price</th>
-              <th>Old Price</th>
-              <th class="text-end px-4">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (product of products(); track product.id) {
+      @if (loading()) {
+        <div class="text-center py-5">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      } @else {
+        <!-- Table -->
+        <div class="table-responsive bg-white rounded-3 shadow-sm border">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="bg-light">
               <tr>
-                <td class="px-4">
-                  <div class="d-flex align-items-center gap-3">
-                    <img
-                      [src]="product.imgUrl"
-                      class="rounded-2 border"
-                      width="40"
-                      height="40"
-                      style="object-fit: cover"
-                    />
-                    <span class="fw-bold">{{ product.name }}</span>
-                  </div>
-                </td>
-                <td class="text-muted small">{{ product.description }}</td>
-                <td class="fw-bold text-primary">{{ product.price }}</td>
-                <td class="text-muted text-decoration-line-through small">
-                  {{ product.oldPrice }}
-                </td>
-                <td class="text-end px-4">
-                  <div class="d-flex justify-content-end gap-2">
-                    <button
-                      class="btn btn-outline-primary btn-sm p-1 d-flex"
-                      (click)="openForm(product)"
-                    >
-                      <mat-icon>edit</mat-icon>
-                    </button>
-                    <button
-                      class="btn btn-outline-danger btn-sm p-1 d-flex"
-                      (click)="deleteProduct(product.id)"
-                    >
-                      <mat-icon>delete</mat-icon>
-                    </button>
-                  </div>
-                </td>
+                <th class="px-4">Product</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Old Price</th>
+                <th class="text-end px-4">Actions</th>
               </tr>
-            } @empty {
-              <tr>
-                <td colspan="5" class="text-center py-5 text-muted">
-                  <mat-icon class="large-icon opacity-25">shopping_basket</mat-icon>
-                  <p class="mt-2 mb-0">No best seller products found.</p>
-                </td>
-              </tr>
-            }
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              @for (product of allProducts(); track product.id) {
+                <tr>
+                  <td class="px-4">
+                    <div class="d-flex align-items-center gap-3">
+                      <img
+                        [src]="product.imgUrl"
+                        class="rounded-2 border"
+                        width="40"
+                        height="40"
+                        style="object-fit: cover"
+                      />
+                      <span class="fw-bold">{{ product.name }}</span>
+                    </div>
+                  </td>
+                  <td class="text-muted small">{{ product.description }}</td>
+                  <td class="fw-bold text-primary">{{ product.price }}</td>
+                  <td class="text-muted text-decoration-line-through small">
+                    {{ product.oldPrice }}
+                  </td>
+                  <td class="text-end px-4">
+                    <div class="d-flex justify-content-end gap-2">
+                      <button
+                        type="button"
+                        class="btn btn-outline-primary btn-sm p-1 d-flex"
+                        (click)="openForm(product)"
+                      >
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-outline-danger btn-sm p-1 d-flex"
+                        (click)="deleteProduct(product.id)"
+                      >
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="5" class="text-center py-5 text-muted">
+                    <mat-icon class="large-icon opacity-25">shopping_basket</mat-icon>
+                    <p class="mt-2 mb-0">No best seller products found.</p>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
 
       <!-- Add/Edit Form Overlay -->
       @if (showForm()) {
@@ -120,7 +137,12 @@ import { ToastService } from 'app/Core/services/toast.service';
           <div class="modal-card p-4 bg-white rounded-4 shadow-lg animate-fade-in">
             <div class="d-flex justify-content-between align-items-center mb-4">
               <h3 class="fw-bold mb-0">{{ editingId ? 'Edit Product' : 'Add New Product' }}</h3>
-              <button class="btn-close" (click)="closeForm()"></button>
+              <button
+                type="button"
+                class="btn-close"
+                aria-label="Close"
+                (click)="closeForm()"
+              ></button>
             </div>
 
             <form [formGroup]="productForm" (ngSubmit)="saveProduct()">
@@ -325,12 +347,16 @@ import { ToastService } from 'app/Core/services/toast.service';
     `,
   ],
 })
-export class BestSellerManagement {
-  private bestSellerService = inject(BestSellerService);
+export class BestSellerManagement implements OnInit {
+  private store = inject(Store);
   private toastService = inject(ToastService);
   private fb = inject(FormBuilder);
 
-  products = this.bestSellerService.bestSellers;
+  // Selector signals
+  allProducts = this.store.selectSignal(selectAllBestSellers);
+  loading = this.store.selectSignal(selectBestSellersLoading);
+
+  // UI State
   showForm = signal(false);
   editingId: number | null = null;
   productForm: FormGroup;
@@ -343,6 +369,10 @@ export class BestSellerManagement {
       price: ['', [Validators.required]],
       oldPrice: [''],
     });
+  }
+
+  ngOnInit() {
+    this.store.dispatch(BestSellerActions.loadBestSellers());
   }
 
   openForm(product?: IbestSeller) {
@@ -366,10 +396,14 @@ export class BestSellerManagement {
     if (this.productForm.valid) {
       const productData = this.productForm.value;
       if (this.editingId) {
-        this.bestSellerService.updateProduct({ ...productData, id: this.editingId });
+        this.store.dispatch(
+          BestSellerActions.updateProduct({
+            product: { ...productData, id: this.editingId },
+          }),
+        );
         this.toastService.success('Product updated successfully');
       } else {
-        this.bestSellerService.addProduct(productData);
+        this.store.dispatch(BestSellerActions.addProduct({ product: productData }));
         this.toastService.success('Product added successfully');
       }
       this.closeForm();
@@ -389,14 +423,14 @@ export class BestSellerManagement {
 
   deleteProduct(id: number) {
     if (confirm('Are you sure you want to delete this product?')) {
-      this.bestSellerService.deleteProduct(id);
+      this.store.dispatch(BestSellerActions.deleteProduct({ id }));
       this.toastService.success('Product deleted');
     }
   }
 
   deleteAll() {
     if (confirm('WARNING: This will delete ALL best seller products. Continue?')) {
-      this.bestSellerService.deleteAllProducts();
+      this.store.dispatch(BestSellerActions.deleteAllProducts());
       this.toastService.success('All products deleted');
     }
   }

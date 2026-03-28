@@ -5,12 +5,17 @@ import {
   ViewChild,
   ElementRef,
   AfterViewInit,
+  OnInit,
 } from '@angular/core';
 import { ProductCard } from './product-card/product-card';
-import { BestSellerService } from 'app/Shared/Service/best-seller.service';
 import { CommonModule } from '@angular/common';
 import { Language } from 'app/Shared/Service/language';
 import { register } from 'swiper/element/bundle';
+
+// NgRx Store
+import { Store } from '@ngrx/store';
+import { BestSellerActions } from 'app/Core/store/best-sellers/best-sellers.actions';
+import { selectAllBestSellers } from 'app/Core/store/best-sellers/best-sellers.selectors';
 
 // Register Swiper custom elements
 register();
@@ -23,13 +28,17 @@ register();
   styleUrl: './best-seller.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class BestSeller implements AfterViewInit {
+export class BestSeller implements OnInit, AfterViewInit {
   @ViewChild('swiperRef') swiperRef!: ElementRef;
 
-  private bestSellerService = inject(BestSellerService);
+  private store = inject(Store);
   private languageService = inject(Language);
 
-  readonly products = this.bestSellerService.bestSellers;
+  readonly products = this.store.selectSignal(selectAllBestSellers);
+
+  ngOnInit() {
+    this.store.dispatch(BestSellerActions.loadBestSellers());
+  }
 
   ngAfterViewInit() {
     this.initSwiper();
