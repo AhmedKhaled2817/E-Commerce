@@ -1,64 +1,67 @@
-# 🛒 WearHouse | Advanced E-Commerce Ecosystem
+# 🛒 WearHouse | Professional E-Commerce Ecosystem
 
 [![Angular](https://img.shields.io/badge/Angular-20-DD0031?style=for-the-badge&logo=angular)](https://angular.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Vercel](https://img.shields.io/badge/Vercel-Deployed-000000?style=for-the-badge&logo=vercel)](https://vercel.com/)
 
-**WearHouse** is a high-performance, enterprise-grade E-Commerce platform built with a focus on **Scalable Architecture**, **Modern State Management**, and **Bulletproof Security**. It represents a state-of-the-art implementation of Angular 20, pushing the boundaries of what's possible in web development.
+**WearHouse** is a state-of-the-art, high-performance E-Commerce platform built with a focus on **Modular Architecture**, **Fine-Grained Reactivity**, and **Enterprise-Grade Security**. This project demonstrates the full power of modern Angular development.
 
 ---
 
-## 🏛️ Architectural Excellence
+## 🏛️ Architectural Brilliance
 
-The project is built on a **Modular, Domain-Driven Architecture** designed for long-term maintainability and high scalability:
+The project follows a **Domain-Driven & Layered Architecture**, ensuring maximum scalability and maintainability:
 
-- **Core Module**: Singleton services, global interceptors, and application-wide configurations.
-- **Shared Module**: Reusable Signal-based services, UI components, custom pipes, and models.
-- **Public Domain**: Feature-rich user interface encompassing Auth, Shop, and Profile ecosystems.
-- **Admin Domain**: A robust dashboard for inventory and category management.
-- **Standalone APIs**: 100% migration to Standalone Components, ensuring a lightweight bundle and faster hydration.
+- **Core Layer**: Centralized logic including Global Interceptors (Error & Loading), Auth Guards, and Singleton Configurations.
+- **Shared Layer**: Reactive Signal-based Services, Reusable UI Components, Models, and Utility Pipes.
+- **Public Domain**: A feature-rich consumer interface (Auth, Shop, Profile Ecosystem, Home).
+- **Admin Domain**: A robust management dashboard for real-time inventory and best-seller control.
+- **100% Standalone**: Leveraging the latest Angular APIs for lightweight bundles and superior performance.
 
 ---
 
 ## 🚀 Key Engineering Pillars
 
-### ⚡ Reactive State Engine (Angular Signals)
+### ⚡ Reactive State Engine (NgRx & Angular Signals)
 
-Unlike traditional applications, WearHouse uses **Angular Signals** for fine-grained reactivity:
+- **Hybrid State Management**: Combines the power of **NgRx Store** for complex domain state (Admin Dashboard) with **Angular Signals** for fine-grained UI reactivity.
+- **Entity Management**: Uses `@ngrx/entity` for high-performance CRUD operations and predictable state transitions.
+- **Side-Effect Handling**: Robust `@ngrx/effects` layer for asynchronous persistence and global notification synchronization.
+- **Persistent State**: Integrated with a sophisticated `LocalStorage` wrapper to maintain user sessions and preferences across refreshes.
 
-- **Zero-Detection Overhead**: Minimal change detection cycles for peak performance.
-- **Global Signal Services**: Centralized state for User Profiles, Cart, and Auth, ensuring real-time UI updates across the entire app.
+### 🔐 Bulletproof Security
 
-### 🔐 Advanced Security & Routing
+- **Dual-Layer Guards**: Implementation of `AuthGuard` and `GuestGuard` to manage complex access flows.
+- **Global Error Interceptor**: Centralized error handling that captures and reports HTTP issues gracefully.
+- **Reactive Auth Flow**: Seamless registration-to-login handoff with automatic state synchronization.
 
-- **Dual-Layer Guards**: Implementation of `AuthGuard` and `GuestGuard` using `CanActivateFn` for robust route protection.
-- **Persistence Strategy**: A sophisticated `LocalStorage` wrapper that maintains session state and user preferences across browser sessions.
-- **Data Integrity**: Secure data handoff between registration, login, and profile services.
+### 🌍 Global-Ready (i18n & RTL)
 
-### 🌍 Global Experience (i18n & RTL)
+- **Bi-directional Engine**: Powered by `@ngx-translate` with full support for **Arabic (RTL)** and **English (LTR)**.
+- **Dynamic Layouts**: Automatic UI adaptation based on the selected language with zero layout shift.
 
-- **Bidirectional Layouts**: Full **RTL (Arabic)** and **LTR (English)** support with zero layout shift during switching.
-- **Localization Engine**: Dynamic content loading powered by `@ngx-translate`.
+### 📱 Premium UX/UI Design
 
-### 📱 High-End UI/UX Design
-
-- **Amazon-Inspired Profile**: A comprehensive account management system including Address CRUD, Security inline editing, and Payment Method visualization.
-- **Modern Interactions**: Integration of **Swiper.js** for high-performance, touch-optimized testimonial sliders.
-- **Responsive Engineering**: Mobile-first design that handles complex forms and interactions seamlessly on small screens.
+- **Amazon-Style Profile**: A comprehensive account hub including:
+  - **Address CRUD**: Dynamic form overlays for managing delivery points.
+  - **Security Hub**: Inline editing for credentials with real-time validation.
+  - **Payment Management**: Visual card-based UI with "Add Card" dynamic modal.
+  - **Prime & Coupons**: Dedicated landing pages for loyalty and discounts.
+- **Interactive Components**: High-performance **Swiper.js** sliders for Categories and Testimonials.
+- **Global Feedback**: Integrated **Toast Notifications** and **Blur-Effect Loading Spinners** for a smooth app-like feel.
 
 ---
 
 ## 🛠️ Tech Stack & Tooling
 
-| Category                 | Technology                          |
-| :----------------------- | :---------------------------------- |
-| **Framework**            | Angular 20 (Latest)                 |
-| **Language**             | TypeScript (Strict Mode)            |
-| **State Management**     | Angular Signals, RxJS               |
-| **Styling**              | SCSS (BEM Methodology), Bootstrap 5 |
-| **UI Components**        | Angular Material 3                  |
-| **Internationalization** | @ngx-translate                      |
-| **Deployment**           | Vercel (CI/CD Pipeline)             |
+| Category             | Technology                                 |
+| :------------------- | :----------------------------------------- |
+| **Framework**        | Angular 20+ (Signals, Standalone)          |
+| **State Management** | NgRx (Store, Effects, Entity), Signals     |
+| **UI/UX**            | Swiper.js, Angular Material 3, Bootstrap 5 |
+| **Security**         | JWT-ready Guards & HttpInterceptors        |
+| **Localization**     | @ngx-translate                             |
+| **Deployment**       | Vercel (Optimized CI/CD)                   |
 
 ---
 
@@ -66,48 +69,24 @@ Unlike traditional applications, WearHouse uses **Angular Signals** for fine-gra
 
 ```text
 eCommerce/
-├── features/               # Decoupled Static Assets (i18n, Images)
+├── features/               # Externalized Assets (i18n, images)
 ├── src/
 │   ├── app/
-│   │   ├── Core/           # Interceptors, Guards, Core Configuration
-│   │   ├── Shared/         # Signal Services, Models, Utility Pipes
-│   │   ├── public/         # Public Domain (Auth, Home, Profile, Shop)
-│   │   └── admin/          # Management Domain (Inventory, Categories)
+│   │   ├── Core/           # Interceptors, Guards, Global Services
+│   │   ├── Shared/         # Reactive Services, Models, UI Components
+│   │   ├── public/         # User-facing features (Auth, Profile, Home)
+│   │   └── admin/          # Management modules (Dashboard, Best Sellers)
 │   └── main.ts             # Bootstrapping with Standalone APIs
 ```
 
 ---
 
-## ⚙️ Getting Started
+## 🧑‍💻 Author & Lead Architect
 
-### Installation
-
-```bash
-git clone https://github.com/AhmedKhaled2817/E-Commerce.git
-cd eCommerce
-npm install
-```
-
-### Development
-
-```bash
-ng serve
-```
-
-### Build & Optimization
-
-```bash
-ng build --configuration production
-```
-
----
-
-## 🧑‍💻 Lead Architect
-
-**Ahmed Khaled** - Senior Front-End Developer & Angular Specialist
+**Ahmed Khaled** - Front-End Developer & Angular Specialist
 
 ---
 
 ## 📝 Engineering Notes
 
-The build process is optimized for **Vercel** with a custom configuration to handle external asset mapping. The application uses **Swiper Web Components** to minimize main-thread execution time and ensure a smooth 60fps experience.
+This project is optimized for high-traffic scenarios. It uses **Web Components (Swiper Element)** to offload heavy slider logic from the main thread and implements a custom **Build Budget** configuration to handle enterprise-level asset scaling.
