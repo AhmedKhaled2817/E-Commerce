@@ -14,7 +14,8 @@
     },
      "pages":{
       "products":"المنتجات",
-      "categories":"التصنيفات"
+      "categories":"التصنيفات",
+      "best_sellers": "الأكثر مبيعاً"
     }
   },
    "categories":{

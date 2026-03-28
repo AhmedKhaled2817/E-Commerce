@@ -33,16 +33,23 @@
         <!-- User Brief Info -->
         <div class="user-brief-info text-center text-md-start">
           <h1 class="fw-bold mb-1 text-white">{{ userProfile().name }}</h1>
-          <p class="mb-2 text-white-50 small">{{ userProfile().email }}</p>
+          <p class="mb-2 text-white-50 small">
+            <span class="me-3">{{ userProfile().email }}</span>
+            <span class="opacity-75">Member since: {{ userProfile().memberSince }}</span>
+          </p>
           <div
             class="d-flex align-items-center gap-2 justify-content-center justify-content-md-start"
           >
-            <span class="badge rounded-pill bg-warning text-dark px-3 py-2 fw-bold">
+            <span class="badge rounded-pill bg-warning text-dark px-3 py-2 fw-bold shadow-sm">
               <mat-icon class="small-icon me-1">workspace_premium</mat-icon>
               {{ userProfile().isPrime ? 'Prime Member' : 'Regular Member' }}
             </span>
+            <span class="badge rounded-pill bg-info text-white px-3 py-2 fw-bold shadow-sm">
+              <mat-icon class="small-icon me-1">shopping_bag</mat-icon>
+              {{ userProfile().totalOrders }} Orders
+            </span>
             <button
-              class="btn btn-sm btn-light rounded-pill px-3 py-1 shadow-sm"
+              class="btn btn-sm btn-light rounded-pill px-3 py-1 shadow-sm ms-2"
               (click)="toggleEdit()"
             >
               <mat-icon class="small-icon me-1">edit</mat-icon>
@@ -135,13 +142,13 @@
             </h5>
             <ul class="list-unstyled">
               <li>
-                <a href="#" class="feature-link"
+                <a routerLink="/public/favorite" class="feature-link"
                   ><mat-icon class="small-icon">list_alt</mat-icon>
                   {{ 'profile.sublinks.lists' | translate }}</a
                 >
               </li>
               <li>
-                <a href="#" class="feature-link"
+                <a routerLink="/public/profile/coupons" class="feature-link"
                   ><mat-icon class="small-icon">local_offer</mat-icon>
                   {{ 'profile.sublinks.coupons' | translate }}</a
                 >
@@ -162,7 +169,7 @@
                 >
               </li>
               <li>
-                <a href="#" class="feature-link"
+                <a routerLink="/public/profile/prime" class="feature-link"
                   ><mat-icon class="small-icon">verified_user</mat-icon>
                   {{ 'profile.sublinks.prime' | translate }}</a
                 >

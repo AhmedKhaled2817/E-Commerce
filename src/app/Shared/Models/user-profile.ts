@@ -4,4 +4,6 @@ export interface UserProfile {
   password?: string;
   avatar: string | null;
   isPrime: boolean;
+  memberSince?: string;
+  totalOrders?: number;
 }

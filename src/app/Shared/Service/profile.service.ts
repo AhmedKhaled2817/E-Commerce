@@ -28,6 +28,8 @@ export class ProfileService {
       email: '',
       avatar: null,
       isPrime: false,
+      memberSince: 'March 2026',
+      totalOrders: 0,
     };
   }
 

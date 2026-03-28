@@ -86,7 +86,7 @@ export class Profile {
       title: 'profile.cards.contact.title',
       description: 'profile.cards.contact.desc',
       icon: 'support_agent',
-      link: '/public/home', // Placeholder
+      link: '/public/profile/contact',
     },
   ];
 }

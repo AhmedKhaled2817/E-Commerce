@@ -4,6 +4,7 @@ import { ValidationService } from '@app/services';
 import { SharedModule } from '@app/Shared';
 import { Router } from '@angular/router';
 import { LocalStorage } from '../../../Shared/Service/local-storage';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -22,6 +23,7 @@ export class Register implements OnInit {
   private readonly formBuilder = inject(FormBuilder);
   private readonly router = inject(Router);
   private readonly localStorage = inject(LocalStorage);
+  private readonly toastr = inject(ToastrService);
 
   ngOnInit(): void {
     this.initForm();
@@ -40,6 +42,8 @@ export class Register implements OnInit {
 
       // Save to temporary storage for registration (mocking a database)
       this.localStorage.setItem('registered_user', JSON.stringify(userData) as string);
+
+      this.toastr.success('Registration successful! Please login.');
 
       // Redirect to login
       this.router.navigate(['/public/auth/login']);

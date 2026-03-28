@@ -57,6 +57,20 @@ const routes: Routes = [
                 (m) => m.PaymentMethods,
               ),
           },
+          {
+            path: 'contact',
+            loadComponent: () =>
+              import('./profile/sub-pages/contact/contact').then((m) => m.Contact),
+          },
+          {
+            path: 'prime',
+            loadComponent: () => import('./profile/sub-pages/prime/prime').then((m) => m.Prime),
+          },
+          {
+            path: 'coupons',
+            loadComponent: () =>
+              import('./profile/sub-pages/coupons/coupons').then((m) => m.Coupons),
+          },
         ],
       },
       {
@@ -78,6 +92,10 @@ const routes: Routes = [
         path: 'checkout',
         canActivate: [authGuard],
         loadComponent: () => import('./checkout/checkout').then((m) => m.Checkout),
+      },
+      {
+        path: 'contact',
+        loadComponent: () => import('./profile/sub-pages/contact/contact').then((m) => m.Contact),
       },
       {
         path: 'auth',

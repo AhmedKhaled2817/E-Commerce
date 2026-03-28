@@ -1,15 +1,29 @@
 <div class="container best-seller-container mt-5">
-  <div class="row">
-    <div class="col-12 text-center">
-      <h1 class="mb-0 fw-bold title">Our Best Seller</h1>
+  <!-- Title + Navigation Buttons -->
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+    <h1 class="fw-bold mb-0 title">Our Best Seller</h1>
+
+    <div class="navigation-btns d-flex gap-2">
+      <button class="btn nav-btn px-3" type="button" (click)="prevSlide()" aria-label="Previous slide">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+
+      <button class="btn nav-btn px-3" type="button" (click)="nextSlide()" aria-label="Next slide">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
     </div>
   </div>
 
-  <div class="row mt-5">
-    @for(pdt of products; track pdt){
-      <div class="col-md-3 col-6 mb-4">
-        <app-product-card  [product]="pdt" />
-      </div>
-    }
+  <!-- Best Seller Slider -->
+  <div class="mt-5">
+    <swiper-container #swiperRef init="false">
+      @for (pdt of products(); track pdt.id) {
+        <swiper-slide>
+          <div class="p-2 h-100">
+            <app-product-card [product]="pdt" />
+          </div>
+        </swiper-slide>
+      }
+    </swiper-container>
   </div>
 </div>

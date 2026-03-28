@@ -1,86 +1,74 @@
-import { Component } from '@angular/core';
-import { IbestSeller } from './models/ibest-seller';
+import {
+  Component,
+  inject,
+  CUSTOM_ELEMENTS_SCHEMA,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+} from '@angular/core';
 import { ProductCard } from './product-card/product-card';
+import { BestSellerService } from 'app/Shared/Service/best-seller.service';
+import { CommonModule } from '@angular/common';
+import { Language } from 'app/Shared/Service/language';
+import { register } from 'swiper/element/bundle';
+
+// Register Swiper custom elements
+register();
 
 @Component({
   selector: 'app-best-seller',
-  standalone:true,
-  imports: [
-    ProductCard,
-  ],
+  standalone: true,
+  imports: [ProductCard, CommonModule],
   templateUrl: './best-seller.html',
   styleUrl: './best-seller.scss',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class BestSeller {
+export class BestSeller implements AfterViewInit {
+  @ViewChild('swiperRef') swiperRef!: ElementRef;
 
- readonly products:IbestSeller[];
+  private bestSellerService = inject(BestSellerService);
+  private languageService = inject(Language);
 
-  constructor(){
-    this.products=[
-    {
-    name: 'Men Casual Pants',
-    imgUrl: 'images/adult.png',
-    description: 'Comfort Stretch Slim Fit Pants',
-    price: '$80',
-    oldPrice: '$100.00',
-    id:1
-  },
-  {
-    name: 'Women Flat Shoes',
-    imgUrl: 'images/boots.png',
-    description: 'Soft Casual Ballet Flats',
-    price: '$45',
-    oldPrice: '$60.00',
-    id:2
-  },
-  {
-    name: 'Women Summer Top',
-    imgUrl: 'images/woman-top.png',
-    description: 'Short Sleeve Casual Blouse',
-    price: '$32',
-    oldPrice: '$50.00',
-    id:3
-  },
-  {
-    name: 'Juicer Machine',
-    imgUrl: '/images/juicer_machine.png',
-    description: 'Stainless Steel Electric Juicer',
-    price: '$120',
-    oldPrice: '$150.00',
-    id:4
-  },
-    {
-    name: 'Women Winter Coat Set',
-    imgUrl: '/images/best-seller-5.webp',
-    description: 'Elegant winter coat paired with a long-sleeve dress',
-    price: '$120',
-    oldPrice: '$150.00',
-    id:5
-  },
-  {
-  name: 'Women Casual Dress Set',
-  imgUrl: '/images/best-seller-6.webp',
-  description: 'Soft beige dress combined with a knitted sweater',
-  price: '$110',
-  oldPrice: '$140.00',
-  id:6
-},
-{
-  name: 'Women Modern Outfit',
-  imgUrl: '/images/best-seller-7.webp',
-  description: 'Stylish turquoise dress with matching beige top',
-  price: '$115',
-  oldPrice: '$145.00',
-  id:7
-},
-{
-  name: 'Black Casual T-Shirt',
-  imgUrl: '/images/best-seller-8.webp',
-  description: 'Comfortable unisex cotton black printed T-shirt',
-  price: '$45',
-  oldPrice: '$60.00',
-  id:8
-}
-    ]
+  readonly products = this.bestSellerService.bestSellers;
+
+  ngAfterViewInit() {
+    this.initSwiper();
+  }
+
+  private initSwiper() {
+    const swiperEl = this.swiperRef?.nativeElement;
+    if (!swiperEl) return;
+
+    const swiperParams = {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      loop: true,
+      grabCursor: true,
+      dir: this.languageService.currentLang() === 'ar' ? 'rtl' : 'ltr',
+      breakpoints: {
+        576: { slidesPerView: 2 },
+        768: { slidesPerView: 3 },
+        1024: { slidesPerView: 4 },
+      },
+      injectStyles: [
+        `
+        .swiper-button-next,
+        .swiper-button-prev {
+          display: none;
+        }
+        `,
+      ],
+    };
+
+    Object.assign(swiperEl, swiperParams);
+    swiperEl.initialize();
+  }
+
+  nextSlide() {
+    this.swiperRef.nativeElement.swiper.slideNext();
+  }
+
+  prevSlide() {
+    this.swiperRef.nativeElement.swiper.slidePrev();
   }
 }

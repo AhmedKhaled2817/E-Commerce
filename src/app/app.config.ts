@@ -10,9 +10,13 @@ import {
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideToastr } from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { errorInterceptor } from './Core/interceptors/error.interceptor';
+import { loadingInterceptor } from './Core/interceptors/loading.interceptor';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { importProvidersFrom } from '@angular/core';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,7 +24,8 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([errorInterceptor, loadingInterceptor])),
+    importProvidersFrom(MatSnackBarModule),
     provideTranslateService({
       loader: provideTranslateHttpLoader({
         prefix: '/i18n/',
@@ -34,6 +39,6 @@ export const appConfig: ApplicationConfig = {
       positionClass: 'toast-top-right',
       progressBar: true,
       closeButton: true,
-    })
+    }),
   ],
 };

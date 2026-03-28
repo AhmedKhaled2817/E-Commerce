@@ -11,9 +11,14 @@
       },
       "profile": "My Profile",
       "contact" :"Contact  Us"
+    },
+    "pages":{
+      "products":"products",
+      "categories":"categories",
+      "best_sellers": "Best Sellers"
     }
   },
-    "validation":{
+  "validation":{
     "firstName":{
       "required":"first name is required ",
       "minlength":"first name must be 8 characters"
@@ -25,10 +30,6 @@
     "email":{
       "required" :"email is required",
       "notValid":"email not valid"
-    },
-    "pages":{
-      "products":"products",
-      "categories":"categories"
     }
   },
 

@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 interface PaymentCard {
   id: number;
@@ -14,7 +15,7 @@ interface PaymentCard {
 @Component({
   selector: 'app-payment-methods',
   standalone: true,
-  imports: [CommonModule, MatIconModule, RouterModule],
+  imports: [CommonModule, MatIconModule, RouterModule, FormsModule],
   template: `
     <div class="payment-container py-5">
       <div class="container">
@@ -82,13 +83,61 @@ interface PaymentCard {
           <div class="col-lg-4 col-md-6">
             <div
               class="add-card h-100 d-flex flex-column align-items-center justify-content-center p-4 border-dashed rounded-3 cursor-pointer"
-              (click)="addCard()"
+              (click)="showAddForm.set(true)"
             >
               <mat-icon class="large-icon text-muted">add_card</mat-icon>
               <h5 class="text-muted fw-bold mt-2">Add Payment Method</h5>
             </div>
           </div>
         </div>
+
+        <!-- Add Payment Method Modal/Overlay -->
+        @if (showAddForm()) {
+          <div class="modal-overlay animate-fade-in">
+            <div class="modal-card p-4 shadow-lg border rounded-4 bg-white">
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="fw-bold mb-0">Add New Card</h3>
+                <button class="btn-close" (click)="showAddForm.set(false)"></button>
+              </div>
+
+              <div class="row g-3">
+                <div class="col-12">
+                  <label class="form-label small fw-bold text-muted">Card Type</label>
+                  <select class="form-select" [(ngModel)]="newCard.type">
+                    <option value="visa">Visa</option>
+                    <option value="mastercard">Mastercard</option>
+                  </select>
+                </div>
+                <div class="col-12">
+                  <label class="form-label small fw-bold text-muted"
+                    >Card Number (Last 4 digits)</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    maxlength="4"
+                    [(ngModel)]="newCard.last4"
+                    placeholder="e.g. 1234"
+                  />
+                </div>
+                <div class="col-6">
+                  <label class="form-label small fw-bold text-muted">Expiry Date</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="newCard.expiry"
+                    placeholder="MM/YY"
+                  />
+                </div>
+                <div class="col-12 mt-4">
+                  <button class="btn btn-primary w-100 py-2 fw-bold" (click)="saveNewCard()">
+                    Add Card
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
       </div>
     </div>
   `,
@@ -126,6 +175,21 @@ interface PaymentCard {
           font-weight: 600;
           font-size: 0.8rem;
         }
+        .modal-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.5);
+          backdrop-filter: blur(4px);
+          z-index: 1000;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 1rem;
+        }
+        .modal-card {
+          width: 100%;
+          max-width: 400px;
+        }
       }
     `,
   ],
@@ -135,6 +199,13 @@ export class PaymentMethods {
     { id: 1, type: 'visa', last4: '4242', expiry: '12/26', isDefault: true },
     { id: 2, type: 'mastercard', last4: '8888', expiry: '05/25', isDefault: false },
   ]);
+
+  showAddForm = signal(false);
+  newCard: Partial<PaymentCard> = {
+    type: 'visa',
+    last4: '',
+    expiry: '',
+  };
 
   removeCard(id: number) {
     if (confirm('Remove this card?')) {
@@ -146,7 +217,18 @@ export class PaymentMethods {
     this.cards.update((prev) => prev.map((c) => ({ ...c, isDefault: c.id === id })));
   }
 
-  addCard() {
-    alert('Add payment method flow coming soon!');
+  saveNewCard() {
+    if (this.newCard.last4 && this.newCard.expiry) {
+      const card: PaymentCard = {
+        id: Date.now(),
+        type: this.newCard.type as 'visa' | 'mastercard',
+        last4: this.newCard.last4,
+        expiry: this.newCard.expiry,
+        isDefault: false,
+      };
+      this.cards.update((prev) => [...prev, card]);
+      this.showAddForm.set(false);
+      this.newCard = { type: 'visa', last4: '', expiry: '' };
+    }
   }
 }
