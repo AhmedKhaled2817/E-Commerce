@@ -9,6 +9,7 @@ import { DialogSize } from '@app/Shared/Enums';
 
 @Component({
   selector: 'app-categories',
+  standalone: true,
   imports: [SharedModule,TranslatePipe],
   templateUrl: './categories.html',
   styleUrl: './categories.scss',

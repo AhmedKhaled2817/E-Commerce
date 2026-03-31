@@ -8,6 +8,11 @@ export const routes: Routes = [
   path:'admin',
   loadComponent:()=>import('./admin').then((m)=>m.Admin),
   children:[
+    {
+      path: '',
+      redirectTo: 'products',
+      pathMatch: 'full',
+    },
     {path:'categories',
     loadComponent:()=>import('./admin/categories').then((m)=>m.Categories),
     },
