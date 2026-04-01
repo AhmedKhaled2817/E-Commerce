@@ -1,40 +1,109 @@
 <div class="categories-page">
+  <h2 class="page-title">Categories (store-linked)</h2>
+  <p class="hint">
+    <strong>Sub-category key</strong> must match how products are filtered (e.g. <code>Beauty</code>, <code>Furniture</code>).
+    Use the same spelling as shown in the catalog after sync, or assign products below.
+  </p>
 
-  <h2 class="page-title">{{'categories.cat' | translate}}</h2>
+  <section class="card">
+    <h3>{{ editingId ? 'Edit category' : 'Add category' }}</h3>
+    <form [formGroup]="catForm" (ngSubmit)="saveCategory()" class="form-grid">
+      <label>
+        Main branch
+        <select formControlName="mainCategory">
+          @for (m of mains; track m) {
+            <option [value]="m">{{ m }}</option>
+          }
+        </select>
+      </label>
+      <label>
+        Sub-category key (filter / URL)
+        <input type="text" formControlName="subCategory" placeholder="e.g. Beauty" />
+      </label>
+      <label>
+        Display name (homepage)
+        <input type="text" formControlName="displayName" placeholder="Shown on Shop by Categories" />
+      </label>
+      <label>
+        Image URL
+        <input type="text" formControlName="imageUrl" placeholder="https://..." />
+      </label>
+      <label>
+        Sort weight (higher first)
+        <input type="number" formControlName="weight" min="0" />
+      </label>
+      <label class="toggle">
+        <input type="checkbox" formControlName="isActive" />
+        Active
+      </label>
+      <div class="actions">
+        <button type="submit" [disabled]="catForm.invalid">Save</button>
+        <button type="button" class="ghost" (click)="startAdd()">New</button>
+      </div>
+    </form>
+  </section>
 
-      <!-- add category -->
-       <button  mat-raised-button color="primary" class="add-btn my-4" (click)="addUpdateCategory()">
-        <mat-icon>add</mat-icon>
-        {{'categories.addCategory'| translate }}
-       </button>
+  <section class="card">
+    <h3>Assign product → category</h3>
+    <p class="hint">Moves a product into a category for filtering, mega menu, and listing. Overrides the API default mapping.</p>
+    <form [formGroup]="assignForm" (ngSubmit)="assignProduct()" class="form-grid assign-row">
+      <label>
+        Product
+        <select formControlName="productId">
+          <option [ngValue]="null">— Select —</option>
+          @for (p of (products$ | async); track p.id) {
+            <option [ngValue]="p.id">{{ p.id }} — {{ p.title }}</option>
+          }
+        </select>
+      </label>
+      <label>
+        Category
+        <select formControlName="categoryId">
+          <option value="">— Select —</option>
+          @for (c of (categories$ | async); track c.id) {
+            <option [value]="c.id">{{ c.displayName }} ({{ c.mainCategory }} / {{ c.subCategory }})</option>
+          }
+        </select>
+      </label>
+      <div class="actions">
+        <button type="submit" [disabled]="assignForm.invalid">Apply</button>
+        <button type="button" class="ghost" (click)="clearAssignment()">Clear override for selected product</button>
+      </div>
+    </form>
+  </section>
 
-
-  <div class="table-wrapper mat-elevation-z8">
-    <table mat-table [dataSource]="dataSoucre">
-
-      <!-- ID -->
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef> ID </th>
-        <td mat-cell *matCellDef="let ele"> {{ ele.id }} </td>
-      </ng-container>
-
-      <!-- Name -->
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let ele"> {{ ele.name }} </td>
-      </ng-container>
-
-      <!-- Weight -->
-      <ng-container matColumnDef="weight">
-        <th mat-header-cell *matHeaderCellDef> Weight </th>
-        <td mat-cell *matCellDef="let ele"> {{ ele.weight }} </td>
-      </ng-container>
-
-      <!-- Header & Rows -->
-      <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
-
-    </table>
-  </div>
-
+  <section class="card">
+    <h3>All categories</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Display</th>
+            <th>Main</th>
+            <th>Sub key</th>
+            <th>Weight</th>
+            <th>Active</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (c of (categories$ | async); track c.id) {
+            <tr>
+              <td>{{ c.displayName }}</td>
+              <td>{{ c.mainCategory }}</td>
+              <td><code>{{ c.subCategory }}</code></td>
+              <td>{{ c.weight }}</td>
+              <td>{{ c.isActive ? 'Yes' : 'No' }}</td>
+              <td class="actions">
+                <button type="button" (click)="startEdit(c)">Edit</button>
+                <button type="button" class="danger" (click)="delete(c)">Delete</button>
+              </td>
+            </tr>
+          } @empty {
+            <tr><td colspan="6">Loading…</td></tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
 </div>

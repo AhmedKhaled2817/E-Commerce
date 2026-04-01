@@ -17,7 +17,7 @@
   <!-- Categories Slider -->
   <div class="mt-4">
     <swiper-container #swiperRef init="false">
-      @for (cat of categoriesList; track cat.name) {
+      @for (cat of categoriesList; track cat.subCategory) {
         <swiper-slide>
           <app-category-card [category]="cat" />
         </swiper-slide>

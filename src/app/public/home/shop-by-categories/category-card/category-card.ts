@@ -11,12 +11,14 @@ import { Router } from '@angular/router';
 export class CategoryCard {
 
   private router = inject(Router);
-  @Input({required:true}) category!:{name:string,imageUrl:string};
+  @Input({required:true}) category!: {
+    displayName: string;
+    imageUrl: string;
+    subCategory: string;
+  };
 
   navigateToProducts() {
-    this.router.navigate(['/public/products'], {
-      queryParams: { category: this.category.name }
-    });
+    this.router.navigate(['/public/products', this.category.subCategory]);
   }
 
 }

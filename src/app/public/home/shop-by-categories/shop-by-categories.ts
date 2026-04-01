@@ -29,15 +29,16 @@ export class ShopByCategories implements OnInit, AfterViewInit {
   private productService = inject(ProductsService);
   private languageService = inject(Language);
 
-  categoriesList: Array<{ name: string; imageUrl: string }> = [];
+  categoriesList: Array<{ displayName: string; imageUrl: string; subCategory: string }> = [];
   loading: boolean = true;
 
   ngOnInit(): void {
     this.productService.getCategoriesWithImages().subscribe({
       next: (res) => {
         this.categoriesList = res.map((cat) => ({
-          name: cat.subCategory,
+          displayName: cat.displayName,
           imageUrl: cat.imageUrl,
+          subCategory: cat.subCategory,
         }));
         this.loading = false;
       },

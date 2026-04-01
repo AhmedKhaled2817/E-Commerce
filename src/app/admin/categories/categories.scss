@@ -4,6 +4,103 @@
   min-height: 100vh;
 }
 
+.hint {
+  font-size: 0.9rem;
+  color: #555;
+  max-width: 900px;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.hint code {
+  font-size: 0.85em;
+  background: #eee;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.card h3 {
+  margin: 0 0 12px;
+  font-size: 1.1rem;
+}
+
+.form-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.form-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.85rem;
+  min-width: 160px;
+}
+
+.form-grid input,
+.form-grid select {
+  padding: 8px;
+  min-width: 200px;
+}
+
+.form-grid .toggle {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ghost {
+  background: transparent;
+  border: 1px solid #ccc;
+}
+
+.assign-row {
+  align-items: flex-end;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+.table-wrap table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-wrap th,
+.table-wrap td {
+  border-bottom: 1px solid #eee;
+  padding: 10px 12px;
+  text-align: left;
+}
+
+.table-wrap .actions {
+  gap: 8px;
+}
+
+.danger {
+  color: #b42318;
+}
+
 .add-btn{
   display: flex;
   align-items: center;
