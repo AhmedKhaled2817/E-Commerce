@@ -13,6 +13,7 @@ import { provideToastr } from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { errorInterceptor } from './Core/interceptors/error.interceptor';
 import { loadingInterceptor } from './Core/interceptors/loading.interceptor';
+import { tokenInterceptor } from './Core/interceptors/token.interceptor';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 // NgRx Imports
@@ -28,7 +29,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(withInterceptors([errorInterceptor, loadingInterceptor])),
+    provideHttpClient(withInterceptors([tokenInterceptor, errorInterceptor, loadingInterceptor])),
     importProvidersFrom(MatSnackBarModule),
 
     // NgRx Configuration

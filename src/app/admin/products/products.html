@@ -1,1 +1,62 @@
-<p>products works!</p>
+<section class="card">
+  <h2>Inventory (linked to store catalog)</h2>
+  <p class="hint">Stock here uses the same product IDs as the shop. Changing quantity updates availability for customers immediately.</p>
+
+  @if (selected) {
+    <form [formGroup]="form" (ngSubmit)="save()" class="edit-panel">
+      <div>
+        <strong>{{ selected.product.title }}</strong>
+        <span class="muted">ID: {{ selected.product.id }}</span>
+      </div>
+      <label>
+        Stock quantity
+        <input type="number" formControlName="stockQuantity" min="0" />
+      </label>
+      <div class="actions">
+        <button type="submit" [disabled]="form.invalid">Save</button>
+        <button type="button" class="ghost" (click)="cancelEdit()">Cancel</button>
+      </div>
+    </form>
+  } @else {
+    <p class="muted">Select a product below to edit stock.</p>
+  }
+</section>
+
+<section class="card">
+  <h3>All catalog products</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Sold</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (row of (rows$ | async); track row.product.id) {
+        <tr>
+          <td>{{ row.product.id }}</td>
+          <td>{{ row.product.title }}</td>
+          <td>${{ row.product.price }}</td>
+          <td>{{ row.inv.stockQuantity }}</td>
+          <td>{{ row.inv.sold }}</td>
+          <td>
+            <span [class.out]="row.inv.status === 'out_of_stock'" [class.low]="row.inv.status === 'low_stock'">
+              {{ row.inv.status }}
+            </span>
+          </td>
+          <td class="actions">
+            <button type="button" (click)="edit(row)">Edit stock</button>
+            <button type="button" class="danger" (click)="remove(row.product.id)">Remove row</button>
+          </td>
+        </tr>
+      } @empty {
+        <tr><td colspan="7">Loading products…</td></tr>
+      }
+    </tbody>
+  </table>
+</section>

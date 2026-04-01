@@ -31,24 +31,40 @@ export class Login implements OnInit {
     if (this.form.valid) {
       const { email, password } = this.form.value;
 
-      // Check for registered user
-      const storedUser = this.localStorage.getItem('registered_user') as string;
+      const seededAdmin = {
+        name: 'Admin',
+        email: 'admin@shop.com',
+        password: 'Admin@123456',
+        avatar: null,
+        isPrime: false,
+        role: 'admin',
+        status: 'active',
+      };
+      const users = JSON.parse(this.localStorage.getItem('registered_users') ?? '[]') as any[];
+      const allUsers = users.some((user) => user.email === seededAdmin.email)
+        ? users
+        : [seededAdmin, ...users];
+      this.localStorage.setItem('registered_users', JSON.stringify(allUsers));
 
-      if (storedUser) {
-        const userData = JSON.parse(storedUser);
+      const userData = allUsers.find((user) => user.email === email && user.password === password);
+      if (!userData) {
+        this.toastr.error('Invalid email or password');
+        return;
+      }
+      if (userData.status === 'banned') {
+        this.toastr.error('Your account is banned. Contact support.');
+        return;
+      }
 
-        if (userData.email === email && userData.password === password) {
-          // Success! Save to profile service
-          const { password: _, ...profileData } = userData; // Remove password from profile
-          this.profileService.updateProfile(profileData as UserProfile);
+      // Success! Save to profile service with token
+      const { password: _, ...profileData } = userData; // Remove password from profile
+      this.profileService.login(profileData as UserProfile);
 
-          this.toastr.success('Welcome back!');
-          this.router.navigate(['/public/profile']);
-        } else {
-          this.toastr.error('Invalid email or password');
-        }
+      this.toastr.success('Welcome back!');
+      if (profileData.role === 'admin') {
+        this.router.navigate(['/admin/dashboard']);
       } else {
-        this.toastr.error('No user found. Please register first.');
+        this.router.navigate(['/public/profile']);
       }
     }
   }

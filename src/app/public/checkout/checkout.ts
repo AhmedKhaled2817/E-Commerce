@@ -6,6 +6,7 @@ import { OrderService } from 'app/Shared/Service/order-service';
 import { combineLatest, take } from 'rxjs';
 import { Router } from '@angular/router';
 import { ShippingAddress } from 'app/Shared/Models/order';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-checkout',
@@ -18,6 +19,7 @@ export class Checkout  {
   private orderService=inject(OrderService);
   private FormBuilder=inject(FormBuilder);
   private router=inject(Router);
+  private toastr = inject(ToastrService);
 
   items$= this.cartService.cartItems$;
   totalPrice$= this.cartService.totalPrice$;
@@ -40,7 +42,11 @@ export class Checkout  {
       this.cartService.totalPrice$,
     ]).pipe(take(1))
     .subscribe(([items,total])=>{
-      this.orderService.createOrder(items,total,shippingAddress,payment);
+      const ok = this.orderService.createOrder(items,total,shippingAddress,payment);
+      if (!ok) {
+        this.toastr.error('Not enough stock for one or more items. Please update your cart.');
+        return;
+      }
       this.cartService.clearCart()
       this.router.navigate(['/public/orders/my-orders']);
     })

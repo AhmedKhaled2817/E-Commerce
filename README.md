@@ -1,92 +1,164 @@
-# 🛒 WearHouse | Professional E-Commerce Ecosystem
+# WearHouse — Angular E‑Commerce & Admin Control Center
 
-[![Angular](https://img.shields.io/badge/Angular-20-DD0031?style=for-the-badge&logo=angular)](https://angular.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-[![Vercel](https://img.shields.io/badge/Vercel-Deployed-000000?style=for-the-badge&logo=vercel)](https://vercel.com/)
+[![Angular](https://img.shields.io/badge/Angular-20-DD0031?style=flat&logo=angular)](https://angular.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=flat&logo=typescript)](https://www.typescriptlang.org/)
 
-**WearHouse** is a state-of-the-art, high-performance E-Commerce platform built with a focus on **Modular Architecture**, **Fine-Grained Reactivity**, and **Enterprise-Grade Security**. This project demonstrates the full power of modern Angular development.
+**One codebase, two experiences:** a full **customer storefront** (browse, cart, checkout, orders, profile) and an **admin control center** (analytics, inventory, orders, users, coupons, audit trail)—wired together with **real business rules**, not demo-only CRUD.
 
----
-
-## 🏛️ Architectural Brilliance
-
-The project follows a **Domain-Driven & Layered Architecture**, ensuring maximum scalability and maintainability:
-
-- **Core Layer**: Centralized logic including Global Interceptors (Error & Loading), Auth Guards, and Singleton Configurations.
-- **Shared Layer**: Reactive Signal-based Services, Reusable UI Components, Models, and Utility Pipes.
-- **Public Domain**: A feature-rich consumer interface (Auth, Shop, Profile Ecosystem, Home).
-- **Admin Domain**: A robust management dashboard for real-time inventory and best-seller control.
-- **100% Standalone**: Leveraging the latest Angular APIs for lightweight bundles and superior performance.
+> **For reviewers (HR / Tech Lead / Senior):** This README states clearly what is **production-style architecture** vs **browser-local simulation** so you can assess intent and depth without guessing.
 
 ---
 
-## 🚀 Key Engineering Pillars
+## Why this project stands out
 
-### ⚡ Reactive State Engine (NgRx & Angular Signals)
-
-- **Hybrid State Management**: Combines the power of **NgRx Store** for complex domain state (Admin Dashboard) with **Angular Signals** for fine-grained UI reactivity.
-- **Entity Management**: Uses `@ngrx/entity` for high-performance CRUD operations and predictable state transitions.
-- **Side-Effect Handling**: Robust `@ngrx/effects` layer for asynchronous persistence and global notification synchronization.
-- **Persistent State**: Integrated with a sophisticated `LocalStorage` wrapper to maintain user sessions and preferences across refreshes.
-
-### 🔐 Bulletproof Security
-
-- **Dual-Layer Guards**: Implementation of `AuthGuard` and `GuestGuard` to manage complex access flows.
-- **Global Error Interceptor**: Centralized error handling that captures and reports HTTP issues gracefully.
-- **Reactive Auth Flow**: Seamless registration-to-login handoff with automatic state synchronization.
-
-### 🌍 Global-Ready (i18n & RTL)
-
-- **Bi-directional Engine**: Powered by `@ngx-translate` with full support for **Arabic (RTL)** and **English (LTR)**.
-- **Dynamic Layouts**: Automatic UI adaptation based on the selected language with zero layout shift.
-
-### 📱 Premium UX/UI Design
-
-- **Amazon-Style Profile**: A comprehensive account hub including:
-  - **Address CRUD**: Dynamic form overlays for managing delivery points.
-  - **Security Hub**: Inline editing for credentials with real-time validation.
-  - **Payment Management**: Visual card-based UI with "Add Card" dynamic modal.
-  - **Prime & Coupons**: Dedicated landing pages for loyalty and discounts.
-- **Interactive Components**: High-performance **Swiper.js** sliders for Categories and Testimonials.
-- **Global Feedback**: Integrated **Toast Notifications** and **Blur-Effect Loading Spinners** for a smooth app-like feel.
+| Audience        | What to look at |
+|----------------|-----------------|
+| **HR / Hiring** | Clear feature scope, security awareness, admin + user flows, honest limitations—signals maturity. |
+| **Tech Lead**   | Layered app structure, guards + interceptors, service boundaries, inventory tied to catalog IDs, audit logging. |
+| **Senior Dev**  | NgRx where it fits, Signals elsewhere, standalone routes, interceptors chain, domain services (`Order`, `Inventory`, `Profile`, `Audit`). |
 
 ---
 
-## 🛠️ Tech Stack & Tooling
+## Highlights (at a glance)
 
-| Category             | Technology                                 |
-| :------------------- | :----------------------------------------- |
-| **Framework**        | Angular 20+ (Signals, Standalone)          |
-| **State Management** | NgRx (Store, Effects, Entity), Signals     |
-| **UI/UX**            | Swiper.js, Angular Material 3, Bootstrap 5 |
-| **Security**         | JWT-ready Guards & HttpInterceptors        |
-| **Localization**     | @ngx-translate                             |
-| **Deployment**       | Vercel (Optimized CI/CD)                   |
+- **Angular 20** — Standalone components, lazy-loaded routes, signals in core services.
+- **Role-Based Access Control (RBAC)** — Admin routes protected; customer vs admin flows separated.
+- **Auth simulation (intentionally transparent)** — Login issues a **fake JWT** string; **`Authorization: Bearer`** attached via HTTP interceptor (pattern matches real apps; crypto/refresh would live on a real backend).
+- **Admin = Control Center** — Dashboard-style metrics, operational modules, not only “add/edit/delete”.
+- **Inventory linked to the live catalog** — Stock rows use the **same product IDs as the public API**; changes affect cart limits, checkout, and stock badges on product UI.
+- **Order lifecycle** — Status workflow; **stock committed on place order**; **stock restored on cancel (Pending)**.
+- **Audit log** — Administrative actions recorded for traceability (enterprise-style habit).
+- **NgRx** — Used for **Best Sellers** admin slice (store, effects, persistence).
+- **i18n** — `@ngx-translate` with English fallback (extendable).
 
 ---
 
-## 📂 Structural Overview
+## Architecture
 
 ```text
-eCommerce/
-├── features/               # Externalized Assets (i18n, images)
-├── src/
-│   ├── app/
-│   │   ├── Core/           # Interceptors, Guards, Global Services
-│   │   ├── Shared/         # Reactive Services, Models, UI Components
-│   │   ├── public/         # User-facing features (Auth, Profile, Home)
-│   │   └── admin/          # Management modules (Dashboard, Best Sellers)
-│   └── main.ts             # Bootstrapping with Standalone APIs
+src/app/
+├── Core/           # HTTP interceptors (error, loading, token), global wiring
+├── Shared/       # Models, guards, services (orders, inventory, profile, audit, coupons, …)
+├── public/       # Storefront: auth, home, products, cart, checkout, orders, profile
+└── admin/        # Dashboard, inventory, orders, users, coupons, audit logs, best sellers
 ```
 
----
-
-## 🧑‍💻 Author & Lead Architect
-
-**Ahmed Khaled** - Front-End Developer & Angular Specialist
+**Principles:** feature folders, singleton services `providedIn: 'root'`, guards on routes, HTTP concerns centralized in interceptors.
 
 ---
 
-## 📝 Engineering Notes
+## Security & access (how it works)
 
-This project is optimized for high-traffic scenarios. It uses **Web Components (Swiper Element)** to offload heavy slider logic from the main thread and implements a custom **Build Budget** configuration to handle enterprise-level asset scaling.
+| Mechanism | Implementation |
+|-----------|----------------|
+| Authenticated routes | `authGuard` (session + active user) |
+| Guest-only routes (login/register) | `guestGuard` |
+| Admin area | `authGuard` + `roleGuard` (`data.role: 'admin'`) |
+| API calls | `tokenInterceptor` adds Bearer token (simulated) |
+
+**Candid note:** Passwords and tokens are **not** production-grade; they illustrate **where** real JWT refresh, hashing, and server validation would plug in.
+
+---
+
+## Business & admin features
+
+### Dashboard
+
+- Revenue-oriented KPIs (from local order data), orders-per-day style metrics, top sellers visualization (lightweight UI), conversion placeholder—enough to show **product thinking**, not spreadsheet-only admin.
+
+### Inventory management (store-linked)
+
+- Synced from **catalog/API product list**; default stock for new SKUs until admin adjusts.
+- **Low / out-of-stock** states drive **product detail** and **product card** behavior (disable add, messages).
+- **Sold** count moves with successful orders.
+
+### Order management
+
+- Full line items, shipping, payment summary from stored orders.
+- Admin can advance statuses (e.g. Pending → Processing → Shipped → Delivered — per your `orderStatus` model).
+
+### User management
+
+- List users (from registered users store), **ban / activate**, **promote / demote** admin vs customer (demo RBAC).
+
+### Coupons
+
+- Admin-defined codes: discount %, expiry, usage limits (stored locally; wiring to checkout can be extended).
+
+### Audit log
+
+- Append-only style log for sensitive admin actions (inventory, orders, users, coupons—per service usage).
+
+---
+
+## Customer-facing features (storefront)
+
+- Product listing & filters, **product details** with stock-aware UI.
+- Cart with quantity limits tied to **inventory**.
+- Checkout → order creation → **inventory deduction**; failure if stock insufficient.
+- **My orders**, cancel (with stock restore rules for pending orders), reorder attempts respect stock.
+- Profile ecosystem (addresses, security, payment UI, etc.—as implemented in repo).
+
+---
+
+## Tech stack
+
+| Area | Choice |
+|------|--------|
+| Framework | Angular 20+ |
+| State | NgRx (best sellers), RxJS, Angular Signals (`ProfileService`, etc.) |
+| UI | Angular Material, Bootstrap, Swiper, Font Awesome |
+| HTTP | `HttpClient` + interceptors |
+| i18n | ngx-translate |
+| Persistence (demo) | `localStorage` via a thin wrapper |
+
+---
+
+## Getting started
+
+```bash
+npm install
+npm start
+# open http://localhost:4200
+```
+
+```bash
+npm run build
+```
+
+### Try the admin experience
+
+1. Go to `/admin` (you will be redirected to login if needed).
+2. Sign in with the seeded admin account:
+   - **Email:** `admin@shop.com`
+   - **Password:** `Admin@123456`
+3. Explore **Dashboard**, **Products (inventory)**, **Orders**, **Users**, **Coupons**, **Audit logs**.
+
+Register a normal user via **Register** to see **customer-only** routes vs **admin** separation.
+
+---
+
+## Honest “production readiness” checklist
+
+| Ready as a portfolio / code sample | Needs backend for real prod |
+|-------------------------------------|-----------------------------|
+| Structure, guards, interceptor patterns | Real JWT + refresh + HTTPS-only cookies |
+| Domain services & separation | Database, idempotency, payments |
+| Audit trail concept | Immutable server-side audit store |
+| Stock rules in UI + order commit | Concurrent stock, reservations, refunds |
+
+---
+
+## Author
+
+**Ahmed Khaled** — Front-End / Angular focus  
+
+---
+
+## License
+
+Private / portfolio use unless otherwise specified.
+
+---
+
+*ملخص عربي سريع: مشروع متجر كامل مع لوحة أدمن متقدمة، صلاحيات، تدقيق، ومخزون مربوط بكتالوج المستخدم—not مجرد واجهات.*

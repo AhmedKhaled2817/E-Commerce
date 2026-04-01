@@ -38,10 +38,19 @@ export class Register implements OnInit {
         password, // In a real app, this should be encrypted
         avatar: null,
         isPrime: false,
+        role: 'customer',
+        status: 'active',
       };
 
       // Save to temporary storage for registration (mocking a database)
-      this.localStorage.setItem('registered_user', JSON.stringify(userData) as string);
+      const users = JSON.parse(this.localStorage.getItem('registered_users') ?? '[]') as any[];
+      const alreadyExists = users.some((user) => user.email === email);
+      if (alreadyExists) {
+        this.toastr.error('Email already exists. Please login.');
+        return;
+      }
+      users.push(userData);
+      this.localStorage.setItem('registered_users', JSON.stringify(users));
 
       this.toastr.success('Registration successful! Please login.');
 

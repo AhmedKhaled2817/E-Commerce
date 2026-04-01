@@ -32,7 +32,15 @@
 
     <div class="price-box">
       <span class="price">${{ product.price }}</span>
-      <span class="badge">In Stock</span>
+      @if (inventoryService.items$ | async) {
+        @if (inventoryService.getAvailableStock(product.id) < 1) {
+          <span class="badge badge-out">Out of stock</span>
+        } @else if (inventoryService.getAvailableStock(product.id) <= 5) {
+          <span class="badge badge-low">Low stock · {{ inventoryService.getAvailableStock(product.id) }} left</span>
+        } @else {
+          <span class="badge badge-ok">In stock · {{ inventoryService.getAvailableStock(product.id) }} left</span>
+        }
+      }
     </div>
 
     <p class="description">
@@ -40,7 +48,12 @@
     </p>
 
     <div class="action-buttons">
-      <button class="add-cart" (click)="addToCart(product)">Add To Cart</button>
+      <button
+        class="add-cart"
+        type="button"
+        [disabled]="(inventoryService.items$ | async) !== undefined && inventoryService.getAvailableStock(product.id) < 1"
+        (click)="addToCart(product)"
+      >Add To Cart</button>
       <button class="wishlist" (click)="addToFav(product)">
         <i class="fa-regular fa-heart"></i>
       </button>

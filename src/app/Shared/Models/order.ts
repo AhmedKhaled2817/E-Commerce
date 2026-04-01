@@ -7,10 +7,12 @@ export interface Order {
   date:string;
   status: keyof typeof orderStatus;
   shippingAddress:ShippingAddress;
-  payment:string
+  payment:string;
+  customerEmail?: string;
 }
 export const  orderStatus={
   Pending:'Pending',
+  Processing:'Processing',
   Shipped:'Shipped',
   Delivered:'Delivered',
   Cancelled:'Cancelled'

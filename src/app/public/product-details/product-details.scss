@@ -109,6 +109,21 @@
   font-weight: 600;
 }
 
+.price-box .badge-out {
+  background: #fdecea;
+  color: #b42318;
+}
+
+.price-box .badge-low {
+  background: #fff4e6;
+  color: #b54708;
+}
+
+.price-box .badge-ok {
+  background: #e8f7ee;
+  color: #0a8f4f;
+}
+
 .description {
   color: #555;
   line-height: 1.7;
@@ -141,6 +156,13 @@
 .action-buttons .add-cart:hover {
   background: #222;
   transform: translateY(-2px);
+}
+
+.action-buttons .add-cart:disabled {
+  background: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .action-buttons .wishlist {

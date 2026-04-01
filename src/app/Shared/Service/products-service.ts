@@ -2,9 +2,10 @@ import { mainCategory } from "app/Shared/Models/products";
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable} from '@angular/core';
 import { environment } from 'environment/environment.products';
-import {map,Observable, shareReplay } from 'rxjs';
+import { map, Observable, shareReplay, tap } from 'rxjs';
 import { Products } from '../Models/products';
 import { DummyProduct, dummyResponse } from '../Models/dummy-product';
+import { InventoryService } from './inventory.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,10 +15,12 @@ export class ProductsService {
   private readonly apiUrl=`${environment.apiUrl}/products`;
 
   private httpClient=inject(HttpClient);
+  private inventoryService = inject(InventoryService);
 
   getAllProducts():Observable<Products[]>{
     return this.httpClient.get<dummyResponse>(this.apiUrl).pipe(
       map(res=> res.products.map(p=> this.mapDummyToProduct(p))),
+      tap((products) => this.inventoryService.syncFromCatalog(products)),
       shareReplay(1)
     )
   }

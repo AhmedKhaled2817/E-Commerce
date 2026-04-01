@@ -6,6 +6,8 @@ import { Products } from 'app/Shared/Models/products';
 import { CartService } from 'app/Shared/Service/cart-service';
 import { FavoriteService } from 'app/Shared/Service/favorite-service';
 import { ProductsService } from 'app/Shared/Service/products-service';
+import { InventoryService } from 'app/Shared/Service/inventory.service';
+import { ToastrService } from 'ngx-toastr';
 import { switchMap } from 'rxjs';
 
 @Component({
@@ -24,6 +26,8 @@ export class ProductDetails implements OnInit {
   private productService=inject(ProductsService);
   private cartService=inject(CartService);
   private favService=inject(FavoriteService);
+  protected inventoryService = inject(InventoryService);
+  private toastr = inject(ToastrService);
 
   product!:Products;
   loading:boolean=true;
@@ -39,6 +43,7 @@ export class ProductDetails implements OnInit {
     ).subscribe(p=>{
       this.product=p;
       this.selectedImg=p.images[0];
+      this.inventoryService.ensureProduct(p);
       this.loading=false;
     })
   }
@@ -63,7 +68,10 @@ export class ProductDetails implements OnInit {
 
   addToCart(p:Products){
     const productModel=this.mapToCartModel(p)
-    this.cartService.addToCart(productModel);
+    if (!this.cartService.addToCart(productModel)) {
+      this.toastr.error('Not enough stock available.');
+      return;
+    }
     this.router.navigate(['/public/cart']);
   }
 

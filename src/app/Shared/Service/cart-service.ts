@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { IbestSeller } from 'app/public/home/best-seller/models/ibest-seller';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { priceToNumber } from '../utils/price.util';
 import { CartItem } from 'app/public/cart/cart-item';
+import { InventoryService } from './inventory.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,22 +15,30 @@ export class CartService {
 
   cartItems$ = this.cartItem.asObservable();
 
-  addToCart(product: IbestSeller| CartItem) {
-    const currentItems = this.cartItem.value;
-    const existingItem= currentItems.find((item)=>item.id===product.id);
-    let updatedItems:CartItem[]
+  private inventoryService = inject(InventoryService);
 
-    if(existingItem){
-      updatedItems=currentItems.map((item)=>{
-        return (item.id === existingItem.id) ? {...item,quantity:item.quantity+1} : item;
-      })
+  /** Returns false if not enough stock */
+  addToCart(product: IbestSeller | CartItem): boolean {
+    const currentItems = this.cartItem.value;
+    const existingItem = currentItems.find((item) => item.id === product.id);
+    const nextQty = existingItem ? existingItem.quantity + 1 : 1;
+    if (!this.inventoryService.canAddToCart(product.id, nextQty)) {
+      return false;
     }
-    else{
-    updatedItems = [...currentItems, {...product,quantity:1}];
+
+    let updatedItems: CartItem[];
+
+    if (existingItem) {
+      updatedItems = currentItems.map((item) => {
+        return item.id === existingItem.id ? { ...item, quantity: item.quantity + 1 } : item;
+      });
+    } else {
+      updatedItems = [...currentItems, { ...product, quantity: 1 }];
     }
 
     this.cartItem.next(updatedItems);
     this.saveToLocalStorage(updatedItems);
+    return true;
   }
   getCartItems(): CartItem[] {
     return this.cartItem.value;
@@ -70,17 +79,23 @@ export class CartService {
     })
   )
 
-  // increase quantity of cart item
-  increaseQuantity(id:number){
+  // increase quantity of cart item — returns false if stock insufficient
+  increaseQuantity(id: number): boolean {
     const currentItems = this.cartItem.value;
-    const existingItem= currentItems.find((item)=>item.id===id);
-    if(existingItem){
-      const updatedItems=currentItems.map((item)=>{
-        return (item.id === existingItem.id) ? {...item,quantity:item.quantity+1} : item;
-      })
-      this.cartItem.next(updatedItems);
-      this.saveToLocalStorage(updatedItems);
+    const existingItem = currentItems.find((item) => item.id === id);
+    if (!existingItem) {
+      return false;
     }
+    const nextQty = existingItem.quantity + 1;
+    if (!this.inventoryService.canAddToCart(id, nextQty)) {
+      return false;
+    }
+    const updatedItems = currentItems.map((item) => {
+      return item.id === existingItem.id ? { ...item, quantity: item.quantity + 1 } : item;
+    });
+    this.cartItem.next(updatedItems);
+    this.saveToLocalStorage(updatedItems);
+    return true;
   }
   // decrease quantity of cart item
   decreaseQuantity(id:number){

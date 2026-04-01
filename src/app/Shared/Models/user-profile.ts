@@ -6,4 +6,9 @@ export interface UserProfile {
   isPrime: boolean;
   memberSince?: string;
   totalOrders?: number;
+  role?: UserRole;
+  status?: UserStatus;
 }
+
+export type UserRole = 'admin' | 'customer';
+export type UserStatus = 'active' | 'banned';

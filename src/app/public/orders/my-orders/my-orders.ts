@@ -5,6 +5,7 @@ import { Router, RouterModule } from '@angular/router';
 import { CartService } from 'app/Shared/Service/cart-service';
 import { Order, orderStatus } from 'app/Shared/Models/order';
 import { BehaviorSubject, combineLatest, delay, map, Subject, takeUntil} from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-my-orders',
@@ -16,6 +17,7 @@ export class MyOrders implements OnInit ,OnDestroy {
   private orderService = inject(OrderService);
   private cartService = inject(CartService);
   private router = inject(Router);
+  private toastr = inject(ToastrService);
 
 
   orders$ = this.orderService.orders$;
@@ -123,11 +125,15 @@ export class MyOrders implements OnInit ,OnDestroy {
   }
 
   Reorder(order: Order) {
-    order.items.forEach((item) => {
+    for (const item of order.items) {
       for (let i = 0; i < item.quantity; i++) {
-        this.cartService.addToCart(item);
+        if (!this.cartService.addToCart(item)) {
+          this.toastr.error('Not enough stock to add the full order again.');
+          this.router.navigate(['/public/cart']);
+          return;
+        }
       }
-    });
+    }
     this.router.navigate(['/public/cart']);
   }
 

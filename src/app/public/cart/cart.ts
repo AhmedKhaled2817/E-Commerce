@@ -65,7 +65,9 @@ export class Cart implements OnInit, OnDestroy{
   }
 
   increaseQuantity(id:number){
-    this.cartService.increaseQuantity(id);
+    if (!this.cartService.increaseQuantity(id)) {
+      this.toastr.warning('Maximum available quantity reached for this item.');
+    }
   }
 
   decreaseQuantity(id:number){
