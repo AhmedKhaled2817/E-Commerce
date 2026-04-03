@@ -1,6 +1,9 @@
 <section class="card">
   <h2>Inventory (linked to store catalog)</h2>
-  <p class="hint">Stock here uses the same product IDs as the shop. Changing quantity updates availability for customers immediately.</p>
+  <p class="hint">
+    Stock here uses the same product IDs as the shop. Changing quantity updates availability for
+    customers immediately.
+  </p>
 
   @if (selected) {
     <form [formGroup]="form" (ngSubmit)="save()" class="edit-panel">
@@ -16,13 +19,15 @@
         Category (store filter)
         <select formControlName="categoryId">
           <option value="">— Catalog default (clear override) —</option>
-          @for (c of (categoryService.categories$ | async); track c.id) {
-            <option [value]="c.id">{{ c.displayName }} — {{ c.mainCategory }} / {{ c.subCategory }}</option>
+          @for (c of categoryService.categories$ | async; track c.id) {
+            <option [value]="c.id">
+              {{ c.displayName }} — {{ c.mainCategory }} / {{ c.subCategory }}
+            </option>
           }
         </select>
       </label>
-      <div class="actions">
-        <button type="submit" [disabled]="form.invalid">Save</button>
+      <div class="form-actions">
+        <button type="submit" class="btn-edit" [disabled]="form.invalid">Save</button>
         <button type="button" class="ghost" (click)="cancelEdit()">Cancel</button>
       </div>
     </form>
@@ -33,41 +38,50 @@
 
 <section class="card">
   <h3>All catalog products</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Stock</th>
-        <th>Category</th>
-        <th>Sold</th>
-        <th>Status</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (row of (rows$ | async); track row.product.id) {
+  <div class="table-responsive">
+    <table>
+      <thead>
         <tr>
-          <td>{{ row.product.id }}</td>
-          <td>{{ row.product.title }}</td>
-          <td>${{ row.product.price }}</td>
-          <td>{{ row.inv.stockQuantity }}</td>
-          <td class="cat-cell">{{ row.product.mainCategory }} / {{ row.product.subCategory }}</td>
-          <td>{{ row.inv.sold }}</td>
-          <td>
-            <span [class.out]="row.inv.status === 'out_of_stock'" [class.low]="row.inv.status === 'low_stock'">
-              {{ row.inv.status }}
-            </span>
-          </td>
-          <td class="actions">
-            <button type="button" (click)="edit(row)">Edit stock</button>
-            <button type="button" class="danger" (click)="remove(row.product.id)">Remove row</button>
-          </td>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Stock</th>
+          <th>Category</th>
+          <th>Sold</th>
+          <th>Status</th>
+          <th></th>
         </tr>
-      } @empty {
-        <tr><td colspan="8">Loading products…</td></tr>
-      }
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        @for (row of rows$ | async; track row.product.id) {
+          <tr>
+            <td>{{ row.product.id }}</td>
+            <td>{{ row.product.title }}</td>
+            <td>${{ row.product.price }}</td>
+            <td>{{ row.inv.stockQuantity }}</td>
+            <td class="cat-cell">{{ row.product.mainCategory }} / {{ row.product.subCategory }}</td>
+            <td>{{ row.inv.sold }}</td>
+            <td>
+              <span
+                [class.out]="row.inv.status === 'out_of_stock'"
+                [class.low]="row.inv.status === 'low_stock'"
+              >
+                {{ row.inv.status }}
+              </span>
+            </td>
+            <td class="actions">
+              <button type="button" class="btn-edit" (click)="edit(row)">Edit stock</button>
+              <button type="button" class="btn-danger" (click)="remove(row.product.id)">
+                Remove row
+              </button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="8">Loading products…</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
 </section>

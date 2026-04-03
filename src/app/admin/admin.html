@@ -8,14 +8,19 @@
 
 <mat-drawer-container class="app-drawer-container">
 
-  <mat-drawer #drawer mode="side" opened class="app-drawer">
+  <mat-drawer
+    #drawer
+    [mode]="isMobile() ? 'over' : 'side'"
+    [opened]="!isMobile()"
+    class="app-drawer">
     <mat-nav-list>
       @for (item of menuItem(); track item.url) {
         <a
           mat-list-item
           [routerLink]="item.url"
           routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }">
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="isMobile() && drawer.close()">
 
           <mat-icon class="menu-icon">{{item.icon}}</mat-icon>
           <span class="menu-text">{{ item.text| translate }}</span>

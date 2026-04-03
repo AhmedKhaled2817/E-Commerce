@@ -1,8 +1,9 @@
 <div class="categories-page">
   <h2 class="page-title">Categories (store-linked)</h2>
   <p class="hint">
-    <strong>Sub-category key</strong> must match how products are filtered (e.g. <code>Beauty</code>, <code>Furniture</code>).
-    Use the same spelling as shown in the catalog after sync, or assign products below.
+    <strong>Sub-category key</strong> must match how products are filtered (e.g.
+    <code>Beauty</code>, <code>Furniture</code>). Use the same spelling as shown in the catalog
+    after sync, or assign products below.
   </p>
 
   <section class="card">
@@ -22,7 +23,11 @@
       </label>
       <label>
         Display name (homepage)
-        <input type="text" formControlName="displayName" placeholder="Shown on Shop by Categories" />
+        <input
+          type="text"
+          formControlName="displayName"
+          placeholder="Shown on Shop by Categories"
+        />
       </label>
       <label>
         Image URL
@@ -37,7 +42,7 @@
         Active
       </label>
       <div class="actions">
-        <button type="submit" [disabled]="catForm.invalid">Save</button>
+        <button type="submit" class="btn-edit" [disabled]="catForm.invalid">Save</button>
         <button type="button" class="ghost" (click)="startAdd()">New</button>
       </div>
     </form>
@@ -45,13 +50,16 @@
 
   <section class="card">
     <h3>Assign product → category</h3>
-    <p class="hint">Moves a product into a category for filtering, mega menu, and listing. Overrides the API default mapping.</p>
+    <p class="hint">
+      Moves a product into a category for filtering, mega menu, and listing. Overrides the API
+      default mapping.
+    </p>
     <form [formGroup]="assignForm" (ngSubmit)="assignProduct()" class="form-grid assign-row">
       <label>
         Product
         <select formControlName="productId">
           <option [ngValue]="null">— Select —</option>
-          @for (p of (products$ | async); track p.id) {
+          @for (p of products$ | async; track p.id) {
             <option [ngValue]="p.id">{{ p.id }} — {{ p.title }}</option>
           }
         </select>
@@ -60,21 +68,23 @@
         Category
         <select formControlName="categoryId">
           <option value="">— Select —</option>
-          @for (c of (categories$ | async); track c.id) {
-            <option [value]="c.id">{{ c.displayName }} ({{ c.mainCategory }} / {{ c.subCategory }})</option>
+          @for (c of categories$ | async; track c.id) {
+            <option [value]="c.id">
+              {{ c.displayName }} ({{ c.mainCategory }} / {{ c.subCategory }})
+            </option>
           }
         </select>
       </label>
       <div class="actions">
-        <button type="submit" [disabled]="assignForm.invalid">Apply</button>
-        <button type="button" class="ghost" (click)="clearAssignment()">Clear override for selected product</button>
+        <button type="submit" class="btn-edit" [disabled]="assignForm.invalid">Apply</button>
+        <button type="button" class="ghost" (click)="clearAssignment()">Clear override</button>
       </div>
     </form>
   </section>
 
   <section class="card">
     <h3>All categories</h3>
-    <div class="table-wrap">
+    <div class="table-responsive">
       <table>
         <thead>
           <tr>
@@ -87,20 +97,24 @@
           </tr>
         </thead>
         <tbody>
-          @for (c of (categories$ | async); track c.id) {
+          @for (c of categories$ | async; track c.id) {
             <tr>
               <td>{{ c.displayName }}</td>
               <td>{{ c.mainCategory }}</td>
-              <td><code>{{ c.subCategory }}</code></td>
+              <td>
+                <code>{{ c.subCategory }}</code>
+              </td>
               <td>{{ c.weight }}</td>
               <td>{{ c.isActive ? 'Yes' : 'No' }}</td>
               <td class="actions">
-                <button type="button" (click)="startEdit(c)">Edit</button>
-                <button type="button" class="danger" (click)="delete(c)">Delete</button>
+                <button type="button" class="btn-edit" (click)="startEdit(c)">Edit</button>
+                <button type="button" class="btn-danger" (click)="delete(c)">Delete</button>
               </td>
             </tr>
           } @empty {
-            <tr><td colspan="6">Loading…</td></tr>
+            <tr>
+              <td colspan="6">Loading…</td>
+            </tr>
           }
         </tbody>
       </table>

@@ -12,20 +12,29 @@ import { OrderService } from 'app/Shared/Service/order-service';
     <h2>Admin Dashboard</h2>
     @if (vm$ | async; as vm) {
       <div class="stats">
-        <div class="card">Revenue: {{ '$' + vm.totalRevenue }}</div>
-        <div class="card">Orders Today: {{ vm.ordersToday }}</div>
-        <div class="card">Conversion Rate: {{ vm.conversionRate }}%</div>
+        <div class="card stat-card">
+          <span class="label">Total Revenue</span>
+          <span class="value">{{ '$' + vm.totalRevenue }}</span>
+        </div>
+        <div class="card stat-card">
+          <span class="label">Orders Today</span>
+          <span class="value">{{ vm.ordersToday }}</span>
+        </div>
+        <div class="card stat-card">
+          <span class="label">Conversion Rate</span>
+          <span class="value">{{ vm.conversionRate }}%</span>
+        </div>
       </div>
       <div class="card">
         <h3>Top Selling Products</h3>
         @for (item of vm.topSelling; track item.id) {
           <div class="row">
-            <span>{{ item.name }}</span>
+            <span class="text-truncate">{{ item.name }}</span>
             <div class="bar"><div class="fill" [style.width.%]="item.percent"></div></div>
-            <strong>{{ item.sold }}</strong>
+            <strong class="text-end">{{ item.sold }} sold</strong>
           </div>
         } @empty {
-          <p>No sales data yet.</p>
+          <p class="text-muted">No sales data yet.</p>
         }
       </div>
     }
@@ -34,32 +43,69 @@ import { OrderService } from 'app/Shared/Service/order-service';
     `
       .stats {
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 12px;
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+      @media (min-width: 768px) {
+        .stats {
+          grid-template-columns: repeat(3, 1fr);
+        }
       }
       .card {
         background: #fff;
         border: 1px solid #eee;
-        border-radius: 8px;
-        padding: 12px;
-        margin-bottom: 12px;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+      }
+      .stat-card {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        .label {
+          font-size: 0.85rem;
+          color: #666;
+          text-transform: uppercase;
+          font-weight: 600;
+        }
+        .value {
+          font-size: 1.5rem;
+          font-weight: 700;
+          color: #111;
+        }
       }
       .row {
         display: grid;
-        grid-template-columns: 1fr 2fr auto;
-        gap: 8px;
-        align-items: center;
-        margin-bottom: 8px;
+        grid-template-columns: 1fr;
+        gap: 4px;
+        margin-bottom: 16px;
+        @media (min-width: 576px) {
+          grid-template-columns: 1.5fr 2fr auto;
+          align-items: center;
+          gap: 12px;
+        }
       }
       .bar {
         height: 8px;
         background: #f0f0f0;
         border-radius: 999px;
+        overflow: hidden;
       }
       .fill {
-        height: 8px;
-        background: #3b82f6;
+        height: 100%;
+        background: #3f51b5;
         border-radius: 999px;
+        transition: width 0.5s ease-out;
+      }
+      h2 {
+        margin-bottom: 24px;
+        font-weight: 700;
+      }
+      h3 {
+        margin-bottom: 20px;
+        font-weight: 600;
+        font-size: 1.1rem;
       }
     `,
   ],
@@ -72,8 +118,11 @@ export class Dashboard {
     map(([orders, items]) => {
       const totalRevenue = orders.reduce((acc, order) => acc + order.totalPrice, 0).toFixed(2);
       const today = new Date().toDateString();
-      const ordersToday = orders.filter((order) => new Date(order.date).toDateString() === today).length;
-      const conversionRate = orders.length === 0 ? 0 : Number(((orders.length / 100) * 100).toFixed(2));
+      const ordersToday = orders.filter(
+        (order) => new Date(order.date).toDateString() === today,
+      ).length;
+      const conversionRate =
+        orders.length === 0 ? 0 : Number(((orders.length / 100) * 100).toFixed(2));
       const maxSold = Math.max(...items.map((item) => item.sold), 1);
       const topSelling = [...items]
         .sort((a, b) => b.sold - a.sold)

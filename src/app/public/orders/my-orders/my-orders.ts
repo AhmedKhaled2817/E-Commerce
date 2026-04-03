@@ -4,7 +4,7 @@ import { OrderService } from 'app/Shared/Service/order-service';
 import { Router, RouterModule } from '@angular/router';
 import { CartService } from 'app/Shared/Service/cart-service';
 import { Order, orderStatus } from 'app/Shared/Models/order';
-import { BehaviorSubject, combineLatest, delay, map, Subject, takeUntil} from 'rxjs';
+import { BehaviorSubject, combineLatest, delay, map, Subject, takeUntil } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -13,16 +13,15 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './my-orders.html',
   styleUrl: './my-orders.scss',
 })
-export class MyOrders implements OnInit ,OnDestroy {
+export class MyOrders implements OnInit, OnDestroy {
   private orderService = inject(OrderService);
   private cartService = inject(CartService);
   private router = inject(Router);
   private toastr = inject(ToastrService);
 
-
   orders$ = this.orderService.orders$;
 
-  destroy$=new Subject<void>();
+  destroy$ = new Subject<void>();
 
   // ===== Filter =====
   selectedStatus$ = new BehaviorSubject<string>('All');
@@ -84,7 +83,7 @@ export class MyOrders implements OnInit ,OnDestroy {
 
   // ===== Lifecycle =====
   ngOnInit(): void {
-    this.orders$.pipe(delay(800),takeUntil(this.destroy$)).subscribe(() => {
+    this.orders$.pipe(delay(800), takeUntil(this.destroy$)).subscribe(() => {
       this.loading = false;
     });
   }
@@ -122,6 +121,13 @@ export class MyOrders implements OnInit ,OnDestroy {
       this.orderService.cancelOrder(id);
       this.loadingCancel$.next(null);
     }, 700);
+  }
+
+  deleteAll() {
+    if (confirm('Are you sure you want to delete all orders history? This cannot be undone.')) {
+      this.orderService.deleteAllOrders();
+      this.toastr.success('All orders have been deleted successfully');
+    }
   }
 
   Reorder(order: Order) {

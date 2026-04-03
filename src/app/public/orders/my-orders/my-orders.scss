@@ -18,6 +18,19 @@
   border-radius: 8px;
 }
 
+.transition-all {
+  transition: all 0.2s ease-in-out;
+}
+
+.hover-scale {
+  &:hover {
+    transform: scale(1.03);
+  }
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
 /* ===== Statistics ===== */
 
 .stats-row {

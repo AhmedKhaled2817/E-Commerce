@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { of } from 'rxjs';
-import { switchMap, catchError, tap, withLatestFrom } from 'rxjs';
+import { of, fromEvent } from 'rxjs';
+import { switchMap, catchError, tap, withLatestFrom, filter, map } from 'rxjs/operators';
 import { BestSellerActions } from './best-sellers.actions';
 import { LocalStorage } from '../../../Shared/Service/local-storage';
 import { Store } from '@ngrx/store';
@@ -95,6 +95,20 @@ export class BestSellerEffects {
         }
       }),
       catchError((error) => of(BestSellerActions.loadBestSellersFailure({ error: error.message }))),
+    ),
+  );
+
+  /** Listen for cross-tab storage changes to keep best sellers synced */
+  syncFromStorage$ = createEffect(() =>
+    fromEvent<StorageEvent>(window, 'storage').pipe(
+      filter((event) => event.key === this.STORAGE_KEY),
+      map((event) => {
+        if (event.newValue) {
+          const products = JSON.parse(event.newValue) as IbestSeller[];
+          return BestSellerActions.loadBestSellersSuccess({ products });
+        }
+        return BestSellerActions.loadBestSellersSuccess({ products: [] });
+      }),
     ),
   );
 

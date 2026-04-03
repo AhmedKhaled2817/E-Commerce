@@ -15,22 +15,26 @@ export class OrderService {
   private auditLogService = inject(AuditLogService);
   private inventoryService = inject(InventoryService);
 
-  private orders:Order[]
+  private orders: Order[];
 
-  private orderSubject=new BehaviorSubject<Order[]>([]);
-  orders$=this.orderSubject.asObservable();
-  constructor(){
-    this.orders=[];
-    const storedOrders=localStorage.getItem('orders') ;
+  private orderSubject = new BehaviorSubject<Order[]>([]);
+  orders$ = this.orderSubject.asObservable();
+  constructor() {
+    this.orders = [];
+    const storedOrders = localStorage.getItem('orders');
 
-    if(storedOrders){
-      this.orders=JSON.parse(storedOrders) as Order[];
+    if (storedOrders) {
+      this.orders = JSON.parse(storedOrders) as Order[];
       this.orderSubject.next(this.orders);
     }
-
   }
 
-  createOrder(items: CartItem[], total: number, ShippingAddress: ShippingAddress, payment: string): boolean {
+  createOrder(
+    items: CartItem[],
+    total: number,
+    ShippingAddress: ShippingAddress,
+    payment: string,
+  ): boolean {
     if (!this.inventoryService.commitOrder(items)) {
       return false;
     }
@@ -84,4 +88,9 @@ export class OrderService {
     return this.orders.find((order) => order.id === id);
   }
 
+  deleteAllOrders() {
+    this.orders = [];
+    localStorage.setItem('orders', JSON.stringify(this.orders));
+    this.orderSubject.next(this.orders);
+  }
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, fromEvent } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { Products } from '../Models/products';
 import { ProductCategoryOverride, ShopCategoryView, StoreCategory } from '../Models/store-category';
 import type { mainCategory } from '../Models/products';
@@ -18,6 +19,25 @@ export class CategoryService {
     this.loadOverrides(),
   );
   overrides$ = this.overridesSubject.asObservable();
+
+  constructor() {
+    this.listenToStorageChanges();
+  }
+
+  private listenToStorageChanges(): void {
+    fromEvent<StorageEvent>(window, 'storage')
+      .pipe(
+        filter((event) => event.key === STORAGE_CATS || event.key === STORAGE_OVERRIDES),
+        map(() => ({
+          cats: this.loadCategories(),
+          overs: this.loadOverrides(),
+        })),
+      )
+      .subscribe((next) => {
+        this.categoriesSubject.next(next.cats);
+        this.overridesSubject.next(next.overs);
+      });
+  }
 
   /** Merge API-derived categories into the store (new subCategories only) */
   syncFromProducts(products: Products[]): void {
@@ -73,9 +93,7 @@ export class CategoryService {
     const t = sub.trim();
     return this.categoriesSubject.value.some(
       (c) =>
-        c.mainCategory === main &&
-        c.subCategory.trim() === t &&
-        (!excludeId || c.id !== excludeId),
+        c.mainCategory === main && c.subCategory.trim() === t && (!excludeId || c.id !== excludeId),
     );
   }
 

@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable, inject } from '@angular/core';
+import { BehaviorSubject, fromEvent } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { AdminProduct } from '../Models/admin-product';
 import { Products } from '../Models/products';
 import { CartItem } from 'app/public/cart/cart-item';
@@ -16,7 +17,22 @@ export class InventoryService {
   private readonly itemsSubject = new BehaviorSubject<AdminProduct[]>(this.loadItems());
   items$ = this.itemsSubject.asObservable();
 
-  constructor(private auditLogService: AuditLogService) {}
+  private auditLogService = inject(AuditLogService);
+
+  constructor() {
+    this.listenToStorageChanges();
+  }
+
+  private listenToStorageChanges(): void {
+    fromEvent<StorageEvent>(window, 'storage')
+      .pipe(
+        filter((event) => event.key === this.storageKey),
+        map(() => this.loadItems()),
+      )
+      .subscribe((next) => {
+        this.itemsSubject.next(next);
+      });
+  }
 
   /**
    * Align inventory rows with API catalog (real product ids). Adds missing products; updates title/price for display.
@@ -43,7 +59,12 @@ export class InventoryService {
       } else {
         const row = current[idx];
         if (row.name !== p.title || row.price !== p.price) {
-          current[idx] = { ...row, name: p.title, price: p.price, status: this.toStatus(row.stockQuantity) };
+          current[idx] = {
+            ...row,
+            name: p.title,
+            price: p.price,
+            status: this.toStatus(row.stockQuantity),
+          };
           changed = true;
         }
       }
