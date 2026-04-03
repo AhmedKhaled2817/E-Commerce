@@ -28,6 +28,7 @@ interface ChatbotData {
 export class ChatbotService {
   private http = inject(HttpClient);
   private chatbotData: ChatbotData | null = null;
+  private learnedKeywords = signal<Record<string, string[]>>({});
   currentLang = signal<'en' | 'ar'>('en');
 
   messages = signal<Message[]>([]);
@@ -38,6 +39,22 @@ export class ChatbotService {
 
   constructor() {
     this.loadChatbotData();
+    this.loadLearnedData();
+  }
+
+  private loadLearnedData() {
+    const saved = localStorage.getItem('chatbot_learned_keywords');
+    if (saved) {
+      this.learnedKeywords.set(JSON.parse(saved));
+    }
+  }
+
+  private saveLearnedData(keyword: string, response: string) {
+    this.learnedKeywords.update((prev) => {
+      const updated = { ...prev, [keyword]: [...(prev[keyword] || []), response] };
+      localStorage.setItem('chatbot_learned_keywords', JSON.stringify(updated));
+      return updated;
+    });
   }
 
   private async loadChatbotData() {
@@ -116,7 +133,14 @@ export class ChatbotService {
     const data = this.chatbotData[lang];
     const rawInput = input.toLowerCase().trim();
 
-    // 1. Handle Name Intro (if not set)
+    // 1. Check User-Learned Memory first
+    for (const [key, responses] of Object.entries(this.learnedKeywords())) {
+      if (rawInput.includes(key.toLowerCase())) {
+        return responses[Math.floor(Math.random() * responses.length)];
+      }
+    }
+
+    // 2. Handle Name Intro (if not set)
     if (!this.userName()) {
       // Check if user is introducing themselves
       const introKeywords =
@@ -129,12 +153,14 @@ export class ChatbotService {
         let name = rawInput;
         introKeywords.forEach((k) => (name = name.replace(k, '')));
         name = name.trim();
-        this.userName.set(name);
-        return data.name_ack.replace('{name}', name);
+        if (name) {
+          this.userName.set(name);
+          return data.name_ack.replace('{name}', name);
+        }
       }
     }
 
-    // 2. Handle Greetings
+    // 3. Handle Greetings
     const greetings =
       lang === 'en'
         ? ['hi', 'hello', 'hey', 'greetings']
@@ -144,15 +170,26 @@ export class ChatbotService {
       return data.greeting_reply.replace('{name}', this.userName() || '');
     }
 
-    // 3. Knowledge Base Search
+    // 4. Knowledge Base Search with Keyword Weighting
+    let bestMatch: { response: string; weight: number } | null = null;
+
     for (const entry of data.knowledge) {
-      if (entry.keywords.some((key) => rawInput.includes(key.toLowerCase()))) {
+      let matchCount = 0;
+      for (const key of entry.keywords) {
+        if (rawInput.includes(key.toLowerCase())) {
+          matchCount++;
+        }
+      }
+
+      if (matchCount > 0 && (!bestMatch || matchCount > bestMatch.weight)) {
         const randomIndex = Math.floor(Math.random() * entry.responses.length);
-        return entry.responses[randomIndex];
+        bestMatch = { response: entry.responses[randomIndex], weight: matchCount };
       }
     }
 
-    // 4. Navigation Help Logic
+    if (bestMatch) return bestMatch.response;
+
+    // 5. Navigation Help Logic
     const navKeywords =
       lang === 'en' ? ['where', 'how to', 'go to', 'find'] : ['فين', 'ازاى', 'اروح', 'مكان'];
 
@@ -160,7 +197,18 @@ export class ChatbotService {
       return data.nav_help;
     }
 
-    // 5. Fallback
+    // 6. Learning Fallback: Save unknown input
+    if (rawInput.length > 3) {
+      // Logic: Save as a keyword for future if no answer found
+      // For now, just save it so if they ask again later we can "remember"
+      this.saveLearnedData(
+        rawInput,
+        lang === 'en'
+          ? `You asked about "${rawInput}" before. I'm still analyzing it, but it seems interesting!`
+          : `إنت سألتني عن "${rawInput}" قبل كدة. أنا لسه بدرسها بس شكلها حاجة مهمة!`,
+      );
+    }
+
     return data.fallback;
   }
 
