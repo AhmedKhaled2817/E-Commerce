@@ -1,0 +1,162 @@
+{
+  "en": {
+    "welcome": "Hello! I am WearHouse Intelligence. I know everything about this project. What's your name?",
+    "name_ack": "Nice to meet you, {name}! I am the brain of this project. How can I help you today?",
+    "greeting_reply": "Hello {name}! I'm ready to explain any part of WearHouse. Ask me about Admin, Tech Stack, or Features.",
+    "fallback": "I'm not sure I understood that. I'm a specialized AI for this project. Ask me about the Features, Tech Stack, or Admin!",
+    "nav_help": "I can help you navigate! \n- Shopping: /public/home \n- Admin: /admin \n- Orders: /public/orders \n- Settings: /public/profile",
+    "knowledge": [
+      {
+        "keywords": ["project", "wearhouse", "website", "what is"],
+        "responses": [
+          "WearHouse is a state-of-the-art eCommerce ecosystem with a dual-experience storefront and admin panel.",
+          "It's a technical showcase featuring real-time sync, NgRx, and enterprise-grade architecture."
+        ]
+      },
+      {
+        "keywords": ["tech", "stack", "angular", "ngrx", "signals", "built with"],
+        "responses": [
+          "Built with Angular 20, NgRx for domain state, and Signals for UI reactivity.",
+          "Hybrid State strategy: NgRx Store for complex flows and Signals for fast UI updates.",
+          "It uses RxJS for reactive data streams and custom Interceptors for global error/loading states."
+        ]
+      },
+      {
+        "keywords": ["admin", "dashboard", "control"],
+        "responses": [
+          "The Admin area features Analytics, Inventory Management, and Category Overrides.",
+          "Admins can track revenue, monitor stock, and manage the catalog with instant updates."
+        ]
+      },
+      {
+        "keywords": ["inventory", "stock", "quantity", "management"],
+        "responses": [
+          "Stock is automated! Orders deduct inventory, and cancellations restore it.",
+          "Admins edit stock directly, and it reflects instantly for customers across all tabs."
+        ]
+      },
+      {
+        "keywords": ["author", "developer", "ahmed", "khaled"],
+        "responses": [
+          "Developed by Ahmed Khaled, a Senior Angular Developer focused on scalable systems.",
+          "Ahmed Khaled is the architect who built this entire ecosystem from scratch using best practices."
+        ]
+      },
+      {
+        "keywords": ["sync", "update", "realtime", "tabs"],
+        "responses": [
+          "The project uses Cross-Tab Synchronization. Changes in the Admin tab update the Storefront tab instantly without refresh.",
+          "This is achieved using window storage events to ensure data consistency everywhere."
+        ]
+      },
+      {
+        "keywords": ["ngrx", "store", "state", "redux"],
+        "responses": [
+          "NgRx is used for the Best Sellers module and Admin domain state to ensure predictable transitions.",
+          "The application implements the Redux pattern with Actions, Reducers, and Effects for robust data handling."
+        ]
+      },
+      {
+        "keywords": ["signals", "reactivity"],
+        "responses": [
+          "Angular Signals are used for lightweight UI state management like loading spinners, user profiles, and language settings.",
+          "This makes the UI extremely fast and responsive to state changes."
+        ]
+      },
+      {
+        "keywords": ["interceptor", "error", "loading"],
+        "responses": [
+          "A sophisticated Interceptor chain handles global loading states and centralized error reporting for all API calls.",
+          "The ErrorInterceptor automatically shows toast notifications for any failed network requests."
+        ]
+      },
+      {
+        "keywords": ["responsive", "mobile", "sidebar", "breakpoint"],
+        "responses": [
+          "The Admin dashboard uses CDK BreakpointObserver to intelligently collapse the sidebar on mobile and tablets.",
+          "Every component is designed with a Mobile-First approach using Bootstrap 5 and custom SCSS."
+        ]
+      }
+    ]
+  },
+  "ar": {
+    "welcome": "أهلاً بك! أنا مساعد WearHouse الذكي. عارف كل كبيرة وصغيرة في المشروع. تحب أقولك إيه؟ وايه اسمك؟",
+    "name_ack": "أهلاً بك يا {name}! أنا عقل المشروع ده. تحب تستفسر عن إيه النهاردة؟",
+    "greeting_reply": "أهلاً {name}! أنا جاهز أشرحلك أي جزء في WearHouse. اسألني عن لوحة التحكم، التقنيات، أو المميزات.",
+    "fallback": "مش متأكد إني فهمت قصدك. أنا ذكاء اصطناعي متخصص في المشروع ده بس. اسألني عن المميزات، التقنيات، أو لوحة التحكم!",
+    "nav_help": "أقدر أساعدك توصل للي عاوزه! \n- للتسوق: /public/home \n- لوحة الأدمن: /admin \n- طلباتك: /public/orders \n- الإعدادات: /public/profile",
+    "knowledge": [
+      {
+        "keywords": ["مشروع", "الموقع", "وير هاوس", "عبارة عن", "ايه ده"],
+        "responses": [
+          "WearHouse هو نظام تجارة إلكترونية متكامل بيضم واجهة للمستخدم ولوحة تحكم قوية للأدمن.",
+          "ده مشروع تقني بيعرض مهارات أحمد خالد في الـ Angular والـ NgRx والـ Real-time sync."
+        ]
+      },
+      {
+        "keywords": ["تقنيات", "برمجة", "أنجولر", "ngrx", "signals", "مبني بايه", "كود"],
+        "responses": [
+          "المشروع مبني بـ Angular 20، وبستخدم NgRx لإدارة البيانات الكبيرة و Signals لسرعة الواجهة.",
+          "بستخدم استراتيجية الـ Hybrid State: يعني NgRx للأدمن و Signals لليوزر عشان أضمن أحسن أداء.",
+          "الكود مكتوب بـ Clean Architecture ومستخدم فيه RxJS و Interceptors عشان اللودينج والأخطاء."
+        ]
+      },
+      {
+        "keywords": ["لوحة", "تحكم", "أدمن", "dashboard", "كنترول"],
+        "responses": [
+          "لوحة الأدمن فيها إحصائيات، إدارة مخزون، وتحكم كامل في الأقسام والمنتجات.",
+          "الأدمن يقدر يتابع الأرباح، يعدل المخزون، ويغير الأقسام وتسمع عند اليوزر فوراً."
+        ]
+      },
+      {
+        "keywords": ["مخزون", "ستوك", "كمية", "stock", "الكمية"],
+        "responses": [
+          "إدارة المخزون أوتوماتيكية بالكامل! لما تطلب الكمية بتقل، ولما تكنسل الكمية بترجع تاني.",
+          "الأدمن بيعدل الكميات وتظهر لليوزر في نفس اللحظة من غير ما يعمل ريفريش بفضل الـ Sync."
+        ]
+      },
+      {
+        "keywords": ["مين", "أحمد", "خالد", "مطور", "صاحب", "ديفيلوبر"],
+        "responses": [
+          "اللي عمل المشروع ده هو أحمد خالد، Senior Angular Developer متخصص في بناء الأنظمة الضخمة.",
+          "أحمد خالد هو المعماري اللي صمم النظام ده من الصفر وركز جداً على نظافة الكود والأداء."
+        ]
+      },
+      {
+        "keywords": ["تزامن", "تحديث", "sync", "تزامن البيانات", "أوتوماتيك"],
+        "responses": [
+          "أنا عامل نظام Cross-Tab Sync.. لو غيرت حاجة في الأدمن في تبويب، هتتحدث عند اليوزر في التبويب التاني فوراً.",
+          "ده بيتم عن طريق مراقبة الـ LocalStorage وتحديث الـ Signals في كل التبويبات المفتوحة."
+        ]
+      },
+      {
+        "keywords": ["ngrx", "ستور", "state", "ريدكس"],
+        "responses": [
+          "بستخدم NgRx عشان أدير الـ State بتاع الـ Best Sellers والأدمن بشكل منظم ومضمون.",
+          "مطبق فيه نظام Actions و Reducers و Effects عشان البيانات تكون دايمًا صحيحة."
+        ]
+      },
+      {
+        "keywords": ["signals", "سيجنالز", "تفاعل"],
+        "responses": [
+          "الـ Signals هي أحدث حاجة في Angular ومستخدمها عشان الـ UI يكون طلقة في الاستجابة.",
+          "مستخدمة في حاجات زي الـ Loader، بيانات اليوزر، واختيار اللغة."
+        ]
+      },
+      {
+        "keywords": ["interceptor", "إنترسبتور", "خطأ", "إيرور", "لودينج"],
+        "responses": [
+          "عامل Interceptors بتلف على كل الـ API calls عشان تطلع الـ Spinner وتظهر رسائل الخطأ لو حصل مشكلة.",
+          "ده بيخلي التعامل مع الأخطاء مركزي ومنظم جداً في المشروع كله."
+        ]
+      },
+      {
+        "keywords": ["موبايل", "متجاوب", "responsive", "شاشة", "سايد بار"],
+        "responses": [
+          "المشروع متجاوب بالكامل مع كل الشاشات، ولوحة التحكم بتغير شكلها ذكياً على الموبايل.",
+          "بستخدم الـ CDK BreakpointObserver عشان السايد بار يختفي أو يظهر حسب حجم الشاشة."
+        ]
+      }
+    ]
+  }
+}

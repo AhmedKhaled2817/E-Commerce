@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule, Router } from '@angular/router';
+import { ChatbotService } from '../../../../Core/services/chatbot.service';
 
 @Component({
   selector: 'app-contact',
@@ -55,7 +56,7 @@ import { RouterModule, Router } from '@angular/router';
               <mat-icon class="large-icon text-primary">chat</mat-icon>
               <h5 class="fw-bold mt-3">Chat with Us</h5>
               <p class="text-muted small">Our support team is available 24/7 for your questions.</p>
-              <button class="btn btn-primary btn-sm">Start Chat</button>
+              <button class="btn btn-primary btn-sm" (click)="openBot()">Start Chat</button>
             </div>
           </div>
         </div>
@@ -143,4 +144,9 @@ import { RouterModule, Router } from '@angular/router';
 })
 export class Contact {
   protected readonly router = inject(Router);
+  private chatbotService = inject(ChatbotService);
+
+  openBot() {
+    this.chatbotService.openChat();
+  }
 }
